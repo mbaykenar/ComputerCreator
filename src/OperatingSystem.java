@@ -1,5 +1,7 @@
 public class OperatingSystem extends Software {
 
-  public Integer newAttr;
+    public OperatingSystem(String version, String platform, int id) {
+        super(version, platform, id);
+    }
 
 }
