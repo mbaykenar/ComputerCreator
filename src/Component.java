@@ -45,7 +45,5 @@ public class Component {
     public void setId(int id) {
         this.id = id;
     }
-  
-  
 
 }
