@@ -4,46 +4,48 @@ public class Component {
 
   private int id;
 
-  private String model;
+  private String Model;
 
-  private String vendor;
+  private String Vendor;
 
-  private double price;
+  private double Price;
   
   public Component(int id) {
         this.id = id;
     }
 
     public String getModel() {
-        return model;
+        return Model;
     }
 
     public double getPrice() {
-        return price;
+        return Price;
     }
 
     public String getVendor() {
-        return vendor;
+        return Vendor;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setModel(String Model) {
+        this.Model = Model;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPrice(double Price) {
+        this.Price = Price;
     }
 
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    public void setVendor(String Vendor) {
+        this.Vendor = Vendor;
     }
 
     public void setId(int id) {
         this.id = id;
     }
+  
+  
 
 }
