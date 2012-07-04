@@ -1,6 +1,7 @@
 public class Mouse extends ExternalDevice {
 
-  public void newOperation() {
-  }
+    public Mouse(String connectionInterface, String type, int id) {
+        super(connectionInterface, type, id);
+    }
 
 }
