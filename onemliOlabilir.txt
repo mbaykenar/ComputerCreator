@@ -1,0 +1,2 @@
+.uml uzantili dosyalari ubuntu isletim sisteminde ArgoUML isimli yazilimla olusturdum.
+Diger UML duzenleyici programlar sıkıntı yaratabilir. Test etmedim

@@ -1,7 +1,29 @@
 public class Frequency {
 
-  public enum unitType;
+  public enum UnitType{HZ, KHZ, MHZ, GHZ}
 
-  public double magnitude;
+  private double magnitude;
+  private UnitType type;
+
+    public Frequency(double magnitude, UnitType type) {
+        this.magnitude = magnitude;
+        this.type = type;
+    }
+
+    public double getMagnitude() {
+        return magnitude;
+    }
+
+    public UnitType getType() {
+        return type;
+    }
+
+    public void setMagnitude(double magnitude) {
+        this.magnitude = magnitude;
+    }
+
+    public void setType(UnitType type) {
+        this.type = type;
+    }
 
 }
