@@ -37,9 +37,5 @@ public class Helper {
 		st.executeUpdate(insertComponentQuery);
 	}
 	
-	public static void main(String args[]) throws Exception{
-		Helper h = new Helper();
-		h.insertComponent();
-	}
 
 }

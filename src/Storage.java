@@ -4,8 +4,8 @@ public class Storage extends Hardware {
 
   private String ConnectionInterface;
 
-    public Storage(DataSize capacity, String ConnectionInterface, int id) {
-        super(id);
+    public Storage(DataSize capacity, String ConnectionInterface, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.capacity = capacity;
         this.ConnectionInterface = ConnectionInterface;
     }

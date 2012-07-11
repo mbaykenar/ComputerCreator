@@ -12,8 +12,8 @@ public class GraphicsCard extends Hardware {
 
   private int maxTDP;
 
-    public GraphicsCard(Frequency clockSpeed, int coreNumber, int interfaceWidth, int textureFillRate, DataSize memorySize, int id) {
-        super(id);
+    public GraphicsCard(Frequency clockSpeed, int coreNumber, int interfaceWidth, int textureFillRate, DataSize memorySize, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;
         this.interfaceWidth = interfaceWidth;

@@ -4,8 +4,8 @@ public class ExternalDevice extends Hardware {
 
   private String type;
 
-    public ExternalDevice(String connectionInterface, String type, int id) {
-        super(id);
+    public ExternalDevice(String connectionInterface, String type, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.connectionInterface = connectionInterface;
         this.type = type;
     }

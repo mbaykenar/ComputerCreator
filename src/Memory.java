@@ -6,8 +6,8 @@ public class Memory extends Hardware {
 
   private Frequency frequency;
 
-    public Memory(DataSize capacity, String memoryType, Frequency frequency, int id) {
-        super(id);
+    public Memory(DataSize capacity, String memoryType, Frequency frequency, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.capacity = capacity;
         this.memoryType = memoryType;
         this.frequency = frequency;

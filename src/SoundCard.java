@@ -1,6 +1,6 @@
 public class SoundCard extends ExternalDevice {
 
-    public SoundCard(String connectionInterface, String type, int id) {
-        super(connectionInterface, type, id);
+    public SoundCard(String connectionInterface, String type, String model, String vendor, double price) {
+        super(connectionInterface, type, model, vendor, price);
     }
 }

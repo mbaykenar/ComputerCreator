@@ -1,8 +1,8 @@
 public class Cpu extends Hardware {
 
-  private DataSize cacheSize;
+  private double cacheSize;
 
-  private Frequency clockSpeed;
+  private double clockSpeed;
 
   private int coreNumber;
 
@@ -12,19 +12,19 @@ public class Cpu extends Hardware {
 
   private int lithography;
 
-    public Cpu(DataSize cacheSize, Frequency clockSpeed, int coreNumber, int threadNumber, int id) {
-        super(id);
+    public Cpu(double cacheSize, double clockSpeed, int coreNumber, int threadNumber, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.cacheSize = cacheSize;
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;
         this.threadNumber = threadNumber;
     }
 
-    public DataSize getCacheSize() {
+    public double getCacheSize() {
         return cacheSize;
     }
 
-    public Frequency getClockSpeed() {
+    public double getClockSpeed() {
         return clockSpeed;
     }
 
@@ -44,11 +44,11 @@ public class Cpu extends Hardware {
         return threadNumber;
     }
 
-    public void setCacheSize(DataSize cacheSize) {
+    public void setCacheSize(double cacheSize) {
         this.cacheSize = cacheSize;
     }
 
-    public void setClockSpeed(Frequency clockSpeed) {
+    public void setClockSpeed(double clockSpeed) {
         this.clockSpeed = clockSpeed;
     }
 
@@ -67,7 +67,34 @@ public class Cpu extends Hardware {
     public void setThreadNumber(int threadNumber) {
         this.threadNumber = threadNumber;
     }
-
-  
-
+    
+    public void insertCpu() throws Exception{
+        String insertQuery = "INSERT INTO CPU ("+super.getModel()+","+super.getVendor()+"," + super.getPrice()+","
+                +coreNumber+","+threadNumber+","+maxTDP+","+lithography+","+cacheSize+","+clockSpeed+")";
+        Helper helper = new Helper();
+        helper.st = helper.openConnection();
+        helper.st.executeUpdate(insertQuery);
+        helper.st.close();
+    }
+    
+    public void retriveCpu(int id) throws Exception{
+        String insertQuery = "SELECT FROM cpu WHERE id = "+id;
+        Helper helper = new Helper();
+        helper.st = helper.openConnection();
+        helper.rs = helper.st.executeQuery(insertQuery);
+        if(helper.rs.next()){
+            super.setId(helper.rs.getInt("id"));
+            super.setModel(helper.rs.getString("model"));
+            super.setVendor(helper.rs.getString("vendor"));
+            super.setPrice(helper.rs.getDouble("money"));
+            threadNumber = helper.rs.getInt("thread_number");
+            cacheSize = helper.rs.getDouble("cache_size");
+            maxTDP = helper.rs.getInt("max_tdp");
+            lithography = helper.rs.getInt("lithograhy");
+            clockSpeed = helper.rs.getDouble("clock_speed");       
+        }
+        helper.st.close();
+    }
+    
+    
 }

@@ -12,14 +12,16 @@ public class Motherboard extends Hardware {
 
   private Frequency frequency;
 
-    public Motherboard(String socket, int memorySlots, int busInterface, Frequency frequency, int id) {
-        super(id);
+    public Motherboard(String socket, int memorySlots, int pciSlots, int pciESlots, int busInterface, Frequency frequency, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.socket = socket;
         this.memorySlots = memorySlots;
+        this.pciSlots = pciSlots;
+        this.pciESlots = pciESlots;
         this.busInterface = busInterface;
         this.frequency = frequency;
     }
-
+    
     public int getBusInterface() {
         return busInterface;
     }

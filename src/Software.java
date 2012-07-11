@@ -4,8 +4,8 @@ public class Software extends Component {
 
   private String platform;
 
-    public Software(String version, String platform, int id) {
-        super(id);
+    public Software(String version, String platform, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.version = version;
         this.platform = platform;
     }

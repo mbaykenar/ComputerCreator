@@ -4,8 +4,8 @@ public class Ssd extends Storage {
 
   private DataSize readSpeed;
 
-    public Ssd(DataSize writeSpeed, DataSize readSpeed, DataSize capacity, String ConnectionInterface, int id) {
-        super(capacity, ConnectionInterface, id);
+    public Ssd(DataSize writeSpeed, DataSize readSpeed, DataSize capacity, String ConnectionInterface, String model, String vendor, double price) {
+        super(capacity, ConnectionInterface, model, vendor, price);
         this.writeSpeed = writeSpeed;
         this.readSpeed = readSpeed;
     }

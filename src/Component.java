@@ -9,9 +9,11 @@ public class Component {
   private String vendor;
 
   private double price;
-  
-  public Component(int id) {
-        this.id = id;
+
+    public Component(String model, String vendor, double price) {
+        this.model = model;
+        this.vendor = vendor;
+        this.price = price;
     }
 
     public String getModel() {
