@@ -10,9 +10,12 @@ public class Motherboard extends Hardware {
 
   private int busInterface;
 
-  private Frequency frequency;
+  private double frequency;
 
-    public Motherboard(String socket, int memorySlots, int pciSlots, int pciESlots, int busInterface, Frequency frequency, String model, String vendor, double price) {
+    public Motherboard() {
+    }
+
+    public Motherboard(String socket, int memorySlots, int pciSlots, int pciESlots, int busInterface, double frequency, String model, String vendor, double price) {
         super(model, vendor, price);
         this.socket = socket;
         this.memorySlots = memorySlots;
@@ -26,7 +29,7 @@ public class Motherboard extends Hardware {
         return busInterface;
     }
 
-    public Frequency getFrequency() {
+    public double getdouble() {
         return frequency;
     }
 
@@ -50,7 +53,7 @@ public class Motherboard extends Hardware {
         this.busInterface = busInterface;
     }
 
-    public void setFrequency(Frequency frequency) {
+    public void setdouble(double frequency) {
         this.frequency = frequency;
     }
 

@@ -12,5 +12,9 @@ public class Test {
         Cpu cpu = new Cpu(43.4, 4.1, 42, 32, "Cintel", "HasanG", 545.74);
         
         cpu.insertCpu();
+        
+        Cpu tempCpu = new Cpu();
+        
+        tempCpu.retriveCpu(8);
     }
 }

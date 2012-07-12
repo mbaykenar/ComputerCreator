@@ -1,28 +1,31 @@
 public class Ssd extends Storage {
 
-  private DataSize writeSpeed;
+  private double writeSpeed;
 
-  private DataSize readSpeed;
+  private double readSpeed;
 
-    public Ssd(DataSize writeSpeed, DataSize readSpeed, DataSize capacity, String ConnectionInterface, String model, String vendor, double price) {
+    public Ssd() {
+    }
+
+    public Ssd(double writeSpeed, double readSpeed, double capacity, String ConnectionInterface, String model, String vendor, double price) {
         super(capacity, ConnectionInterface, model, vendor, price);
         this.writeSpeed = writeSpeed;
         this.readSpeed = readSpeed;
     }
 
-    public DataSize getReadSpeed() {
+    public double getReadSpeed() {
         return readSpeed;
     }
 
-    public DataSize getWriteSpeed() {
+    public double getWriteSpeed() {
         return writeSpeed;
     }
 
-    public void setReadSpeed(DataSize readSpeed) {
+    public void setReadSpeed(double readSpeed) {
         this.readSpeed = readSpeed;
     }
 
-    public void setWriteSpeed(DataSize writeSpeed) {
+    public void setWriteSpeed(double writeSpeed) {
         this.writeSpeed = writeSpeed;
     }
 

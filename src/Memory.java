@@ -1,23 +1,26 @@
 public class Memory extends Hardware {
 
-  private DataSize capacity;
+  private double capacity;
 
   private String memoryType;
 
-  private Frequency frequency;
+  private double frequency;
 
-    public Memory(DataSize capacity, String memoryType, Frequency frequency, String model, String vendor, double price) {
+    public Memory() {
+    }
+
+    public Memory(double capacity, String memoryType, double frequency, String model, String vendor, double price) {
         super(model, vendor, price);
         this.capacity = capacity;
         this.memoryType = memoryType;
         this.frequency = frequency;
     }
 
-    public DataSize getCapacity() {
+    public double getCapacity() {
         return capacity;
     }
 
-    public Frequency getFrequency() {
+    public double getdouble() {
         return frequency;
     }
 
@@ -25,11 +28,11 @@ public class Memory extends Hardware {
         return memoryType;
     }
 
-    public void setCapacity(DataSize capacity) {
+    public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
 
-    public void setFrequency(Frequency frequency) {
+    public void setdouble(double frequency) {
         this.frequency = frequency;
     }
 

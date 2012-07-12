@@ -1,6 +1,6 @@
 public class GraphicsCard extends Hardware {
 
-  private Frequency clockSpeed;
+  private double clockSpeed;
 
   private int coreNumber;
 
@@ -8,11 +8,14 @@ public class GraphicsCard extends Hardware {
 
   private int textureFillRate;
 
-  private DataSize memorySize;
+  private double memorySize;
 
   private int maxTDP;
 
-    public GraphicsCard(Frequency clockSpeed, int coreNumber, int interfaceWidth, int textureFillRate, DataSize memorySize, String model, String vendor, double price) {
+    public GraphicsCard() {
+    }
+
+    public GraphicsCard(double clockSpeed, int coreNumber, int interfaceWidth, int textureFillRate, double memorySize, String model, String vendor, double price) {
         super(model, vendor, price);
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;
@@ -21,7 +24,7 @@ public class GraphicsCard extends Hardware {
         this.memorySize = memorySize;
     }
 
-    public Frequency getClockSpeed() {
+    public double getClockSpeed() {
         return clockSpeed;
     }
 
@@ -37,7 +40,7 @@ public class GraphicsCard extends Hardware {
         return maxTDP;
     }
 
-    public DataSize getMemorySize() {
+    public double getMemorySize() {
         return memorySize;
     }
 
@@ -45,7 +48,7 @@ public class GraphicsCard extends Hardware {
         return textureFillRate;
     }
 
-    public void setClockSpeed(Frequency clockSpeed) {
+    public void setClockSpeed(double clockSpeed) {
         this.clockSpeed = clockSpeed;
     }
 
@@ -61,7 +64,7 @@ public class GraphicsCard extends Hardware {
         this.maxTDP = maxTDP;
     }
 
-    public void setMemorySize(DataSize memorySize) {
+    public void setMemorySize(double memorySize) {
         this.memorySize = memorySize;
     }
 

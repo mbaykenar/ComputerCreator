@@ -2,6 +2,9 @@ public class Keyboard extends ExternalDevice {
 
   private String layout;
 
+    public Keyboard() {
+    }
+
     public Keyboard(String layout, String connectionInterface, String type, String model, String vendor, double price) {
         super(connectionInterface, type, model, vendor, price);
         this.layout = layout;

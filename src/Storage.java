@@ -1,10 +1,13 @@
 public class Storage extends Hardware {
 
-  private DataSize capacity;
+  private double capacity;
 
   private String ConnectionInterface;
 
-    public Storage(DataSize capacity, String ConnectionInterface, String model, String vendor, double price) {
+    public Storage() {
+    }
+
+    public Storage(double capacity, String ConnectionInterface, String model, String vendor, double price) {
         super(model, vendor, price);
         this.capacity = capacity;
         this.ConnectionInterface = ConnectionInterface;
@@ -14,7 +17,7 @@ public class Storage extends Hardware {
         return ConnectionInterface;
     }
 
-    public DataSize getCapacity() {
+    public double getCapacity() {
         return capacity;
     }
 
@@ -22,7 +25,7 @@ public class Storage extends Hardware {
         this.ConnectionInterface = ConnectionInterface;
     }
 
-    public void setCapacity(DataSize capacity) {
+    public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
          

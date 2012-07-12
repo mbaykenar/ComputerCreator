@@ -12,6 +12,9 @@ public class Cpu extends Hardware {
 
   private int lithography;
 
+    public Cpu() {
+    }
+
     public Cpu(double cacheSize, double clockSpeed, int coreNumber, int threadNumber, String model, String vendor, double price) {
         super(model, vendor, price);
         this.cacheSize = cacheSize;
@@ -69,8 +72,12 @@ public class Cpu extends Hardware {
     }
     
     public void insertCpu() throws Exception{
-        String insertQuery = "INSERT INTO CPU ("+super.getModel()+","+super.getVendor()+"," + super.getPrice()+","
-                +coreNumber+","+threadNumber+","+maxTDP+","+lithography+","+cacheSize+","+clockSpeed+")";
+        /*String insertQuery = "INSERT INTO CPU ("+super.getModel()+","+super.getVendor()+","
+                +coreNumber+","+threadNumber+","+maxTDP+","+lithography+","+cacheSize+","+clockSpeed+ "," + super.getPrice() + ")";*/
+        
+        String insertQuery = "INSERT INTO cpu (model, vendor, cores, threads, max_tdp, lithography, cache_size, clock_speed, price)" +
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + coreNumber + "," + threadNumber + "," + maxTDP + "," + lithography + "," + cacheSize + "," +
+                clockSpeed + "," + super.getPrice() + ")";
         Helper helper = new Helper();
         helper.st = helper.openConnection();
         helper.st.executeUpdate(insertQuery);
@@ -78,7 +85,7 @@ public class Cpu extends Hardware {
     }
     
     public void retriveCpu(int id) throws Exception{
-        String insertQuery = "SELECT FROM cpu WHERE id = "+id;
+        String insertQuery = "SELECT * FROM cpu WHERE id = "+id;
         Helper helper = new Helper();
         helper.st = helper.openConnection();
         helper.rs = helper.st.executeQuery(insertQuery);
@@ -86,11 +93,12 @@ public class Cpu extends Hardware {
             super.setId(helper.rs.getInt("id"));
             super.setModel(helper.rs.getString("model"));
             super.setVendor(helper.rs.getString("vendor"));
-            super.setPrice(helper.rs.getDouble("money"));
-            threadNumber = helper.rs.getInt("thread_number");
+            super.setPrice(helper.rs.getDouble("price"));
+            threadNumber = helper.rs.getInt("threads");
             cacheSize = helper.rs.getDouble("cache_size");
             maxTDP = helper.rs.getInt("max_tdp");
-            lithography = helper.rs.getInt("lithograhy");
+            coreNumber = helper.rs.getInt("cores");
+            lithography = helper.rs.getInt("lithography");
             clockSpeed = helper.rs.getDouble("clock_speed");       
         }
         helper.st.close();

@@ -10,6 +10,9 @@ public class Component {
 
   private double price;
 
+    public Component() {
+    }
+
     public Component(String model, String vendor, double price) {
         this.model = model;
         this.vendor = vendor;

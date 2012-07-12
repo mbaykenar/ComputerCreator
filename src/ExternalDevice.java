@@ -4,6 +4,9 @@ public class ExternalDevice extends Hardware {
 
   private String type;
 
+    public ExternalDevice() {
+    }
+
     public ExternalDevice(String connectionInterface, String type, String model, String vendor, double price) {
         super(model, vendor, price);
         this.connectionInterface = connectionInterface;

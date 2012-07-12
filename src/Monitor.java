@@ -6,6 +6,9 @@ public class Monitor extends ExternalDevice {
 
   private int screenSize;
 
+    public Monitor() {
+    }
+
     public Monitor(int resolution, int refreshRate, int screenSize, String connectionInterface, String type, String model, String vendor, double price) {
         super(connectionInterface, type, model, vendor, price);
         this.resolution = resolution;
