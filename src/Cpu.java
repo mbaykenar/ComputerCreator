@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 
 import java.sql.ResultSet;
 
+=======
+// commit deneme
+>>>>>>> branch 'master' of https://github.com/bil372PcToplama/ComputerCreator.git
 public class Cpu extends Hardware {
 
   private double cacheSize;
