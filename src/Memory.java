@@ -51,7 +51,7 @@ public class Memory extends Hardware {
         Helper.insert(insertQuery);
     }
     
-    public void retriveMemory(int id) throws Exception{
+    public void retrieveMemory(int id) throws Exception{
         String retrieveQuery = "SELECT * FROM memory WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);

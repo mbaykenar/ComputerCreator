@@ -15,6 +15,6 @@ public class Test {
         
         Cpu tempCpu = new Cpu();
         
-        tempCpu.retriveCpu(8);
+        tempCpu.retrieveCpu(8);
     }
 }

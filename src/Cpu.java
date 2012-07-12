@@ -81,7 +81,7 @@ public class Cpu extends Hardware {
         Helper.insert(insertQuery);
     }
     
-    public void retriveCpu(int id) throws Exception{
+    public void retrieveCpu(int id) throws Exception{
         String retrieveQuery = "SELECT * FROM cpu WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);

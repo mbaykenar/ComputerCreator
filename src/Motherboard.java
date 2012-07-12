@@ -1,3 +1,6 @@
+
+import java.sql.ResultSet;
+
 public class Motherboard extends Hardware {
 
   private String socket;
@@ -71,6 +74,36 @@ public class Motherboard extends Hardware {
 
     public void setSocket(String socket) {
         this.socket = socket;
+    }
+    
+    public void insertMotherboard() throws Exception{
+        
+        String insertQuery = "INSERT INTO motherboard (model, vendor, socket, memory_slots, pci_slots, pci_e_slots, bus_interface, frequency, price)" +
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + memorySlots + "," + pciSlots + "," + pciESlots + "," + busInterface + "," + frequency + "," +
+                super.getPrice() + ")";
+        Helper.insert(insertQuery);
+    }
+    
+    public void retrieveMotherboard(int id) throws Exception{
+        String retrieveQuery = "SELECT * FROM motherboard WHERE id = " + id;
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        if(rs.next()){
+            super.setId(rs.getInt("id"));
+            super.setModel(rs.getString("model"));
+            super.setVendor(rs.getString("vendor"));
+            super.setPrice(rs.getDouble("price"));
+            socket = rs.getString("socket");
+            memorySlots = rs.getInt("memory_slots");
+            pciSlots = rs.getInt("pci_slots");
+            pciESlots = rs.getInt("pci_e_slots");
+            busInterface = rs.getInt("bus_interface");
+            frequency = rs.getDouble("frequency");       
+        }
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
+        }
     }
   
 

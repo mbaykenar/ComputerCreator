@@ -29,7 +29,7 @@ public class Keyboard extends ExternalDevice {
         Helper.insert(insertQuery);
     }
     
-    public void retriveKeyboard(int id) throws Exception{
+    public void retrieveKeyboard(int id) throws Exception{
         String retrieveQuery = "SELECT * FROM keyboard WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);

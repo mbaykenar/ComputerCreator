@@ -40,7 +40,7 @@ public class Ssd extends Storage {
         Helper.insert(insertQuery);
     }
     
-    public void retriveSsd(int id) throws Exception{
+    public void retrieveSsd(int id) throws Exception{
         String retrieveQuery = "SELECT * FROM sdd WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);

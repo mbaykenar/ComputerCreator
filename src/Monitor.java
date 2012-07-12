@@ -51,7 +51,7 @@ public class Monitor extends ExternalDevice {
         Helper.insert(insertQuery);
     }
     
-    public void retriveMonitor(int id) throws Exception{
+    public void retrieveMonitor(int id) throws Exception{
         String retrieveQuery = "SELECT * FROM monitor WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);

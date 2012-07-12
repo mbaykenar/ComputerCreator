@@ -40,7 +40,7 @@ public class Hdd extends Storage {
         Helper.insert(insertQuery);
     }
     
-    public void retriveHdd(int id) throws Exception{
+    public void retrieveHdd(int id) throws Exception{
         String retrieveQuery = "SELECT * FROM hdd WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);

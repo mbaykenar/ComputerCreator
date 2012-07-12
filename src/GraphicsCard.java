@@ -83,7 +83,7 @@ public class GraphicsCard extends Hardware {
         Helper.insert(insertQuery);
     }
     
-    public void retriveGraphicsCard(int id) throws Exception{
+    public void retrieveGraphicsCard(int id) throws Exception{
         String retrieveQuery = "SELECT * FROM graphicsCard WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);
