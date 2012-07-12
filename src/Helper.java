@@ -36,6 +36,12 @@ public class Helper {
                 closeConnection();
 	}
         
+        public static void update(String query) throws Exception{
+		st = openConnection();
+		st.executeUpdate(query);
+                closeConnection();
+	}
+        
         public static ResultSet retrieve(String query) throws Exception{
             st = openConnection();
             ResultSet temp = st.executeQuery(query);
