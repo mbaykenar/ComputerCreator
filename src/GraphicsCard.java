@@ -1,3 +1,6 @@
+
+import java.sql.ResultSet;
+
 public class GraphicsCard extends Hardware {
 
   private double clockSpeed;
@@ -6,7 +9,7 @@ public class GraphicsCard extends Hardware {
 
   private int interfaceWidth;
 
-  private int textureFillRate;
+  private double textureFillRate;
 
   private double memorySize;
 
@@ -15,7 +18,7 @@ public class GraphicsCard extends Hardware {
     public GraphicsCard() {
     }
 
-    public GraphicsCard(double clockSpeed, int coreNumber, int interfaceWidth, int textureFillRate, double memorySize, String model, String vendor, double price) {
+    public GraphicsCard(double clockSpeed, int coreNumber, int interfaceWidth, double textureFillRate, double memorySize, String model, String vendor, double price) {
         super(model, vendor, price);
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;
@@ -44,7 +47,7 @@ public class GraphicsCard extends Hardware {
         return memorySize;
     }
 
-    public int getTextureFillRate() {
+    public double getTextureFillRate() {
         return textureFillRate;
     }
 
@@ -68,7 +71,37 @@ public class GraphicsCard extends Hardware {
         this.memorySize = memorySize;
     }
 
-    public void setTextureFillRate(int textureFillRate) {
+    public void setTextureFillRate(double textureFillRate) {
         this.textureFillRate = textureFillRate;
+    }
+    
+    public void insertGraphicsCard() throws Exception{
+        
+        String insertQuery = "INSERT INTO graphicsCard (model, vendor, clock_speed, cores, interface_width, max_tdp, texture_fill_rate, memory_size, price)" +
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + clockSpeed + "," + coreNumber + "," + interfaceWidth + "," + maxTDP + "," + textureFillRate + "," +
+                memorySize + "," + super.getPrice() + ")";
+        Helper.insert(insertQuery);
+    }
+    
+    public void retriveGraphicsCard(int id) throws Exception{
+        String retrieveQuery = "SELECT * FROM graphicsCard WHERE id = "+id;
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        if(rs.next()){
+            super.setId(rs.getInt("id"));
+            super.setModel(rs.getString("model"));
+            super.setVendor(rs.getString("vendor"));
+            super.setPrice(rs.getDouble("price"));
+            clockSpeed = rs.getDouble("clock_speed");
+            coreNumber = rs.getInt("cores");
+            maxTDP = rs.getInt("max_tdp");
+            interfaceWidth = rs.getInt("interface_width");
+            textureFillRate = rs.getDouble("texture_fill_rate");
+            memorySize = rs.getDouble("memory_size");       
+        }
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
+        }
     }
 }

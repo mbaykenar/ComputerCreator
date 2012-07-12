@@ -1,3 +1,6 @@
+
+import java.sql.ResultSet;
+
 public class Memory extends Hardware {
 
   private double capacity;
@@ -38,6 +41,33 @@ public class Memory extends Hardware {
 
     public void setMemoryType(String memoryType) {
         this.memoryType = memoryType;
+    }
+    
+    public void insertMemory() throws Exception{
+        
+        String insertQuery = "INSERT INTO memory (model, vendor, capacity, memory_type, frequency, price)" +
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + capacity + "," +
+                   memoryType + "," + frequency + "," + super.getPrice() + ")";
+        Helper.insert(insertQuery);
+    }
+    
+    public void retriveMemory(int id) throws Exception{
+        String retrieveQuery = "SELECT * FROM memory WHERE id = "+id;
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        if(rs.next()){
+            super.setId(rs.getInt("id"));
+            super.setModel(rs.getString("model"));
+            super.setVendor(rs.getString("vendor"));
+            super.setPrice(rs.getDouble("price"));
+            capacity = rs.getDouble("capacity");
+            memoryType = rs.getString("memory_type");
+            frequency = rs.getDouble("frequency");    
+        }
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
+        }
     }
 
 }
