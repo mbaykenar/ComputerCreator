@@ -104,6 +104,15 @@ public class User {
     }
     
     /*
+     * 
+     */
+    public void updateUser(String address, String username, String password, String name, String surname, String phone, String email, String role) throws Exception{
+        String updateQuery = "UPDATE INTO users "
+                            + "SET userRole='"+role+"', fName='"+name+"', lName='"+surname+"', username='"+username+"', passw'"+getPasswordHash(password)+"', phone='"+phone+"', email='"+email+"', address='"+address+"')";
+        Helper.update(updateQuery);
+    }
+    
+    /*
      * Genel amacli user retrive metodu
      */
     public void retriveUser(int id) throws Exception{
