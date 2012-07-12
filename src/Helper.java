@@ -6,17 +6,16 @@ import java.sql.Statement;
 
 public class Helper {
 	
-	Connection conn = null; 
-	String dbURL = "jdbc:postgresql://localhost:5432/computer_creator";
-	String user = "postgres";
-	String password = "12345";
-	ResultSet rs;
-    Statement st;
+	static Connection conn = null; 
+	static String dbURL = "jdbc:postgresql://localhost:5432/computer_creator";
+	static String user = "postgres";
+	static String password = "12345";
+        static Statement st;
     
     /*
 	 * Veritabaniyla baglanti ac.
 	 */
-    public Statement openConnection() throws Exception{
+    public static Statement openConnection() throws Exception{
 		Class.forName("org.postgresql.Driver");
 		conn = DriverManager.getConnection( dbURL, user , password );
 		conn.setAutoCommit( true );
@@ -27,15 +26,23 @@ public class Helper {
     /*
      * Veritabaniyla olan baglantiyi kapat.
      */
-	public void closeConnection() throws Exception {
+	public static void closeConnection() throws Exception {
         conn.close();
     }
 	
-	private void insertComponent() throws Exception{
-		String insertComponentQuery = "insert into component(model, vendor, price) values('asd','asd','TL123,0')";
+	public static void insert(String query) throws Exception{
 		st = openConnection();
-		st.executeUpdate(insertComponentQuery);
+		st.executeUpdate(query);
+                closeConnection();
 	}
+        
+        public static ResultSet retrieve(String query) throws Exception{
+            st = openConnection();
+            ResultSet temp = st.executeQuery(query);
+            closeConnection();
+            
+            return temp;
+        }
 	
 
 }

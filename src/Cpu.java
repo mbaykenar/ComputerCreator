@@ -1,3 +1,6 @@
+
+import java.sql.ResultSet;
+
 public class Cpu extends Hardware {
 
   private double cacheSize;
@@ -72,36 +75,34 @@ public class Cpu extends Hardware {
     }
     
     public void insertCpu() throws Exception{
-        /*String insertQuery = "INSERT INTO CPU ("+super.getModel()+","+super.getVendor()+","
-                +coreNumber+","+threadNumber+","+maxTDP+","+lithography+","+cacheSize+","+clockSpeed+ "," + super.getPrice() + ")";*/
         
         String insertQuery = "INSERT INTO cpu (model, vendor, cores, threads, max_tdp, lithography, cache_size, clock_speed, price)" +
             "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + coreNumber + "," + threadNumber + "," + maxTDP + "," + lithography + "," + cacheSize + "," +
                 clockSpeed + "," + super.getPrice() + ")";
-        Helper helper = new Helper();
-        helper.st = helper.openConnection();
-        helper.st.executeUpdate(insertQuery);
-        helper.st.close();
+        Helper.insert(insertQuery);
     }
     
     public void retriveCpu(int id) throws Exception{
         String insertQuery = "SELECT * FROM cpu WHERE id = "+id;
-        Helper helper = new Helper();
-        helper.st = helper.openConnection();
-        helper.rs = helper.st.executeQuery(insertQuery);
-        if(helper.rs.next()){
-            super.setId(helper.rs.getInt("id"));
-            super.setModel(helper.rs.getString("model"));
-            super.setVendor(helper.rs.getString("vendor"));
-            super.setPrice(helper.rs.getDouble("price"));
-            threadNumber = helper.rs.getInt("threads");
-            cacheSize = helper.rs.getDouble("cache_size");
-            maxTDP = helper.rs.getInt("max_tdp");
-            coreNumber = helper.rs.getInt("cores");
-            lithography = helper.rs.getInt("lithography");
-            clockSpeed = helper.rs.getDouble("clock_speed");       
+        //Helper helper = new Helper();
+        //helper.st = helper.openConnection();
+        ResultSet rs = Helper.retrieve(insertQuery);
+        if(rs.next()){
+            super.setId(rs.getInt("id"));
+            super.setModel(rs.getString("model"));
+            super.setVendor(rs.getString("vendor"));
+            super.setPrice(rs.getDouble("price"));
+            threadNumber = rs.getInt("threads");
+            cacheSize = rs.getDouble("cache_size");
+            maxTDP = rs.getInt("max_tdp");
+            coreNumber = rs.getInt("cores");
+            lithography = rs.getInt("lithography");
+            clockSpeed = rs.getDouble("clock_speed");       
         }
-        helper.st.close();
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
+        }
     }
     
     
