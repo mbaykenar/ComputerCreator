@@ -1,3 +1,4 @@
+// commit deneme
 public class Cpu extends Hardware {
 
   private double cacheSize;
