@@ -1,0 +1,1774 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.4
+-- Dumped by pg_dump version 9.1.4
+-- Started on 2012-07-13 16:38:41
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 191 (class 3079 OID 11639)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2071 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 161 (class 1259 OID 16394)
+-- Dependencies: 6
+-- Name: component; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE component (
+    id integer NOT NULL,
+    model character varying(20),
+    vendor character varying(30),
+    price real
+);
+
+
+ALTER TABLE public.component OWNER TO postgres;
+
+--
+-- TOC entry 162 (class 1259 OID 16397)
+-- Dependencies: 161 6
+-- Name: component_comp_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE component_comp_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.component_comp_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2072 (class 0 OID 0)
+-- Dependencies: 162
+-- Name: component_comp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE component_comp_id_seq OWNED BY component.id;
+
+
+--
+-- TOC entry 2073 (class 0 OID 0)
+-- Dependencies: 162
+-- Name: component_comp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('component_comp_id_seq', 15, true);
+
+
+--
+-- TOC entry 163 (class 1259 OID 16399)
+-- Dependencies: 161 6
+-- Name: hardware; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE hardware (
+)
+INHERITS (component);
+
+
+ALTER TABLE public.hardware OWNER TO postgres;
+
+--
+-- TOC entry 164 (class 1259 OID 16402)
+-- Dependencies: 6 163
+-- Name: cpu; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cpu (
+    cores smallint,
+    threads smallint,
+    max_tdp smallint,
+    lithography smallint,
+    cache_size real,
+    clock_speed real
+)
+INHERITS (hardware);
+
+
+ALTER TABLE public.cpu OWNER TO postgres;
+
+--
+-- TOC entry 165 (class 1259 OID 16405)
+-- Dependencies: 6
+-- Name: cpu_motherboard; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cpu_motherboard (
+    id integer NOT NULL,
+    cpu_id integer,
+    motherboard_id integer
+);
+
+
+ALTER TABLE public.cpu_motherboard OWNER TO postgres;
+
+--
+-- TOC entry 166 (class 1259 OID 16408)
+-- Dependencies: 165 6
+-- Name: cpu_motherboard_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cpu_motherboard_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cpu_motherboard_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2075 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: cpu_motherboard_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE cpu_motherboard_id_seq OWNED BY cpu_motherboard.id;
+
+
+--
+-- TOC entry 2076 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: cpu_motherboard_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('cpu_motherboard_id_seq', 1, false);
+
+
+--
+-- TOC entry 167 (class 1259 OID 16410)
+-- Dependencies: 6 163
+-- Name: externalDevice; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "externalDevice" (
+    interface character varying(20),
+    e_type character varying(20)
+)
+INHERITS (hardware);
+
+
+ALTER TABLE public."externalDevice" OWNER TO postgres;
+
+--
+-- TOC entry 168 (class 1259 OID 16413)
+-- Dependencies: 6
+-- Name: gpu_motherboard; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE gpu_motherboard (
+    id integer NOT NULL,
+    gpu_id integer,
+    motherboard_id integer
+);
+
+
+ALTER TABLE public.gpu_motherboard OWNER TO postgres;
+
+--
+-- TOC entry 169 (class 1259 OID 16416)
+-- Dependencies: 168 6
+-- Name: gpu_motherboard_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE gpu_motherboard_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.gpu_motherboard_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2079 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: gpu_motherboard_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE gpu_motherboard_id_seq OWNED BY gpu_motherboard.id;
+
+
+--
+-- TOC entry 2080 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: gpu_motherboard_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('gpu_motherboard_id_seq', 1, false);
+
+
+--
+-- TOC entry 170 (class 1259 OID 16418)
+-- Dependencies: 163 6
+-- Name: graphicsCard; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "graphicsCard" (
+    clock_speed real,
+    cores smallint,
+    interface_width smallint,
+    max_tdp smallint,
+    texture_fill_rate real,
+    memory_size smallint
+)
+INHERITS (hardware);
+
+
+ALTER TABLE public."graphicsCard" OWNER TO postgres;
+
+--
+-- TOC entry 171 (class 1259 OID 16421)
+-- Dependencies: 163 6
+-- Name: storageDevice; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "storageDevice" (
+    capacity real,
+    interface character varying(20)
+)
+INHERITS (hardware);
+
+
+ALTER TABLE public."storageDevice" OWNER TO postgres;
+
+--
+-- TOC entry 172 (class 1259 OID 16424)
+-- Dependencies: 171 6
+-- Name: hdd; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE hdd (
+    rpm smallint,
+    diameter real
+)
+INHERITS ("storageDevice");
+
+
+ALTER TABLE public.hdd OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 16427)
+-- Dependencies: 167 6
+-- Name: keyboard; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE keyboard (
+    layout character varying(20)
+)
+INHERITS ("externalDevice");
+
+
+ALTER TABLE public.keyboard OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 16430)
+-- Dependencies: 163 6
+-- Name: memory; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE memory (
+    capacity real,
+    memory_type character varying(20),
+    frequency real
+)
+INHERITS (hardware);
+
+
+ALTER TABLE public.memory OWNER TO postgres;
+
+--
+-- TOC entry 175 (class 1259 OID 16433)
+-- Dependencies: 6
+-- Name: memory_motherboard; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE memory_motherboard (
+    id integer NOT NULL,
+    memory_id integer,
+    motherboard_id integer
+);
+
+
+ALTER TABLE public.memory_motherboard OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 16436)
+-- Dependencies: 175 6
+-- Name: memory_motherboard_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE memory_motherboard_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.memory_motherboard_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2085 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: memory_motherboard_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE memory_motherboard_id_seq OWNED BY memory_motherboard.id;
+
+
+--
+-- TOC entry 2086 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: memory_motherboard_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('memory_motherboard_id_seq', 1, false);
+
+
+--
+-- TOC entry 177 (class 1259 OID 16438)
+-- Dependencies: 167 6
+-- Name: monitor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE monitor (
+    resolution character varying(20),
+    refresh_rate smallint,
+    screen_size real
+)
+INHERITS ("externalDevice");
+
+
+ALTER TABLE public.monitor OWNER TO postgres;
+
+--
+-- TOC entry 178 (class 1259 OID 16441)
+-- Dependencies: 163 6
+-- Name: motherboard; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE motherboard (
+    socket character varying(20),
+    memory_slots smallint,
+    pci_slots smallint,
+    pci_e_slots smallint,
+    bus_interface smallint,
+    frequency real
+)
+INHERITS (hardware);
+
+
+ALTER TABLE public.motherboard OWNER TO postgres;
+
+--
+-- TOC entry 179 (class 1259 OID 16444)
+-- Dependencies: 167 6
+-- Name: mouse; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE mouse (
+)
+INHERITS ("externalDevice");
+
+
+ALTER TABLE public.mouse OWNER TO postgres;
+
+--
+-- TOC entry 180 (class 1259 OID 16447)
+-- Dependencies: 161 6
+-- Name: software; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE software (
+    s_version character varying(20),
+    platform character varying(20)
+)
+INHERITS (component);
+
+
+ALTER TABLE public.software OWNER TO postgres;
+
+--
+-- TOC entry 181 (class 1259 OID 16450)
+-- Dependencies: 6 180
+-- Name: operatingSystem; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "operatingSystem" (
+)
+INHERITS (software);
+
+
+ALTER TABLE public."operatingSystem" OWNER TO postgres;
+
+--
+-- TOC entry 182 (class 1259 OID 16453)
+-- Dependencies: 167 6
+-- Name: opticDrive; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "opticDrive" (
+    speed smallint
+)
+INHERITS ("externalDevice");
+
+
+ALTER TABLE public."opticDrive" OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 16456)
+-- Dependencies: 167 6
+-- Name: speaker; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE speaker (
+    power smallint
+)
+INHERITS ("externalDevice");
+
+
+ALTER TABLE public.speaker OWNER TO postgres;
+
+--
+-- TOC entry 184 (class 1259 OID 16459)
+-- Dependencies: 6 171
+-- Name: ssd; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ssd (
+    write_speed real,
+    read_speed real
+)
+INHERITS ("storageDevice");
+
+
+ALTER TABLE public.ssd OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 16462)
+-- Dependencies: 6
+-- Name: storage_motherboard; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE storage_motherboard (
+    id integer NOT NULL,
+    storage_id integer,
+    motherboard_id integer
+);
+
+
+ALTER TABLE public.storage_motherboard OWNER TO postgres;
+
+--
+-- TOC entry 186 (class 1259 OID 16465)
+-- Dependencies: 6 185
+-- Name: storage_motherboard_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE storage_motherboard_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.storage_motherboard_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2095 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: storage_motherboard_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE storage_motherboard_id_seq OWNED BY storage_motherboard.id;
+
+
+--
+-- TOC entry 2096 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: storage_motherboard_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('storage_motherboard_id_seq', 1, false);
+
+
+--
+-- TOC entry 190 (class 1259 OID 16829)
+-- Dependencies: 6
+-- Name: user_component; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE user_component (
+    id integer NOT NULL,
+    user_id integer,
+    motherboard_id integer,
+    cpu_id integer,
+    "graphicsCard_id" integer,
+    memory_id integer,
+    hdd_id integer,
+    ssd_id integer,
+    keyboard_id integer,
+    monitor_id integer,
+    mouse_id integer,
+    "operatingSystem_id" integer,
+    "opticDrive_id" integer,
+    speaker_id integer
+);
+
+
+ALTER TABLE public.user_component OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 16827)
+-- Dependencies: 190 6
+-- Name: user_component_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE user_component_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_component_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2098 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: user_component_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE user_component_id_seq OWNED BY user_component.id;
+
+
+--
+-- TOC entry 2099 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: user_component_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_component_id_seq', 1, false);
+
+
+--
+-- TOC entry 187 (class 1259 OID 16472)
+-- Dependencies: 6
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    "userRole" smallint NOT NULL,
+    "fName" character varying(20) NOT NULL,
+    "lName" character varying(20) NOT NULL,
+    username character varying(20) NOT NULL,
+    passw character varying(20) NOT NULL,
+    phone character varying(20),
+    email character varying(30),
+    address character varying(100)
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 188 (class 1259 OID 16475)
+-- Dependencies: 187 6
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2101 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE user_id_seq OWNED BY users.id;
+
+
+--
+-- TOC entry 2102 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_id_seq', 1, false);
+
+
+--
+-- TOC entry 1949 (class 2604 OID 16477)
+-- Dependencies: 162 161
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY component ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1951 (class 2604 OID 16478)
+-- Dependencies: 164 164 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY cpu ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1952 (class 2604 OID 16479)
+-- Dependencies: 166 165
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY cpu_motherboard ALTER COLUMN id SET DEFAULT nextval('cpu_motherboard_id_seq'::regclass);
+
+
+--
+-- TOC entry 1953 (class 2604 OID 16480)
+-- Dependencies: 167 162 167
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "externalDevice" ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1954 (class 2604 OID 16481)
+-- Dependencies: 169 168
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY gpu_motherboard ALTER COLUMN id SET DEFAULT nextval('gpu_motherboard_id_seq'::regclass);
+
+
+--
+-- TOC entry 1955 (class 2604 OID 16482)
+-- Dependencies: 170 170 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "graphicsCard" ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1950 (class 2604 OID 16483)
+-- Dependencies: 163 163 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY hardware ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1957 (class 2604 OID 16484)
+-- Dependencies: 172 172 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY hdd ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1958 (class 2604 OID 16485)
+-- Dependencies: 173 162 173
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY keyboard ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1959 (class 2604 OID 16486)
+-- Dependencies: 174 162 174
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY memory ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1960 (class 2604 OID 16487)
+-- Dependencies: 176 175
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY memory_motherboard ALTER COLUMN id SET DEFAULT nextval('memory_motherboard_id_seq'::regclass);
+
+
+--
+-- TOC entry 1961 (class 2604 OID 16488)
+-- Dependencies: 177 162 177
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY monitor ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1962 (class 2604 OID 16489)
+-- Dependencies: 178 178 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY motherboard ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1963 (class 2604 OID 16490)
+-- Dependencies: 179 179 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY mouse ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1965 (class 2604 OID 16491)
+-- Dependencies: 181 181 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "operatingSystem" ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1966 (class 2604 OID 16492)
+-- Dependencies: 182 182 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "opticDrive" ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1964 (class 2604 OID 16493)
+-- Dependencies: 180 162 180
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY software ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1967 (class 2604 OID 16494)
+-- Dependencies: 183 183 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY speaker ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1968 (class 2604 OID 16495)
+-- Dependencies: 184 162 184
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ssd ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1956 (class 2604 OID 16496)
+-- Dependencies: 171 162 171
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "storageDevice" ALTER COLUMN id SET DEFAULT nextval('component_comp_id_seq'::regclass);
+
+
+--
+-- TOC entry 1969 (class 2604 OID 16497)
+-- Dependencies: 186 185
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY storage_motherboard ALTER COLUMN id SET DEFAULT nextval('storage_motherboard_id_seq'::regclass);
+
+
+--
+-- TOC entry 1971 (class 2604 OID 16832)
+-- Dependencies: 190 189 190
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component ALTER COLUMN id SET DEFAULT nextval('user_component_id_seq'::regclass);
+
+
+--
+-- TOC entry 1970 (class 2604 OID 16499)
+-- Dependencies: 188 187
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('user_id_seq'::regclass);
+
+
+--
+-- TOC entry 2043 (class 0 OID 16394)
+-- Dependencies: 161
+-- Data for Name: component; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY component (id, model, vendor, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2045 (class 0 OID 16402)
+-- Dependencies: 164
+-- Data for Name: cpu; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cpu (id, model, vendor, cores, threads, max_tdp, lithography, cache_size, clock_speed, price) FROM stdin;
+9	Amd 1	Amd	2	2	2	32	2	2	150
+\.
+
+
+--
+-- TOC entry 2046 (class 0 OID 16405)
+-- Dependencies: 165
+-- Data for Name: cpu_motherboard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cpu_motherboard (id, cpu_id, motherboard_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2047 (class 0 OID 16410)
+-- Dependencies: 167
+-- Data for Name: externalDevice; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "externalDevice" (id, model, vendor, interface, e_type, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2048 (class 0 OID 16413)
+-- Dependencies: 168
+-- Data for Name: gpu_motherboard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY gpu_motherboard (id, gpu_id, motherboard_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2049 (class 0 OID 16418)
+-- Dependencies: 170
+-- Data for Name: graphicsCard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "graphicsCard" (id, model, vendor, clock_speed, cores, interface_width, max_tdp, texture_fill_rate, memory_size, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2044 (class 0 OID 16399)
+-- Dependencies: 163
+-- Data for Name: hardware; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY hardware (id, model, vendor, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2051 (class 0 OID 16424)
+-- Dependencies: 172
+-- Data for Name: hdd; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY hdd (id, model, vendor, capacity, interface, rpm, diameter, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2052 (class 0 OID 16427)
+-- Dependencies: 173
+-- Data for Name: keyboard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY keyboard (id, model, vendor, interface, e_type, layout, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2053 (class 0 OID 16430)
+-- Dependencies: 174
+-- Data for Name: memory; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY memory (id, model, vendor, capacity, memory_type, frequency, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2054 (class 0 OID 16433)
+-- Dependencies: 175
+-- Data for Name: memory_motherboard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY memory_motherboard (id, memory_id, motherboard_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2055 (class 0 OID 16438)
+-- Dependencies: 177
+-- Data for Name: monitor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY monitor (id, model, vendor, interface, e_type, resolution, refresh_rate, screen_size, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2056 (class 0 OID 16441)
+-- Dependencies: 178
+-- Data for Name: motherboard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY motherboard (id, model, vendor, socket, memory_slots, pci_slots, pci_e_slots, bus_interface, frequency, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2057 (class 0 OID 16444)
+-- Dependencies: 179
+-- Data for Name: mouse; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY mouse (id, model, vendor, interface, e_type, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2059 (class 0 OID 16450)
+-- Dependencies: 181
+-- Data for Name: operatingSystem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "operatingSystem" (id, model, vendor, s_version, platform, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2060 (class 0 OID 16453)
+-- Dependencies: 182
+-- Data for Name: opticDrive; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "opticDrive" (id, model, vendor, interface, e_type, speed, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2058 (class 0 OID 16447)
+-- Dependencies: 180
+-- Data for Name: software; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY software (id, model, vendor, s_version, platform, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2061 (class 0 OID 16456)
+-- Dependencies: 183
+-- Data for Name: speaker; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY speaker (id, model, vendor, interface, e_type, power, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2062 (class 0 OID 16459)
+-- Dependencies: 184
+-- Data for Name: ssd; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ssd (id, model, vendor, capacity, interface, write_speed, read_speed, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2050 (class 0 OID 16421)
+-- Dependencies: 171
+-- Data for Name: storageDevice; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "storageDevice" (id, model, vendor, capacity, interface, price) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2063 (class 0 OID 16462)
+-- Dependencies: 185
+-- Data for Name: storage_motherboard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY storage_motherboard (id, storage_id, motherboard_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2065 (class 0 OID 16829)
+-- Dependencies: 190
+-- Data for Name: user_component; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY user_component (id, user_id, motherboard_id, cpu_id, "graphicsCard_id", memory_id, hdd_id, ssd_id, keyboard_id, monitor_id, mouse_id, "operatingSystem_id", "opticDrive_id", speaker_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2064 (class 0 OID 16472)
+-- Dependencies: 187
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY users (id, "userRole", "fName", "lName", username, passw, phone, email, address) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1973 (class 2606 OID 16501)
+-- Dependencies: 161 161
+-- Name: component_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY component
+    ADD CONSTRAINT component_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1979 (class 2606 OID 16503)
+-- Dependencies: 165 165
+-- Name: cpu_motherboard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cpu_motherboard
+    ADD CONSTRAINT cpu_motherboard_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1977 (class 2606 OID 16505)
+-- Dependencies: 164 164
+-- Name: cpu_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cpu
+    ADD CONSTRAINT cpu_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1981 (class 2606 OID 16507)
+-- Dependencies: 167 167
+-- Name: external_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "externalDevice"
+    ADD CONSTRAINT external_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1983 (class 2606 OID 16509)
+-- Dependencies: 168 168
+-- Name: gpu_motherboard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY gpu_motherboard
+    ADD CONSTRAINT gpu_motherboard_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1985 (class 2606 OID 16511)
+-- Dependencies: 170 170
+-- Name: graphics_card_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "graphicsCard"
+    ADD CONSTRAINT graphics_card_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1975 (class 2606 OID 16513)
+-- Dependencies: 163 163
+-- Name: hardware_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY hardware
+    ADD CONSTRAINT hardware_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1989 (class 2606 OID 16515)
+-- Dependencies: 172 172
+-- Name: hdd_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY hdd
+    ADD CONSTRAINT hdd_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1991 (class 2606 OID 16517)
+-- Dependencies: 173 173
+-- Name: keyboard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY keyboard
+    ADD CONSTRAINT keyboard_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1995 (class 2606 OID 16519)
+-- Dependencies: 175 175
+-- Name: memory_motherboard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY memory_motherboard
+    ADD CONSTRAINT memory_motherboard_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1993 (class 2606 OID 16521)
+-- Dependencies: 174 174
+-- Name: memory_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY memory
+    ADD CONSTRAINT memory_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1997 (class 2606 OID 16523)
+-- Dependencies: 177 177
+-- Name: monitor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY monitor
+    ADD CONSTRAINT monitor_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1999 (class 2606 OID 16525)
+-- Dependencies: 178 178
+-- Name: motherboard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY motherboard
+    ADD CONSTRAINT motherboard_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2001 (class 2606 OID 16527)
+-- Dependencies: 179 179
+-- Name: mouse_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY mouse
+    ADD CONSTRAINT mouse_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2005 (class 2606 OID 16529)
+-- Dependencies: 181 181
+-- Name: operating_system_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "operatingSystem"
+    ADD CONSTRAINT operating_system_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2007 (class 2606 OID 16531)
+-- Dependencies: 182 182
+-- Name: optic_drive_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "opticDrive"
+    ADD CONSTRAINT optic_drive_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2003 (class 2606 OID 16533)
+-- Dependencies: 180 180
+-- Name: software_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY software
+    ADD CONSTRAINT software_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2009 (class 2606 OID 16535)
+-- Dependencies: 183 183
+-- Name: speaker_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY speaker
+    ADD CONSTRAINT speaker_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2011 (class 2606 OID 16537)
+-- Dependencies: 184 184
+-- Name: ssd_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ssd
+    ADD CONSTRAINT ssd_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2013 (class 2606 OID 16539)
+-- Dependencies: 185 185
+-- Name: storage_motherboard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY storage_motherboard
+    ADD CONSTRAINT storage_motherboard_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1987 (class 2606 OID 16541)
+-- Dependencies: 171 171
+-- Name: storage_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "storageDevice"
+    ADD CONSTRAINT storage_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2021 (class 2606 OID 16834)
+-- Dependencies: 190 190
+-- Name: user_component_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2015 (class 2606 OID 16545)
+-- Dependencies: 187 187
+-- Name: user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT user_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 2017 (class 2606 OID 16547)
+-- Dependencies: 187 187
+-- Name: user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2019 (class 2606 OID 16549)
+-- Dependencies: 187 187
+-- Name: user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT user_username_key UNIQUE (username);
+
+
+--
+-- TOC entry 2022 (class 2606 OID 16550)
+-- Dependencies: 1972 161 165
+-- Name: cpu_motherboard_cpu_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY cpu_motherboard
+    ADD CONSTRAINT cpu_motherboard_cpu_id_fkey FOREIGN KEY (cpu_id) REFERENCES component(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2023 (class 2606 OID 16555)
+-- Dependencies: 1972 165 161
+-- Name: cpu_motherboard_motherboard_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY cpu_motherboard
+    ADD CONSTRAINT cpu_motherboard_motherboard_id_fkey FOREIGN KEY (motherboard_id) REFERENCES component(id);
+
+
+--
+-- TOC entry 2024 (class 2606 OID 16560)
+-- Dependencies: 1972 161 168
+-- Name: gpu_motherboard_gpu_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY gpu_motherboard
+    ADD CONSTRAINT gpu_motherboard_gpu_id_fkey FOREIGN KEY (gpu_id) REFERENCES component(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2025 (class 2606 OID 16565)
+-- Dependencies: 161 1972 168
+-- Name: gpu_motherboard_motherboard_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY gpu_motherboard
+    ADD CONSTRAINT gpu_motherboard_motherboard_id_fkey FOREIGN KEY (motherboard_id) REFERENCES component(id);
+
+
+--
+-- TOC entry 2026 (class 2606 OID 16570)
+-- Dependencies: 175 161 1972
+-- Name: memory_motherboard_memory_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY memory_motherboard
+    ADD CONSTRAINT memory_motherboard_memory_id_fkey FOREIGN KEY (memory_id) REFERENCES component(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2027 (class 2606 OID 16575)
+-- Dependencies: 1972 161 175
+-- Name: memory_motherboard_motherboard_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY memory_motherboard
+    ADD CONSTRAINT memory_motherboard_motherboard_id_fkey FOREIGN KEY (motherboard_id) REFERENCES component(id);
+
+
+--
+-- TOC entry 2028 (class 2606 OID 16580)
+-- Dependencies: 185 161 1972
+-- Name: storage_motherboard_motherboard_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY storage_motherboard
+    ADD CONSTRAINT storage_motherboard_motherboard_id_fkey FOREIGN KEY (motherboard_id) REFERENCES component(id);
+
+
+--
+-- TOC entry 2029 (class 2606 OID 16585)
+-- Dependencies: 1972 185 161
+-- Name: storage_motherboard_storage_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY storage_motherboard
+    ADD CONSTRAINT storage_motherboard_storage_id_fkey FOREIGN KEY (storage_id) REFERENCES component(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2032 (class 2606 OID 16845)
+-- Dependencies: 190 164 1976
+-- Name: user_component_cpu_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_cpu_id_fkey FOREIGN KEY (cpu_id) REFERENCES cpu(id);
+
+
+--
+-- TOC entry 2033 (class 2606 OID 16850)
+-- Dependencies: 190 170 1984
+-- Name: user_component_graphicsCard_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT "user_component_graphicsCard_id_fkey" FOREIGN KEY ("graphicsCard_id") REFERENCES "graphicsCard"(id);
+
+
+--
+-- TOC entry 2035 (class 2606 OID 16860)
+-- Dependencies: 190 172 1988
+-- Name: user_component_hdd_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_hdd_id_fkey FOREIGN KEY (hdd_id) REFERENCES hdd(id);
+
+
+--
+-- TOC entry 2037 (class 2606 OID 16870)
+-- Dependencies: 173 1990 190
+-- Name: user_component_keyboard_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_keyboard_id_fkey FOREIGN KEY (keyboard_id) REFERENCES keyboard(id);
+
+
+--
+-- TOC entry 2034 (class 2606 OID 16855)
+-- Dependencies: 190 174 1992
+-- Name: user_component_memory_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_memory_id_fkey FOREIGN KEY (memory_id) REFERENCES memory(id);
+
+
+--
+-- TOC entry 2038 (class 2606 OID 16875)
+-- Dependencies: 190 1996 177
+-- Name: user_component_monitor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_monitor_id_fkey FOREIGN KEY (monitor_id) REFERENCES monitor(id);
+
+
+--
+-- TOC entry 2031 (class 2606 OID 16840)
+-- Dependencies: 190 178 1998
+-- Name: user_component_motherboard_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_motherboard_id_fkey FOREIGN KEY (motherboard_id) REFERENCES motherboard(id);
+
+
+--
+-- TOC entry 2039 (class 2606 OID 16880)
+-- Dependencies: 2000 179 190
+-- Name: user_component_mouse_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_mouse_id_fkey FOREIGN KEY (mouse_id) REFERENCES mouse(id);
+
+
+--
+-- TOC entry 2040 (class 2606 OID 16885)
+-- Dependencies: 190 2004 181
+-- Name: user_component_operatingSystem_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT "user_component_operatingSystem_id_fkey" FOREIGN KEY ("operatingSystem_id") REFERENCES "operatingSystem"(id);
+
+
+--
+-- TOC entry 2041 (class 2606 OID 16890)
+-- Dependencies: 190 182 2006
+-- Name: user_component_opticDrive_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT "user_component_opticDrive_id_fkey" FOREIGN KEY ("opticDrive_id") REFERENCES "opticDrive"(id);
+
+
+--
+-- TOC entry 2042 (class 2606 OID 16895)
+-- Dependencies: 190 183 2008
+-- Name: user_component_speaker_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_speaker_id_fkey FOREIGN KEY (speaker_id) REFERENCES speaker(id);
+
+
+--
+-- TOC entry 2036 (class 2606 OID 16865)
+-- Dependencies: 190 184 2010
+-- Name: user_component_ssd_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_ssd_id_fkey FOREIGN KEY (ssd_id) REFERENCES ssd(id);
+
+
+--
+-- TOC entry 2030 (class 2606 OID 16835)
+-- Dependencies: 190 187 2016
+-- Name: user_component_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_component
+    ADD CONSTRAINT user_component_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- TOC entry 2070 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- TOC entry 2074 (class 0 OID 0)
+-- Dependencies: 165
+-- Name: cpu_motherboard; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE cpu_motherboard FROM PUBLIC;
+REVOKE ALL ON TABLE cpu_motherboard FROM postgres;
+GRANT ALL ON TABLE cpu_motherboard TO postgres;
+GRANT ALL ON TABLE cpu_motherboard TO PUBLIC;
+
+
+--
+-- TOC entry 2077 (class 0 OID 0)
+-- Dependencies: 167
+-- Name: externalDevice; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "externalDevice" FROM PUBLIC;
+REVOKE ALL ON TABLE "externalDevice" FROM postgres;
+GRANT ALL ON TABLE "externalDevice" TO postgres;
+GRANT ALL ON TABLE "externalDevice" TO PUBLIC;
+
+
+--
+-- TOC entry 2078 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: gpu_motherboard; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE gpu_motherboard FROM PUBLIC;
+REVOKE ALL ON TABLE gpu_motherboard FROM postgres;
+GRANT ALL ON TABLE gpu_motherboard TO postgres;
+GRANT ALL ON TABLE gpu_motherboard TO PUBLIC;
+
+
+--
+-- TOC entry 2081 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: storageDevice; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "storageDevice" FROM PUBLIC;
+REVOKE ALL ON TABLE "storageDevice" FROM postgres;
+GRANT ALL ON TABLE "storageDevice" TO postgres;
+GRANT ALL ON TABLE "storageDevice" TO PUBLIC;
+
+
+--
+-- TOC entry 2082 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: hdd; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE hdd FROM PUBLIC;
+REVOKE ALL ON TABLE hdd FROM postgres;
+GRANT ALL ON TABLE hdd TO postgres;
+GRANT ALL ON TABLE hdd TO PUBLIC;
+
+
+--
+-- TOC entry 2083 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: keyboard; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE keyboard FROM PUBLIC;
+REVOKE ALL ON TABLE keyboard FROM postgres;
+GRANT ALL ON TABLE keyboard TO postgres;
+GRANT ALL ON TABLE keyboard TO PUBLIC;
+
+
+--
+-- TOC entry 2084 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: memory_motherboard; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE memory_motherboard FROM PUBLIC;
+REVOKE ALL ON TABLE memory_motherboard FROM postgres;
+GRANT ALL ON TABLE memory_motherboard TO postgres;
+GRANT ALL ON TABLE memory_motherboard TO PUBLIC;
+
+
+--
+-- TOC entry 2087 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: monitor; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE monitor FROM PUBLIC;
+REVOKE ALL ON TABLE monitor FROM postgres;
+GRANT ALL ON TABLE monitor TO postgres;
+GRANT ALL ON TABLE monitor TO PUBLIC;
+
+
+--
+-- TOC entry 2088 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: motherboard; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE motherboard FROM PUBLIC;
+REVOKE ALL ON TABLE motherboard FROM postgres;
+GRANT ALL ON TABLE motherboard TO postgres;
+GRANT ALL ON TABLE motherboard TO PUBLIC;
+
+
+--
+-- TOC entry 2089 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: mouse; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE mouse FROM PUBLIC;
+REVOKE ALL ON TABLE mouse FROM postgres;
+GRANT ALL ON TABLE mouse TO postgres;
+GRANT ALL ON TABLE mouse TO PUBLIC;
+
+
+--
+-- TOC entry 2090 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: operatingSystem; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "operatingSystem" FROM PUBLIC;
+REVOKE ALL ON TABLE "operatingSystem" FROM postgres;
+GRANT ALL ON TABLE "operatingSystem" TO postgres;
+GRANT ALL ON TABLE "operatingSystem" TO PUBLIC;
+
+
+--
+-- TOC entry 2091 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: opticDrive; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "opticDrive" FROM PUBLIC;
+REVOKE ALL ON TABLE "opticDrive" FROM postgres;
+GRANT ALL ON TABLE "opticDrive" TO postgres;
+GRANT ALL ON TABLE "opticDrive" TO PUBLIC;
+
+
+--
+-- TOC entry 2092 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: speaker; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE speaker FROM PUBLIC;
+REVOKE ALL ON TABLE speaker FROM postgres;
+GRANT ALL ON TABLE speaker TO postgres;
+GRANT ALL ON TABLE speaker TO PUBLIC;
+
+
+--
+-- TOC entry 2093 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: ssd; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE ssd FROM PUBLIC;
+REVOKE ALL ON TABLE ssd FROM postgres;
+GRANT ALL ON TABLE ssd TO postgres;
+GRANT ALL ON TABLE ssd TO PUBLIC;
+
+
+--
+-- TOC entry 2094 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: storage_motherboard; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE storage_motherboard FROM PUBLIC;
+REVOKE ALL ON TABLE storage_motherboard FROM postgres;
+GRANT ALL ON TABLE storage_motherboard TO postgres;
+GRANT ALL ON TABLE storage_motherboard TO PUBLIC;
+
+
+--
+-- TOC entry 2097 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: user_component; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE user_component FROM PUBLIC;
+REVOKE ALL ON TABLE user_component FROM postgres;
+GRANT ALL ON TABLE user_component TO postgres;
+GRANT ALL ON TABLE user_component TO PUBLIC;
+
+
+--
+-- TOC entry 2100 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: users; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE users FROM PUBLIC;
+REVOKE ALL ON TABLE users FROM postgres;
+GRANT ALL ON TABLE users TO postgres;
+GRANT ALL ON TABLE users TO PUBLIC;
+
+
+--
+-- TOC entry 1516 (class 826 OID 16601)
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: -; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres REVOKE ALL ON TABLES  FROM PUBLIC;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres REVOKE ALL ON TABLES  FROM postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres GRANT ALL ON TABLES  TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres GRANT ALL ON TABLES  TO PUBLIC;
+
+
+-- Completed on 2012-07-13 16:38:42
+
+--
+-- PostgreSQL database dump complete
+--
+
