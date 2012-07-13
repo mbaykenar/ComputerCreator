@@ -26,7 +26,7 @@ public class User {
   
   public enum Products{ MOTHERBOARD, CPU, GRAPHICS_CARD, MEMORY, HDD, SSD, KEYBOARD, MONITOR, MOUSE, OPERATING_SYSTEM, OPTIC_DRIVE, SPEAKER}
   
-  public static final int PRODUCT_COUNT = 13;
+  public static final int PRODUCT_COUNT = 12;
 
     public String getEmail() {
         return email;
@@ -208,6 +208,17 @@ public class User {
         
         if(rs.next()){
             addProduct(rs.getInt("motherboard_id"));
+            addProduct(rs.getInt("cpu_id"));
+            addProduct(rs.getInt("graphicsCard_id"));
+            addProduct(rs.getInt("memory_id"));
+            addProduct(rs.getInt("hdd_id"));
+            addProduct(rs.getInt("ssd_id"));
+            addProduct(rs.getInt("keyboard_id"));
+            addProduct(rs.getInt("monitor_id"));
+            addProduct(rs.getInt("mouse_id"));
+            addProduct(rs.getInt("operatingSystem_id"));
+            addProduct(rs.getInt("opticDrive_id"));
+            addProduct(rs.getInt("speaker_id"));
         }
         else{
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
@@ -217,14 +228,16 @@ public class User {
     
     //stores users products to database
     public void storeProducts(int id) throws Exception{
-        String storeQuery;
+        String storeQuery = "INSERT INTO user_component (user_id, motherboard_id, cpu_id, graphicsCard_id, memory_id, hdd_id, ssd_id, keyboard_id, monitor_id, mouse_id, operatingSystem_id, opticDrive_id, speaker_id)" +
+                "VALUES (" + id;
         
-        for(int i = 0; i < productIDs.size(); i++){
-            storeQuery = "INSERT INTO user_component (user_id, component_id)"
-                    + "VALUES (" + id + "," + productIDs.get(i);
+        for(int i = 0; i < productIDs.size(); i++)
+            storeQuery += "," + productIDs.get(i);
+        
+        storeQuery += ")";
             
             Helper.insert(storeQuery);
-        }
+            
     }
     
     //deletes users products from database
