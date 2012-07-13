@@ -1,5 +1,6 @@
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Motherboard extends Hardware {
 
@@ -14,6 +15,15 @@ public class Motherboard extends Hardware {
   private int busInterface;
 
   private double frequency;
+  
+  private ArrayList<Integer> matchedCpuIDs;
+  
+  private ArrayList<Integer> matchedGpuIDs;
+  
+  private ArrayList<Integer> matchedMemoryIDs;
+  
+  private ArrayList<Integer> matchedStorageIDs;
+
 
     public Motherboard() {
     }
@@ -51,6 +61,22 @@ public class Motherboard extends Hardware {
     public String getSocket() {
         return socket;
     }
+    
+    public ArrayList<Integer> getMatchedCpuIDs() {
+        return matchedCpuIDs;
+    }
+
+    public ArrayList<Integer> getMatchedGpuIDs() {
+        return matchedGpuIDs;
+    }
+
+    public ArrayList<Integer> getMatchedMemoryIDs() {
+        return matchedMemoryIDs;
+    }
+
+    public ArrayList<Integer> getMatchedSorageIDs() {
+        return matchedStorageIDs;
+    }
 
     public void setBusInterface(int busInterface) {
         this.busInterface = busInterface;
@@ -74,6 +100,54 @@ public class Motherboard extends Hardware {
 
     public void setSocket(String socket) {
         this.socket = socket;
+    }
+    
+    public void setMatchedCpuIDs(ArrayList<Integer> matchedCpuIDs) {
+        this.matchedCpuIDs = matchedCpuIDs;
+    }
+
+    public void setMatchedGpuIDs(ArrayList<Integer> matchedGpuIDs) {
+        this.matchedGpuIDs = matchedGpuIDs;
+    }
+
+    public void setMatchedMemoryIDs(ArrayList<Integer> matchedMemoryIDs) {
+        this.matchedMemoryIDs = matchedMemoryIDs;
+    }
+
+    public void setMatchedSorageIDs(ArrayList<Integer> matchedSorageIDs) {
+        this.matchedStorageIDs = matchedSorageIDs;
+    }
+    
+    public void addCpu(int id){
+        this.matchedCpuIDs.add(id);
+    }
+    
+    public void addGpu(int id){
+        this.matchedGpuIDs.add(id);
+    }
+    
+    public void addMemory(int id){
+        this.matchedMemoryIDs.add(id);
+    }
+    
+    public void addStorage(int id){
+        this.matchedStorageIDs.add(id);
+    }
+    
+    public void clearMatchedCpus(){
+        this.matchedCpuIDs = new ArrayList<Integer>();
+    }
+    
+    public void clearMatchedGpus(){
+        this.matchedCpuIDs = new ArrayList<Integer>();
+    }
+    
+    public void clearMatchedMemories(){
+        this.matchedCpuIDs = new ArrayList<Integer>();
+    }
+    
+    public void clearMatchedStorages(){
+        this.matchedCpuIDs = new ArrayList<Integer>();
     }
     
     public void insertMotherboard() throws Exception{
@@ -106,8 +180,40 @@ public class Motherboard extends Hardware {
         }
     }
     
-     public static void deleteMotherboard(int id) throws Exception{
-        String deleteQuery = "DELETE FROM motherboard WHERE id = " + id;
-        Helper.delete(deleteQuery);
+    public static void deleteMotherboard(int id) throws Exception{
+       String deleteQuery = "DELETE FROM motherboard WHERE id = " + id;
+       Helper.delete(deleteQuery);
+    }
+    
+    public void retriveCpuMatches(int mbId) throws Exception{
+        String matchQuery = "SELECT cpu_id FROM cpu_motherboard WHERE motherboard_id="+mbId;
+        ResultSet rs = Helper.retrieve(matchQuery);
+        while(rs.next()){
+            addCpu(rs.getInt("cpu_id"));
+        }
+    }
+    
+    public void retriveGpuMatches(int mbId) throws Exception{
+        String matchQuery = "SELECT cpu_id FROM gpu_motherboard WHERE motherboard_id="+mbId;
+        ResultSet rs = Helper.retrieve(matchQuery);
+        while(rs.next()){
+            addGpu(rs.getInt("gpu_id"));
+        }
+    }
+    
+    public void retriveMemoryMatches(int mbId) throws Exception{
+        String matchQuery = "SELECT cpu_id FROM memory_motherboard WHERE motherboard_id="+mbId;
+        ResultSet rs = Helper.retrieve(matchQuery);
+        while(rs.next()){
+            addMemory(rs.getInt("memory_id"));
+        }
+    }
+    
+    public void retriveStorageMatches(int mbId) throws Exception{
+        String matchQuery = "SELECT cpu_id FROM storage_motherboard WHERE motherboard_id="+mbId;
+        ResultSet rs = Helper.retrieve(matchQuery);
+        while(rs.next()){
+            addMemory(rs.getInt("storage_id"));
+        }
     }
 }
