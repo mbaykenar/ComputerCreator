@@ -105,6 +105,9 @@ public class Motherboard extends Hardware {
             throw NoSuchTuple;
         }
     }
-  
-
+    
+     public static void deleteMotherboard(int id) throws Exception{
+        String deleteQuery = "DELETE FROM motherboard WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 }

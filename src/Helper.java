@@ -49,6 +49,12 @@ public class Helper {
             
             return temp;
         }
+        
+        public static void delete(String query) throws Exception{
+            st = openConnection();
+            st.executeUpdate(query);
+            closeConnection();
+        }
 	
 
 }

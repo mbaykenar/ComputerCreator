@@ -46,5 +46,10 @@ public class Speaker extends ExternalDevice {
             throw NoSuchTuple;
         }
     }
+    
+     public static void deleteSpeaker(int id) throws Exception{
+        String deleteQuery = "DELETE FROM speaker WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
   
 }

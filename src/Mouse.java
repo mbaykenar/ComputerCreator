@@ -34,5 +34,10 @@ public class Mouse extends ExternalDevice {
             throw NoSuchTuple;
         }
     }
+    
+     public static void deleteMouse(int id) throws Exception{
+        String deleteQuery = "DELETE FROM mouse WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 
 }

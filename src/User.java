@@ -86,6 +86,9 @@ public class User {
         this.role = role;
     }
 
+    public User() {
+    }
+
     public User(String Address, String username, String password, String name, String surname, String phone, String email, int role) {
         this.address = Address;
         this.username= username;
@@ -115,7 +118,7 @@ public class User {
     /*
      * Genel amacli user retrive metodu
      */
-    public void retriveUser(int id) throws Exception{
+    public void retrieveUser(int id) throws Exception{
         String retrieveQuery =  "SELECT * FROM users WHERE id = " + id;
         ResultSet rs = Helper.retrieve(retrieveQuery);
         if(rs.next()){
@@ -144,7 +147,7 @@ public class User {
         ResultSet rs = Helper.retrieve(retrieveQuery);
         if(rs.next()){
             address = rs.getString("address"); 
-            username = rs.getString("username");
+            this.username = rs.getString("username");
             this.password = rs.getString("passw");
             this.name = rs.getString("name");
             this.surname = rs.getString("lName");

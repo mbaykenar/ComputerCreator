@@ -46,4 +46,9 @@ public class OpticDrive extends ExternalDevice {
             throw NoSuchTuple;
         }
     }
+    
+     public static void deleteOpticDrive(int id) throws Exception{
+        String deleteQuery = "DELETE FROM opticDrive WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 }

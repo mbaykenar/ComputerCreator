@@ -59,5 +59,10 @@ public class Hdd extends Storage {
             throw NoSuchTuple;
         }
     }
+    
+     public static void deleteHdd(int id) throws Exception{
+        String deleteQuery = "DELETE FROM hdd WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
   
 }

@@ -69,5 +69,10 @@ public class Memory extends Hardware {
             throw NoSuchTuple;
         }
     }
+    
+     public static void deleteMemory(int id) throws Exception{
+        String deleteQuery = "DELETE FROM memory WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 
 }

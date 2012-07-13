@@ -104,4 +104,9 @@ public class GraphicsCard extends Hardware {
             throw NoSuchTuple;
         }
     }
+    
+     public static void deleteGraphicsCard(int id) throws Exception{
+        String deleteQuery = "DELETE FROM graphicsCard WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 }

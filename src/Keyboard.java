@@ -47,5 +47,10 @@ public class Keyboard extends ExternalDevice {
             throw NoSuchTuple;
         }
     }
+    
+     public static void deleteKeyboard(int id) throws Exception{
+        String deleteQuery = "DELETE FROM keyboard WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 
 }

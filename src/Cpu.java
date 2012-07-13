@@ -103,5 +103,8 @@ public class Cpu extends Hardware {
         }
     }
     
-    
+    public static void deleteCpu(int id) throws Exception{
+        String deleteQuery = "DELETE FROM cpu WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 }

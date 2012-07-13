@@ -71,6 +71,10 @@ public class Monitor extends ExternalDevice {
             throw NoSuchTuple;
         }
     }
-  
+    
+     public static void deleteMonitor(int id) throws Exception{
+        String deleteQuery = "DELETE FROM monitor WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 
 }

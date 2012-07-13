@@ -34,5 +34,10 @@ public class OperatingSystem extends Software {
             throw NoSuchTuple;
         }
     }
+    
+     public static void deleteOperatingSystem(int id) throws Exception{
+        String deleteQuery = "DELETE FROM operatingSystem WHERE id = " + id;
+        Helper.delete(deleteQuery);
+    }
 
 }
