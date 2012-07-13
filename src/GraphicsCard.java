@@ -1,5 +1,6 @@
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class GraphicsCard extends Hardware {
 
@@ -14,6 +15,8 @@ public class GraphicsCard extends Hardware {
   private double memorySize;
 
   private int maxTDP;
+  
+  private ArrayList<Integer> matchedMotherboardIDs;
 
     public GraphicsCard() {
     }
@@ -50,6 +53,10 @@ public class GraphicsCard extends Hardware {
     public double getTextureFillRate() {
         return textureFillRate;
     }
+    
+    public ArrayList<Integer> getMatchedMotherBoardIDs() {
+        return matchedMotherboardIDs;
+    }
 
     public void setClockSpeed(double clockSpeed) {
         this.clockSpeed = clockSpeed;
@@ -73,6 +80,26 @@ public class GraphicsCard extends Hardware {
 
     public void setTextureFillRate(double textureFillRate) {
         this.textureFillRate = textureFillRate;
+    }
+    
+    public void setMatchedMotherBoardIDs(ArrayList<Integer> matchedMotherBoardIDs) {
+        this.matchedMotherboardIDs = matchedMotherBoardIDs;
+    }
+    
+    public void addMotherboard(int id){
+        this.matchedMotherboardIDs.add(id);
+    }
+    
+    public void clearMatchedMotherboards(){
+        this.matchedMotherboardIDs = new ArrayList<Integer>();
+    }
+    
+    public void retriveMatchedMotherboards(int id) throws Exception{
+        String matchQuery = "SELECT motherboard_id FROM cpu_motherboard WHERE cpu_id="+id;
+        ResultSet rs = Helper.retrieve(matchQuery);
+        while(rs.next()){
+            addMotherboard(rs.getInt("cpu_id"));
+        }
     }
     
     public void insertGraphicsCard() throws Exception{

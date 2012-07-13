@@ -23,6 +23,10 @@ public class User {
   private int role;
   
   private ArrayList<Integer> productIDs;
+  
+  public enum Products{ MOTHERBOARD, CPU, GRAPHICS_CARD, MEMORY, HDD, SSD, KEYBOARD, MONITOR, MOUSE, OPERATING_SYSTEM, OPTIC_DRIVE, SPEAKER}
+  
+  public static final int PRODUCT_COUNT = 13;
 
     public String getEmail() {
         return email;
@@ -202,8 +206,12 @@ public class User {
         
         ResultSet rs = Helper.retrieve(retrieveQuery);
         
-        while(rs.next()){
-            addProduct(rs.getInt("component_id"));
+        if(rs.next()){
+            addProduct(rs.getInt("motherboard_id"));
+        }
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
         }
     }
     
@@ -221,12 +229,8 @@ public class User {
     
     //deletes users products from database
     public void deleteProducts(int id) throws Exception{
-        String deleteQuery;
-        
-        for(int i = 0; i < productIDs.size(); i++){
-            deleteQuery = "DELETE FROM user_component WHERE user_id = " + id + " AND component_id = " + productIDs.get(i);
-            
-            Helper.delete(deleteQuery);
-        }
+        String deleteQuery = "DELETE FROM user_component WHERE user_id = " + id;       
+         Helper.delete(deleteQuery);
     }
+    
 }
