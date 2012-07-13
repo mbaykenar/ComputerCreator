@@ -1,4 +1,5 @@
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Cpu extends Hardware {
 
@@ -13,6 +14,8 @@ public class Cpu extends Hardware {
   private int maxTDP;
 
   private int lithography;
+  
+  private ArrayList<Integer> matchedMotherboardIDs;
 
     public Cpu() {
     }
@@ -48,6 +51,10 @@ public class Cpu extends Hardware {
     public int getThreadNumber() {
         return threadNumber;
     }
+    
+    public ArrayList<Integer> getMatchedMotherBoardIDs() {
+        return matchedMotherboardIDs;
+    }
 
     public void setCacheSize(double cacheSize) {
         this.cacheSize = cacheSize;
@@ -71,6 +78,26 @@ public class Cpu extends Hardware {
 
     public void setThreadNumber(int threadNumber) {
         this.threadNumber = threadNumber;
+    }
+    
+    public void setMatchedMotherBoardIDs(ArrayList<Integer> matchedMotherBoardIDs) {
+        this.matchedMotherboardIDs = matchedMotherBoardIDs;
+    }
+    
+    public void addMotherboard(int id){
+        this.matchedMotherboardIDs.add(id);
+    }
+    
+    public void clearMatchedMotherboards(){
+        this.matchedMotherboardIDs = new ArrayList<Integer>();
+    }
+    
+    public void retriveMatchedMotherboards(int id) throws Exception{
+        String matchQuery = "SELECT motherboard_id FROM cpu_motherboard WHERE cpu_id="+id;
+        ResultSet rs = Helper.retrieve(matchQuery);
+        while(rs.next()){
+            addMotherboard(rs.getInt("cpu_id"));
+        }
     }
     
     public void insertCpu() throws Exception{
