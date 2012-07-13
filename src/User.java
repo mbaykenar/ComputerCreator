@@ -2,6 +2,7 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class User {
 
@@ -20,6 +21,8 @@ public class User {
   private String email;
   
   private int role;
+  
+  private ArrayList<Integer> productIDs;
 
     public String getEmail() {
         return email;
@@ -51,6 +54,10 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+    
+    public ArrayList<Integer> getProductIDs(){
+        return productIDs;
     }
     
     public void setAddress(String address) {
@@ -85,8 +92,21 @@ public class User {
     public void setRole(int role) {
         this.role = role;
     }
+    
+    public void setProductIDs(ArrayList<Integer> productIDs){
+        this.productIDs = productIDs;
+    }
+    
+    public void addProduct(int id){
+        this.productIDs.add(id);
+    }
+    
+    public void clearProducts(){
+        this.productIDs = new ArrayList<Integer>();
+    }
 
     public User() {
+        this.productIDs = new ArrayList<Integer>();
     }
 
     public User(String Address, String username, String password, String name, String surname, String phone, String email, int role) {
@@ -98,6 +118,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.role = role;
+        this.productIDs = new ArrayList<Integer>();
     }
     
     public void insertUser(String address, String username, String password, String name, String surname, String phone, String email, String role) throws Exception{
@@ -130,6 +151,8 @@ public class User {
             this.phone = rs.getString("phone");
             this.email = rs.getString("email");
             this.role = rs.getInt("userRole");
+            
+            retrieveProducts(id); //loads products of the user
         }
         else{
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
@@ -145,6 +168,7 @@ public class User {
         User user = null;
         String retrieveQuery =  "SELECT * FROM users WHERE username = "+username+" AND passw ="+getPasswordHash(password);
         ResultSet rs = Helper.retrieve(retrieveQuery);
+        int id;
         if(rs.next()){
             address = rs.getString("address"); 
             this.username = rs.getString("username");
@@ -154,6 +178,9 @@ public class User {
             this.phone = rs.getString("phone");
             this.email = rs.getString("email");
             this.role = rs.getInt("userRole");
+            id = rs.getInt("id");
+            
+            retrieveProducts(id);
         }
         else{
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
@@ -167,5 +194,39 @@ public class User {
         messageDigest.update(passwordToEncrypt.getBytes());
         String encryptedPassword = new String(messageDigest.digest());
         return encryptedPassword;
+    }
+    
+    //restores stored user products from database
+    private void retrieveProducts(int id) throws Exception{
+        String retrieveQuery = "SELECT * FROM user_component WHERE user_id = " + id;
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        
+        while(rs.next()){
+            addProduct(rs.getInt("component_id"));
+        }
+    }
+    
+    //stores users products to database
+    public void storeProducts(int id) throws Exception{
+        String storeQuery;
+        
+        for(int i = 0; i < productIDs.size(); i++){
+            storeQuery = "INSERT INTO user_component (user_id, component_id)"
+                    + "VALUES (" + id + "," + productIDs.get(i);
+            
+            Helper.insert(storeQuery);
+        }
+    }
+    
+    //deletes users products from database
+    public void deleteProducts(int id) throws Exception{
+        String deleteQuery;
+        
+        for(int i = 0; i < productIDs.size(); i++){
+            deleteQuery = "DELETE FROM user_component WHERE user_id = " + id + " AND component_id = " + productIDs.get(i);
+            
+            Helper.delete(deleteQuery);
+        }
     }
 }
