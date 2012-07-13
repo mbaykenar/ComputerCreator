@@ -194,7 +194,7 @@ public class Motherboard extends Hardware {
     }
     
     public void retriveGpuMatches(int mbId) throws Exception{
-        String matchQuery = "SELECT cpu_id FROM gpu_motherboard WHERE motherboard_id="+mbId;
+        String matchQuery = "SELECT gpu_id FROM gpu_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
             addGpu(rs.getInt("gpu_id"));
@@ -202,7 +202,7 @@ public class Motherboard extends Hardware {
     }
     
     public void retriveMemoryMatches(int mbId) throws Exception{
-        String matchQuery = "SELECT cpu_id FROM memory_motherboard WHERE motherboard_id="+mbId;
+        String matchQuery = "SELECT memory_id FROM memory_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
             addMemory(rs.getInt("memory_id"));
@@ -210,7 +210,7 @@ public class Motherboard extends Hardware {
     }
     
     public void retriveStorageMatches(int mbId) throws Exception{
-        String matchQuery = "SELECT cpu_id FROM storage_motherboard WHERE motherboard_id="+mbId;
+        String matchQuery = "SELECT storage_id FROM storage_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
             addMemory(rs.getInt("storage_id"));
