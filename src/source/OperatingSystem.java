@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class OperatingSystem extends Software {
 
@@ -35,6 +36,24 @@ public class OperatingSystem extends Software {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<OperatingSystem> retrieveAllOperatingSystems() throws Exception{
+        ArrayList<OperatingSystem> operatingSystems = new ArrayList<OperatingSystem>();
+        String retrieveQuery = "SELECT * FROM operatingSystem";
+        OperatingSystem operatingSystem = new OperatingSystem();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            operatingSystem.setId(rs.getInt("id"));
+            operatingSystem.setModel(rs.getString("model"));
+            operatingSystem.setVendor(rs.getString("vendor"));
+            operatingSystem.setPrice(rs.getDouble("price"));
+            operatingSystem.setPlatform(rs.getString("platform"));
+            operatingSystem.setVersion(rs.getString("s_version"));
+            
+            operatingSystems.add(operatingSystem);
+        }
+        return operatingSystems;
     }
     
      public static void deleteOperatingSystem(int id) throws Exception{

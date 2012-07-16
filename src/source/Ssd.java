@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Ssd extends Storage {
 
@@ -60,6 +61,26 @@ public class Ssd extends Storage {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<Ssd> retrieveAllSsds() throws Exception{
+        ArrayList<Ssd> ssds = new ArrayList<Ssd>();
+        String retrieveQuery = "SELECT * FROM ssd";
+        Ssd ssd = new Ssd();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            ssd.setId(rs.getInt("id"));
+            ssd.setModel(rs.getString("model"));
+            ssd.setVendor(rs.getString("vendor"));
+            ssd.setPrice(rs.getDouble("price"));
+            ssd.setCapacity(rs.getDouble("capacity"));
+            ssd.setConnectionInterface(rs.getString("interface"));
+            ssd.setWriteSpeed(rs.getInt("write_speed"));
+            ssd.setReadSpeed(rs.getDouble("read_speed"));
+            
+            ssds.add(ssd);
+        }
+        return ssds;
     }
     
     public static void deleteSsd(int id) throws Exception{

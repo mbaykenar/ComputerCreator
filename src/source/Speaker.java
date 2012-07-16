@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Speaker extends ExternalDevice {
 
@@ -47,6 +48,25 @@ public class Speaker extends ExternalDevice {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<Speaker> retrieveAllSpeakers() throws Exception{
+        ArrayList<Speaker> speakers = new ArrayList<Speaker>();
+        String retrieveQuery = "SELECT * FROM speaker";
+        Speaker speaker = new Speaker();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            speaker.setId(rs.getInt("id"));
+            speaker.setModel(rs.getString("model"));
+            speaker.setVendor(rs.getString("vendor"));
+            speaker.setPrice(rs.getDouble("price"));
+            speaker.setConnectionInterface(rs.getString("interface"));
+            speaker.setType(rs.getString("e_type"));    
+            speaker.setPower(rs.getInt("power"));
+            
+            speakers.add(speaker);
+        }
+        return speakers;
     }
     
      public static void deleteSpeaker(int id) throws Exception{

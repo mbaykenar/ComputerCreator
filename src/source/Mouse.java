@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Mouse extends ExternalDevice {
 
@@ -35,6 +36,24 @@ public class Mouse extends ExternalDevice {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<Mouse> retrieveAllMouses() throws Exception{
+        ArrayList<Mouse> mouses = null;
+        String retrieveQuery = "SELECT * FROM mouse";
+        Mouse mouse = new Mouse();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            mouse.setId(rs.getInt("id"));
+            mouse.setModel(rs.getString("model"));
+            mouse.setVendor(rs.getString("vendor"));
+            mouse.setPrice(rs.getDouble("price"));
+            mouse.setConnectionInterface(rs.getString("interface"));
+            mouse.setType(rs.getString("e_type"));
+            
+            mouses.add(mouse);
+        }
+        return mouses;
     }
     
      public static void deleteMouse(int id) throws Exception{

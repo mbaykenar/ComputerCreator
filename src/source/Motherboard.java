@@ -84,7 +84,7 @@ public class Motherboard extends Hardware {
         this.busInterface = busInterface;
     }
 
-    public void setdouble(double frequency) {
+    public void setFrequency(double frequency) {
         this.frequency = frequency;
     }
 
@@ -180,6 +180,28 @@ public class Motherboard extends Hardware {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<Motherboard> retriveAllMotherboards() throws Exception{
+        ArrayList<Motherboard> motherboards = null;
+        String retrieveQuery = "SELECT * FROM motherboard";
+        Motherboard mb = new Motherboard();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            mb.setId(rs.getInt("id"));
+            mb.setModel(rs.getString("model"));
+            mb.setVendor(rs.getString("vendor"));
+            mb.setPrice(rs.getDouble("price"));
+            mb.setSocket(rs.getString("socket"));
+            mb.setMemorySlots(rs.getInt("memory_slots"));
+            mb.setPciSlots(rs.getInt("pci_slots"));
+            mb.setPciESlots(rs.getInt("pci_e_slots"));
+            mb.setBusInterface(rs.getInt("bus_interface"));
+            mb.setFrequency(rs.getDouble("frequency"));
+            
+            motherboards.add(mb);
+        } 
+        return motherboards;
     }
     
     public static void deleteMotherboard(int id) throws Exception{

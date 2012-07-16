@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Monitor extends ExternalDevice {
 
@@ -72,6 +73,27 @@ public class Monitor extends ExternalDevice {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<Monitor> retrieveAllMonitors() throws Exception{
+        ArrayList<Monitor> monitors = null;
+        String retrieveQuery = "SELECT * FROM monitor";
+        Monitor monitor = new Monitor();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            monitor.setId(rs.getInt("id"));
+            monitor.setModel(rs.getString("model"));
+            monitor.setVendor(rs.getString("vendor"));
+            monitor.setPrice(rs.getDouble("price"));
+            monitor.setType(rs.getString("e_type"));
+            monitor.setConnectionInterface(rs.getString("interface"));
+            monitor.setResolution(rs.getString("resolution"));
+            monitor.setRefreshRate(rs.getInt("refresh_rate"));
+            monitor.setScreenSize(rs.getDouble("screen_size"));
+            
+            monitors.add(monitor);
+        }
+        return monitors;
     }
     
      public static void deleteMonitor(int id) throws Exception{

@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class OpticDrive extends ExternalDevice {
 
@@ -47,6 +48,25 @@ public class OpticDrive extends ExternalDevice {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<OpticDrive> retrieveAllOpticDrives() throws Exception{
+        ArrayList<OpticDrive> opticDrives = null;
+        String retrieveQuery = "SELECT * FROM opticDrive";
+        OpticDrive opticDrive = new OpticDrive();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            opticDrive.setId(rs.getInt("id"));
+            opticDrive.setModel(rs.getString("model"));
+            opticDrive.setVendor(rs.getString("vendor"));
+            opticDrive.setPrice(rs.getDouble("price"));
+            opticDrive.setConnectionInterface(rs.getString("interface"));
+            opticDrive.setType(rs.getString("e_type"));    
+            opticDrive.setSpeed(rs.getInt("speed"));
+            
+            opticDrives.add(opticDrive);
+        }
+        return opticDrives;
     }
     
      public static void deleteOpticDrive(int id) throws Exception{

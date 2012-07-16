@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Keyboard extends ExternalDevice {
 
@@ -48,6 +49,25 @@ public class Keyboard extends ExternalDevice {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<Keyboard> retrieveAllKeyboards() throws Exception{
+        String retrieveQuery = "SELECT * FROM keyboard";
+        ArrayList<Keyboard> keyboards = new ArrayList<Keyboard>();
+        Keyboard keyboard = new Keyboard();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            keyboard.setId(rs.getInt("id"));
+            keyboard.setModel(rs.getString("model"));
+            keyboard.setVendor(rs.getString("vendor"));
+            keyboard.setPrice(rs.getDouble("price"));
+            keyboard.setType(rs.getString("e_type"));
+            keyboard.setConnectionInterface(rs.getString("interface"));
+            keyboard.setLayout(rs.getString("layout"));
+            
+            keyboards.add(keyboard);
+        }
+        return keyboards;
     }
     
      public static void deleteKeyboard(int id) throws Exception{

@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Hdd extends Storage {
 
@@ -60,6 +61,26 @@ public class Hdd extends Storage {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
+    }
+    
+    public static ArrayList<Hdd> retrieveAllHdds() throws Exception{
+        ArrayList<Hdd> hdds = null;
+        String retrieveQuery = "SELECT * FROM hdd";
+        Hdd hdd = new Hdd();
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            hdd.setId(rs.getInt("id"));
+            hdd.setModel(rs.getString("model"));
+            hdd.setVendor(rs.getString("vendor"));
+            hdd.setPrice(rs.getDouble("price"));
+            hdd.setCapacity(rs.getDouble("capacity"));
+            hdd.setConnectionInterface(rs.getString("interface"));
+            hdd.setRpm(rs.getInt("rpm"));
+            hdd.setDiameter(rs.getDouble("diameter"));
+            
+            hdds.add(hdd);
+        }
+        return hdds;
     }
     
      public static void deleteHdd(int id) throws Exception{
