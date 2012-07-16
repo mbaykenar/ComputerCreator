@@ -17,7 +17,11 @@ public class Test {
         //tempCpu.retrieveCpu(8);
         
         //Cpu.deleteCpu(8);
-        computerWizardUI temp = new computerWizardUI();
-        temp.setVisible(true);
+        //computerWizardUI temp = new computerWizardUI();
+        //temp.setVisible(true);
+        
+        NewUserWindow window = new NewUserWindow();
+        window.setVisible(true);
+        
     }
 }

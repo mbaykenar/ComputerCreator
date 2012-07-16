@@ -127,9 +127,9 @@ public class User {
         this.productIDs = new ArrayList<Integer>();
     }
     
-    public void insertUser(String address, String username, String password, String name, String surname, String phone, String email, String role) throws Exception{
+    public void insertUser(String address, String username, String password, String name, String surname, String phone, String email, int role) throws Exception{
         String insertQuery = "INSERT INTO users (userRole, fName, lName, username, passw, phone, email, address)"
-                           + "VALUES ('"+role+"','"+name+"', '"+surname+"', '"+username+"', '"+getPasswordHash(password)+"', '"+phone+"', '"+phone+"', '"+email+"', '"+address+"')";
+                           + "VALUES ("+role+",'"+name+"', '"+surname+"', '"+username+"', '"+getPasswordHash(password)+"', '"+phone+"', '"+phone+"', '"+email+"', '"+address+"')";
         Helper.insert(insertQuery);
     }
     

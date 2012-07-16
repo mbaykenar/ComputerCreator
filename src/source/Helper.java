@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class Helper {
 	
 	static Connection conn = null; 
-	static String dbURL = "jdbc:postgresql://localhost:5432/computer_creator";
+	static String dbURL = "jdbc:postgresql://localhost:5432/computer wizard";
 	static String user = "postgres";
 	static String password = "12345";
         static Statement st;
