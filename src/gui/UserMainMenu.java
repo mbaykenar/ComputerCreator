@@ -118,11 +118,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         for(int i=0; i<ossize; i++){
             osModel[i] = os.get(i).getModel();
         }
-        jComboBox21.setModel(new javax.swing.DefaultComboBoxModel(osModel)); 
-        
-        
-        
-        
+        jComboBox21.setModel(new javax.swing.DefaultComboBoxModel(osModel));
     }
 
     /**
