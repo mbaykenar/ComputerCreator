@@ -16,6 +16,7 @@ public class computerWizardUI extends javax.swing.JFrame {
     public computerWizardUI() {
         initComponents();
         setLocationRelativeTo( null ); //to center the window
+        getRootPane().setDefaultButton(OKbutton);
     }
 
     /**
