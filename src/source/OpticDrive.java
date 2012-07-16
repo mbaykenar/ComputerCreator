@@ -51,7 +51,7 @@ public class OpticDrive extends ExternalDevice {
     }
     
     public static ArrayList<OpticDrive> retrieveAllOpticDrives() throws Exception{
-        ArrayList<OpticDrive> opticDrives = null;
+        ArrayList<OpticDrive> opticDrives = new ArrayList<OpticDrive>();
         String retrieveQuery = "SELECT * FROM opticDrive";
         OpticDrive opticDrive = new OpticDrive();
         ResultSet rs = Helper.retrieve(retrieveQuery);

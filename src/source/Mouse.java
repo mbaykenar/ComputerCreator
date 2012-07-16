@@ -39,7 +39,7 @@ public class Mouse extends ExternalDevice {
     }
     
     public static ArrayList<Mouse> retrieveAllMouses() throws Exception{
-        ArrayList<Mouse> mouses = null;
+        ArrayList<Mouse> mouses = new ArrayList<Mouse>();
         String retrieveQuery = "SELECT * FROM mouse";
         Mouse mouse = new Mouse();
         ResultSet rs = Helper.retrieve(retrieveQuery);

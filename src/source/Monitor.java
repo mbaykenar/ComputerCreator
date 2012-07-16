@@ -76,7 +76,7 @@ public class Monitor extends ExternalDevice {
     }
     
     public static ArrayList<Monitor> retrieveAllMonitors() throws Exception{
-        ArrayList<Monitor> monitors = null;
+        ArrayList<Monitor> monitors = new ArrayList<Monitor>();
         String retrieveQuery = "SELECT * FROM monitor";
         Monitor monitor = new Monitor();
         ResultSet rs = Helper.retrieve(retrieveQuery);

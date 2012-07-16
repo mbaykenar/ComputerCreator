@@ -4,6 +4,10 @@
  */
 package gui;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import source.*;
 
 /**
@@ -24,11 +28,24 @@ public class UserMainMenu extends javax.swing.JFrame {
     private ArrayList<Ssd> ssd;
     private ArrayList<OperatingSystem> os;
     
+    private DefaultComboBoxModel jComboBox1Model;
+    private DefaultComboBoxModel jComboBox12Model;
+    private DefaultComboBoxModel jComboBox13Model;
+    private DefaultComboBoxModel jComboBox14Model;
+    private DefaultComboBoxModel jComboBox15Model;
+    private DefaultComboBoxModel jComboBox16Model;
+    private DefaultComboBoxModel jComboBox17Model;
+    private DefaultComboBoxModel jComboBox18Model;
+    private DefaultComboBoxModel jComboBox19Model;
+    private DefaultComboBoxModel jComboBox20Model;
+    private DefaultComboBoxModel jComboBox21Model;
+                    
     /**
      * Creates new form UserMainMenu
      */
-    public UserMainMenu() {        
+    public UserMainMenu() throws Exception {        
         initComponents();
+        initEntities();
         setLocationRelativeTo( null ); //to center the window
     }
     
@@ -45,6 +62,67 @@ public class UserMainMenu extends javax.swing.JFrame {
         opticdrive = OpticDrive.retrieveAllOpticDrives();
         ssd = Ssd.retrieveAllSsds();
         os = OperatingSystem.retrieveAllOperatingSystems();
+        
+        int mbsize = motherboard.size();
+        String [] motherboardModel = new String[mbsize];
+        for(int i=0; i<mbsize; i++){
+            motherboardModel[i] = motherboard.get(i).getModel();
+        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(motherboardModel));
+        
+        int monitorsize = monitor.size();
+        String [] monitorModel = new String[monitorsize];
+        for(int i=0; i<monitorsize; i++){
+            monitorModel[i] = monitor.get(i).getModel();
+        }
+        jComboBox15.setModel(new javax.swing.DefaultComboBoxModel(monitorModel));
+        
+        /*int hddsize = hdd.size();
+        String [] hddModel = new String[hddsize];
+        for(int i=0; i<hddsize; i++){
+            hddModel[i] = hdd.get(i).getModel();
+        }
+        jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(hddModel));
+        
+        int ssdsize = ssd.size();
+        String [] ssdModel = new String[ssdsize];
+        for(int i=0; i<ssdsize; i++){
+            ssdModel[i] = ssd.get(i).getModel();
+        }
+        jComboBox17.setModel(new javax.swing.DefaultComboBoxModel(ssdModel));
+        */
+        
+        int keyboardsize = keyboard.size();
+        String [] keyboardModel = new String[keyboardsize];
+        for(int i=0; i<keyboardsize; i++){
+            keyboardModel[i] = keyboard.get(i).getModel();
+        }
+        jComboBox18.setModel(new javax.swing.DefaultComboBoxModel(keyboardModel)); 
+        
+        int mousesize = mouse.size();
+        String [] mouseModel = new String[mousesize];
+        for(int i=0; i<mousesize; i++){
+            mouseModel[i] = mouse.get(i).getModel();
+        }
+        jComboBox19.setModel(new javax.swing.DefaultComboBoxModel(mouseModel)); 
+        
+        int opticdrivesize = opticdrive.size();
+        String [] opticdriveModel = new String[opticdrivesize];
+        for(int i=0; i<opticdrivesize; i++){
+            opticdriveModel[i] = opticdrive.get(i).getModel();
+        }
+        jComboBox20.setModel(new javax.swing.DefaultComboBoxModel(opticdriveModel));
+        
+        int ossize = os.size();
+        String [] osModel = new String[ossize];
+        for(int i=0; i<ossize; i++){
+            osModel[i] = os.get(i).getModel();
+        }
+        jComboBox21.setModel(new javax.swing.DefaultComboBoxModel(osModel)); 
+        
+        
+        
+        
     }
 
     /**
@@ -103,10 +181,20 @@ public class UserMainMenu extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 12))); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox13ActionPerformed(evt);
+            }
+        });
 
         jComboBox14.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -218,7 +306,6 @@ public class UserMainMenu extends javax.swing.JFrame {
                                     .addComponent(jRadioButton9)
                                     .addComponent(jRadioButton10)
                                     .addComponent(jRadioButton11))))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBox13, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox14, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,6 +476,14 @@ public class UserMainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -426,7 +521,11 @@ public class UserMainMenu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new UserMainMenu().setVisible(true);
+                try {
+                    new UserMainMenu().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(UserMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
