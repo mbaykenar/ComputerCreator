@@ -15,6 +15,7 @@ public class NewUserWindow extends javax.swing.JFrame {
      */
     public NewUserWindow() {
         initComponents();
+        setLocationRelativeTo( null ); //to center the window
     }
 
     /**
@@ -45,23 +46,24 @@ public class NewUserWindow extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jLabel1.setText("name");
+        jLabel1.setText("Name");
 
-        jLabel2.setText("surname");
+        jLabel2.setText("Surname");
 
-        jLabel3.setText("username");
+        jLabel3.setText("Username");
 
-        jLabel4.setText("password");
+        jLabel4.setText("Password");
 
-        jLabel5.setText("email");
+        jLabel5.setText("Email");
 
-        jLabel6.setText("phone");
+        jLabel6.setText("Phone");
 
-        jLabel9.setText("address");
+        jLabel9.setText("Address");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -94,7 +96,7 @@ public class NewUserWindow extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(121, Short.MAX_VALUE))))
+                        .addContainerGap(120, Short.MAX_VALUE))))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6});
@@ -134,11 +136,21 @@ public class NewUserWindow extends javax.swing.JFrame {
         );
 
         jButton1.setText("Exit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Create");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -180,16 +192,25 @@ public class NewUserWindow extends javax.swing.JFrame {
         User newUser = new User();
         
         try {
-        newUser.insertUser(jTextArea1.getText(), jTextField3.getText(), jTextField4.getText(), jTextField1.getText(), 
-                jTextField2.getText(), jTextField6.getText(), jTextField5.getText(), 0);
+            newUser.insertUser(jTextArea1.getText(), jTextField3.getText(), jTextField4.getText(), jTextField1.getText(), 
+                    jTextField2.getText(), jTextField6.getText(), jTextField5.getText(), 0);
+            this.dispose();
         }
         catch(Exception e)  {
-            System.out.println("Sorun cikti");
+            //do to
         }
         
         
         
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -128,8 +128,8 @@ public class User {
     }
     
     public void insertUser(String address, String username, String password, String name, String surname, String phone, String email, int role) throws Exception{
-        String insertQuery = "INSERT INTO users (userRole, fName, lName, username, passw, phone, email, address)"
-                           + "VALUES ("+role+",'"+name+"', '"+surname+"', '"+username+"', '"+getPasswordHash(password)+"', '"+phone+"', '"+phone+"', '"+email+"', '"+address+"')";
+        String insertQuery = "INSERT INTO users (user_role, f_name, l_name, username, passw, phone, email, address)"
+                           + "VALUES ("+role+",'"+name+"', '"+surname+"', '"+username+"', '"+getPasswordHash(password)+"', '"+phone+ "', '"+email+"', '"+address+"')";
         Helper.insert(insertQuery);
     }
     
@@ -138,7 +138,7 @@ public class User {
      */
     public void updateUser(String address, String username, String password, String name, String surname, String phone, String email, String role) throws Exception{
         String updateQuery = "UPDATE INTO users "
-                            + "SET userRole='"+role+"', fName='"+name+"', lName='"+surname+"', username='"+username+"', passw'"+getPasswordHash(password)+"', phone='"+phone+"', email='"+email+"', address='"+address+"')";
+                            + "SET user_role='"+role+"', f_name='"+name+"', l_name='"+surname+"', username='"+username+"', passw'"+getPasswordHash(password)+"', phone='"+phone+"', email='"+email+"', address='"+address+"')";
         Helper.update(updateQuery);
     }
     
@@ -152,11 +152,11 @@ public class User {
             address = rs.getString("address"); 
             username = rs.getString("username");
             this.password = rs.getString("passw");
-            this.name = rs.getString("name");
-            this.surname = rs.getString("lName");
+            this.name = rs.getString("f_name");
+            this.surname = rs.getString("l_name");
             this.phone = rs.getString("phone");
             this.email = rs.getString("email");
-            this.role = rs.getInt("userRole");
+            this.role = rs.getInt("user_role");
             
             retrieveProducts(id); //loads products of the user
         }
@@ -178,11 +178,11 @@ public class User {
             address = rs.getString("address"); 
             this.username = rs.getString("username");
             this.password = rs.getString("passw");
-            this.name = rs.getString("fName");
-            this.surname = rs.getString("lName");
+            this.name = rs.getString("f_name");
+            this.surname = rs.getString("l_name");
             this.phone = rs.getString("phone");
             this.email = rs.getString("email");
-            this.role = rs.getInt("userRole");
+            this.role = rs.getInt("user_role");
             id = rs.getInt("id");
             
             //retrieveProducts(id);
