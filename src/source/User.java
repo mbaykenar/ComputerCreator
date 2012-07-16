@@ -171,21 +171,21 @@ public class User {
      * Pencere donen kullanicinin ismine ve rolune gore acilmali
      */
     public void authenticateUser(String username, String password) throws Exception{
-        String retrieveQuery =  "SELECT * FROM users WHERE username = "+username+" AND passw ="+getPasswordHash(password);
+        String retrieveQuery =  "SELECT * FROM users WHERE username = "+ "'" + username + "'" + " AND passw ="+ "'" + getPasswordHash(password) + "'";
         ResultSet rs = Helper.retrieve(retrieveQuery);
         int id;
         if(rs.next()){
             address = rs.getString("address"); 
             this.username = rs.getString("username");
             this.password = rs.getString("passw");
-            this.name = rs.getString("name");
+            this.name = rs.getString("fName");
             this.surname = rs.getString("lName");
             this.phone = rs.getString("phone");
             this.email = rs.getString("email");
             this.role = rs.getInt("userRole");
             id = rs.getInt("id");
             
-            retrieveProducts(id);
+            //retrieveProducts(id);
         }
         else{
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");

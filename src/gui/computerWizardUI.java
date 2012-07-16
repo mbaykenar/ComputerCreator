@@ -50,6 +50,11 @@ public class computerWizardUI extends javax.swing.JFrame {
         PasswordLabel.setText("Password");
 
         OKbutton.setText("Login");
+        OKbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OKbuttonMouseClicked(evt);
+            }
+        });
         OKbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OKbuttonActionPerformed(evt);
@@ -147,11 +152,26 @@ public class computerWizardUI extends javax.swing.JFrame {
         
         try{
             newUser.authenticateUser(userName, password);
+            this.setVisible(false);
         }
         catch(Exception e){
             //to do
         }
     }//GEN-LAST:event_OKbuttonActionPerformed
+
+    private void OKbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbuttonMouseClicked
+        User newUser = new User();
+        String userName = UsernameTextField.getText();
+        String password = PasswordTextField.getText();
+        
+        try{
+            newUser.authenticateUser(userName, password);
+            this.setVisible(false);
+        }
+        catch(Exception e){
+            //to do
+        }
+    }//GEN-LAST:event_OKbuttonMouseClicked
 
     /**
      * @param args the command line arguments
