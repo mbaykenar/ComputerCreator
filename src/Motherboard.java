@@ -185,7 +185,7 @@ public class Motherboard extends Hardware {
        Helper.delete(deleteQuery);
     }
     
-    public void retriveCpuMatches(int mbId) throws Exception{
+    public void retrieveCpuMatches(int mbId) throws Exception{
         String matchQuery = "SELECT cpu_id FROM cpu_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
@@ -193,7 +193,7 @@ public class Motherboard extends Hardware {
         }
     }
     
-    public void retriveGpuMatches(int mbId) throws Exception{
+    public void retrieveGpuMatches(int mbId) throws Exception{
         String matchQuery = "SELECT gpu_id FROM gpu_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
@@ -201,7 +201,7 @@ public class Motherboard extends Hardware {
         }
     }
     
-    public void retriveMemoryMatches(int mbId) throws Exception{
+    public void retrieveMemoryMatches(int mbId) throws Exception{
         String matchQuery = "SELECT memory_id FROM memory_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
@@ -209,11 +209,67 @@ public class Motherboard extends Hardware {
         }
     }
     
-    public void retriveStorageMatches(int mbId) throws Exception{
+    public void retrieveStorageMatches(int mbId) throws Exception{
         String matchQuery = "SELECT storage_id FROM storage_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
             addMemory(rs.getInt("storage_id"));
         }
+    }
+    
+    //stores cpu matches
+    public void storeCpuMatches() throws Exception{
+        String storeQuery = "INSERT INTO cpu_motherboard (cpu_id, motherboard_id)" +
+                "VALUES (";
+        
+        for(int i = 0; i < matchedCpuIDs.size(); i++){
+            String tempQuery = storeQuery;
+            tempQuery = tempQuery + matchedCpuIDs.get(i) + "," + this.getId() + ")";
+        
+            Helper.insert(tempQuery);
+        }
+            
+    }
+    
+    //stores gpu matches
+    public void storeGpuMatches() throws Exception{
+        String storeQuery = "INSERT INTO gpu_motherboard (gpu_id, motherboard_id)" +
+                "VALUES (";
+        
+        for(int i = 0; i < matchedGpuIDs.size(); i++){
+            String tempQuery = storeQuery;
+            tempQuery = tempQuery + matchedGpuIDs.get(i) + "," + this.getId() + ")";
+        
+            Helper.insert(tempQuery);
+        }
+            
+    }
+    
+    //stores memory matches
+    public void storeMemoryMatches() throws Exception{
+        String storeQuery = "INSERT INTO memory_motherboard (memory_id, motherboard_id)" +
+                "VALUES (";
+        
+        for(int i = 0; i < matchedMemoryIDs.size(); i++){
+            String tempQuery = storeQuery;
+            tempQuery = tempQuery + matchedMemoryIDs.get(i) + "," + this.getId() + ")";
+        
+            Helper.insert(tempQuery);
+        }
+            
+    }
+    
+    //stores storage matches
+    public void storeStorageMatches() throws Exception{
+        String storeQuery = "INSERT INTO storage_motherboard (storage_id, motherboard_id)" +
+                "VALUES (";
+        
+        for(int i = 0; i < matchedStorageIDs.size(); i++){
+            String tempQuery = storeQuery;
+            tempQuery = tempQuery + matchedStorageIDs.get(i) + "," + this.getId() + ")";
+        
+            Helper.insert(tempQuery);
+        }
+            
     }
 }
