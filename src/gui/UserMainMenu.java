@@ -3,19 +3,48 @@
  * and open the template in the editor.
  */
 package gui;
+import java.util.ArrayList;
+import source.*;
 
 /**
  *
  * @author SifresizAdmin
  */
 public class UserMainMenu extends javax.swing.JFrame {
-
+    
+    private ArrayList<Motherboard> motherboard;
+    private ArrayList<Cpu> cpu;
+    private ArrayList<Memory> memory;
+    private ArrayList<GraphicsCard> gpu;
+    private ArrayList<Monitor> monitor;
+    private ArrayList<Hdd> hdd;
+    private ArrayList<Mouse> mouse;
+    private ArrayList<Keyboard> keyboard;
+    private ArrayList<OpticDrive> opticdrive;
+    private ArrayList<Ssd> ssd;
+    private ArrayList<OperatingSystem> os;
+    
     /**
      * Creates new form UserMainMenu
      */
     public UserMainMenu() {        
         initComponents();
         setLocationRelativeTo( null ); //to center the window
+    }
+    
+    /*
+     * cpu, gpu, memory, storage listeleri motherboard secimine bagli olarak ayrıca doldurulacagi icin
+     * bu metodda doldurmaya gerek yok.
+     */
+    private void initEntities() throws Exception {
+        motherboard = Motherboard.retriveAllMotherboards();
+        monitor = Monitor.retrieveAllMonitors();
+        hdd = Hdd.retrieveAllHdds();
+        mouse = Mouse.retrieveAllMouses();
+        keyboard = Keyboard.retrieveAllKeyboards();
+        opticdrive = OpticDrive.retrieveAllOpticDrives();
+        ssd = Ssd.retrieveAllSsds();
+        os = OperatingSystem.retrieveAllOperatingSystems();
     }
 
     /**
