@@ -1,3 +1,5 @@
+package source;
+
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -168,8 +170,7 @@ public class User {
      * Kullanici girisi icin
      * Pencere donen kullanicinin ismine ve rolune gore acilmali
      */
-    public User authenticateUser(String username, String password) throws Exception{
-        User user = null;
+    public void authenticateUser(String username, String password) throws Exception{
         String retrieveQuery =  "SELECT * FROM users WHERE username = "+username+" AND passw ="+getPasswordHash(password);
         ResultSet rs = Helper.retrieve(retrieveQuery);
         int id;
@@ -190,7 +191,6 @@ public class User {
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
             throw NoSuchTuple;
         }
-        return user;
     }
     
     public String getPasswordHash(String passwordToEncrypt) throws NoSuchAlgorithmException{

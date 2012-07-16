@@ -1,3 +1,5 @@
+package source;
+
 public class Storage extends Hardware {
 
   private double capacity;

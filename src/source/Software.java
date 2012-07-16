@@ -1,3 +1,5 @@
+package source;
+
 public class Software extends Component {
 
   private String version;

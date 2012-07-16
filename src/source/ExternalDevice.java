@@ -1,3 +1,5 @@
+package source;
+
 public class ExternalDevice extends Hardware {
 
   private String connectionInterface;

@@ -2,8 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
-
+ package gui;
+ import source.*;
 /**
  *
  * @author SifresizAdmin
@@ -50,6 +50,11 @@ public class computerWizardUI extends javax.swing.JFrame {
         PasswordLabel.setText("Password");
 
         OKbutton.setText("Login");
+        OKbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OKbuttonActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Create New Account");
 
@@ -133,6 +138,20 @@ public class computerWizardUI extends javax.swing.JFrame {
     private void ExitbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbuttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ExitbuttonActionPerformed
+
+    private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbuttonActionPerformed
+        // TODO add your handling code here:
+        User newUser = new User();
+        String userName = UsernameTextField.getText();
+        String password = PasswordTextField.getText();
+        
+        try{
+            newUser.authenticateUser(userName, password);
+        }
+        catch(Exception e){
+            //to do
+        }
+    }//GEN-LAST:event_OKbuttonActionPerformed
 
     /**
      * @param args the command line arguments

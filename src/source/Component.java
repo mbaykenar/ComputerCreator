@@ -1,3 +1,5 @@
+package source;
+
 public class Component {
   /* {author=Hasan}*/
 

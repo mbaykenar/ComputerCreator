@@ -1,33 +1,37 @@
+package source;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class GraphicsCard extends Hardware {
+public class Cpu extends Hardware {
+
+  private double cacheSize;
 
   private double clockSpeed;
 
   private int coreNumber;
 
-  private int interfaceWidth;
-
-  private double textureFillRate;
-
-  private double memorySize;
-
+  private int threadNumber;
+  
   private int maxTDP;
+
+  private int lithography;
   
   private ArrayList<Integer> matchedMotherboardIDs;
 
-    public GraphicsCard() {
+    public Cpu() {
     }
 
-    public GraphicsCard(double clockSpeed, int coreNumber, int interfaceWidth, double textureFillRate, double memorySize, String model, String vendor, double price) {
+    public Cpu(double cacheSize, double clockSpeed, int coreNumber, int threadNumber, String model, String vendor, double price) {
         super(model, vendor, price);
+        this.cacheSize = cacheSize;
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;
-        this.interfaceWidth = interfaceWidth;
-        this.textureFillRate = textureFillRate;
-        this.memorySize = memorySize;
+        this.threadNumber = threadNumber;
+    }
+
+    public double getCacheSize() {
+        return cacheSize;
     }
 
     public double getClockSpeed() {
@@ -38,24 +42,24 @@ public class GraphicsCard extends Hardware {
         return coreNumber;
     }
 
-    public int getInterfaceWidth() {
-        return interfaceWidth;
+    public int getLithography() {
+        return lithography;
     }
 
     public int getMaxTDP() {
         return maxTDP;
     }
 
-    public double getMemorySize() {
-        return memorySize;
-    }
-
-    public double getTextureFillRate() {
-        return textureFillRate;
+    public int getThreadNumber() {
+        return threadNumber;
     }
     
     public ArrayList<Integer> getMatchedMotherBoardIDs() {
         return matchedMotherboardIDs;
+    }
+
+    public void setCacheSize(double cacheSize) {
+        this.cacheSize = cacheSize;
     }
 
     public void setClockSpeed(double clockSpeed) {
@@ -66,20 +70,16 @@ public class GraphicsCard extends Hardware {
         this.coreNumber = coreNumber;
     }
 
-    public void setInterfaceWidth(int interfaceWidth) {
-        this.interfaceWidth = interfaceWidth;
+    public void setLithography(int lithography) {
+        this.lithography = lithography;
     }
 
     public void setMaxTDP(int maxTDP) {
         this.maxTDP = maxTDP;
     }
 
-    public void setMemorySize(double memorySize) {
-        this.memorySize = memorySize;
-    }
-
-    public void setTextureFillRate(double textureFillRate) {
-        this.textureFillRate = textureFillRate;
+    public void setThreadNumber(int threadNumber) {
+        this.threadNumber = threadNumber;
     }
     
     public void setMatchedMotherBoardIDs(ArrayList<Integer> matchedMotherBoardIDs) {
@@ -102,16 +102,16 @@ public class GraphicsCard extends Hardware {
         }
     }
     
-    public void insertGraphicsCard() throws Exception{
+    public void insertCpu() throws Exception{
         
-        String insertQuery = "INSERT INTO graphicsCard (model, vendor, clock_speed, cores, interface_width, max_tdp, texture_fill_rate, memory_size, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + clockSpeed + "," + coreNumber + "," + interfaceWidth + "," + maxTDP + "," + textureFillRate + "," +
-                memorySize + "," + super.getPrice() + ")";
+        String insertQuery = "INSERT INTO cpu (model, vendor, cores, threads, max_tdp, lithography, cache_size, clock_speed, price)" +
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + coreNumber + "," + threadNumber + "," + maxTDP + "," + lithography + "," + cacheSize + "," +
+                clockSpeed + "," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     
-    public void retrieveGraphicsCard(int id) throws Exception{
-        String retrieveQuery = "SELECT * FROM graphicsCard WHERE id = "+id;
+    public void retrieveCpu(int id) throws Exception{
+        String retrieveQuery = "SELECT * FROM cpu WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);
         if(rs.next()){
@@ -119,12 +119,12 @@ public class GraphicsCard extends Hardware {
             super.setModel(rs.getString("model"));
             super.setVendor(rs.getString("vendor"));
             super.setPrice(rs.getDouble("price"));
-            clockSpeed = rs.getDouble("clock_speed");
-            coreNumber = rs.getInt("cores");
+            threadNumber = rs.getInt("threads");
+            cacheSize = rs.getDouble("cache_size");
             maxTDP = rs.getInt("max_tdp");
-            interfaceWidth = rs.getInt("interface_width");
-            textureFillRate = rs.getDouble("texture_fill_rate");
-            memorySize = rs.getDouble("memory_size");       
+            coreNumber = rs.getInt("cores");
+            lithography = rs.getInt("lithography");
+            clockSpeed = rs.getDouble("clock_speed");       
         }
         else{
             Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
@@ -132,8 +132,8 @@ public class GraphicsCard extends Hardware {
         }
     }
     
-     public static void deleteGraphicsCard(int id) throws Exception{
-        String deleteQuery = "DELETE FROM graphicsCard WHERE id = " + id;
+    public static void deleteCpu(int id) throws Exception{
+        String deleteQuery = "DELETE FROM cpu WHERE id = " + id;
         Helper.delete(deleteQuery);
     }
 }
