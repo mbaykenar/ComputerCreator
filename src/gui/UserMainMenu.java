@@ -15,6 +15,7 @@ public class UserMainMenu extends javax.swing.JFrame {
      */
     public UserMainMenu() {        
         initComponents();
+        setLocationRelativeTo( null ); //to center the window
     }
 
     /**

@@ -48,6 +48,11 @@ public class UserHelpMenu extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Need suggestion");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,6 +91,11 @@ public class UserHelpMenu extends javax.swing.JFrame {
         });
 
         jButton2.setText("OK");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,6 +134,20 @@ public class UserHelpMenu extends javax.swing.JFrame {
         new computerWizardUI().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(jRadioButton1.isSelected()){
+            new UserMainMenu().setVisible(true);
+            this.dispose();
+        }
+        else if(jRadioButton2.isSelected()){
+            //TODO
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

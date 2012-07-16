@@ -31,9 +31,9 @@ public class computerWizardUI extends javax.swing.JFrame {
         UsarnameLabel = new javax.swing.JLabel();
         UsernameTextField = new javax.swing.JTextField();
         PasswordLabel = new javax.swing.JLabel();
-        PasswordTextField = new javax.swing.JTextField();
         OKbutton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
         Exitbutton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,6 +62,11 @@ public class computerWizardUI extends javax.swing.JFrame {
                 OKbuttonActionPerformed(evt);
             }
         });
+        OKbutton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                OKbuttonKeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Create New Account");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -87,16 +92,19 @@ public class computerWizardUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(UsernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(PasswordTextField))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {UsernameTextField, jPasswordField1});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -105,9 +113,9 @@ public class computerWizardUI extends javax.swing.JFrame {
                     .addComponent(UsarnameLabel)
                     .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PasswordLabel)
-                    .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OKbutton)
@@ -160,7 +168,7 @@ public class computerWizardUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         User newUser = new User();
         String userName = UsernameTextField.getText();
-        String password = PasswordTextField.getText();
+        String password = String.copyValueOf(jPasswordField1.getPassword());
         
         try{
             newUser.authenticateUser(userName, password);
@@ -178,18 +186,9 @@ public class computerWizardUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_OKbuttonActionPerformed
 
+    
     private void OKbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbuttonMouseClicked
-        User newUser = new User();
-        String userName = UsernameTextField.getText();
-        String password = PasswordTextField.getText();
         
-        try{
-            newUser.authenticateUser(userName, password);
-            this.setVisible(false);
-        }
-        catch(Exception e){
-            //to do
-        }
     }//GEN-LAST:event_OKbuttonMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -199,6 +198,10 @@ public class computerWizardUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new NewUserWindow().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void OKbuttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OKbuttonKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OKbuttonKeyPressed
 
     /**
      * @param args the command line arguments
@@ -245,10 +248,10 @@ public class computerWizardUI extends javax.swing.JFrame {
     private javax.swing.JButton Exitbutton;
     private javax.swing.JButton OKbutton;
     private javax.swing.JLabel PasswordLabel;
-    private javax.swing.JTextField PasswordTextField;
     private javax.swing.JLabel UsarnameLabel;
     private javax.swing.JTextField UsernameTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     // End of variables declaration//GEN-END:variables
 }
