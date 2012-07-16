@@ -3,7 +3,10 @@
  * and open the template in the editor.
  */
 package gui;
-
+import java.util.ArrayList;
+import source.User;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author ArthaS
@@ -13,8 +16,42 @@ public class AdminMainMenu extends javax.swing.JFrame {
     /**
      * Creates new form AdminMainMenu
      */
-    public AdminMainMenu() {
+    User currentUser;
+    public AdminMainMenu(User u) {
         initComponents();
+        setLocationRelativeTo(null);
+        currentUser = u;
+        jLabel1.setText("Welcome " + currentUser.getName() + " " + currentUser.getSurname());
+        
+        reloadUsers();
+    }
+    
+    public void reloadUsers(){
+        String[] columns = {"Username", "Name", "Surname", "Phone", "Email", "User Role"};
+        
+        ArrayList<User> users = null;
+        
+        try{
+             users = User.retrieveAllUsers();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[users.size()][columns.length];
+        
+        for(int i = 0; i < users.size(); i++){
+            data[i][0] = users.get(i).getUsername();
+            data[i][1] = users.get(i).getName();
+            data[i][2] = users.get(i).getSurname();
+            data[i][3] = users.get(i).getPhone();
+            data[i][4] = users.get(i).getEmail();
+            data[i][5] = users.get(i).getRole() + "";
+        }
+        
+        DefaultTableModel tableModel = new DefaultTableModel(data, columns);
+        
+        jTable1.setModel(tableModel);
     }
 
     /**
@@ -46,10 +83,30 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Welcome");
+        setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
+        jLabel1.setFont(new java.awt.Font("Tarzan", 0, 14)); // NOI18N
         jLabel1.setText("Welcome ");
 
-        jButton13.setText("Exit");
+        jButton13.setText("Logout");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,6 +228,20 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jTabbedPane1.addTab("Components", jPanel2);
 
         jMenu1.setText("About");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                jMenu1MenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -199,7 +270,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jButton13)
                 .addContainerGap())
         );
@@ -208,8 +279,30 @@ public class AdminMainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
+        new NewUserWindow(1).setVisible(true);
+        //reload users
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jMenu1MenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenu1MenuKeyPressed
+
+    }//GEN-LAST:event_jMenu1MenuKeyPressed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        new computerWizardUI().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        new AboutWindow().setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        reloadUsers();
+    }//GEN-LAST:event_formFocusGained
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        reloadUsers();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
@@ -248,7 +341,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new AdminMainMenu().setVisible(true);
+                new AdminMainMenu(null).setVisible(true);
             }
         });
     }

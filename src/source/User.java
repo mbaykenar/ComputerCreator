@@ -24,6 +24,8 @@ public class User {
   
   private int role;
   
+  private int userID;
+  
   private ArrayList<Integer> productIDs;
   
   public enum Products{ MOTHERBOARD, CPU, GRAPHICS_CARD, MEMORY, HDD, SSD, KEYBOARD, MONITOR, MOUSE, OPERATING_SYSTEM, OPTIC_DRIVE, SPEAKER}
@@ -62,6 +64,10 @@ public class User {
         return username;
     }
     
+    public int getUserID() {
+        return userID;
+    }
+    
     public ArrayList<Integer> getProductIDs(){
         return productIDs;
     }
@@ -84,6 +90,10 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
     
 
@@ -244,6 +254,31 @@ public class User {
     public void deleteProducts(int id) throws Exception{
         String deleteQuery = "DELETE FROM user_component WHERE user_id = " + id;       
          Helper.delete(deleteQuery);
+    }
+    
+    //retrieves all users from 
+    public static ArrayList<User> retrieveAllUsers() throws Exception{
+        String retrieveQuery = "SELECT * FROM users";
+        
+        ArrayList<User> toReturn = new ArrayList<User>();
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        
+        while(rs.next()){
+            User temp = new User();
+            temp.setAddress(rs.getString("address")); 
+            temp.setUsername(rs.getString("username"));
+            temp.setName(rs.getString("f_name"));
+            temp.setSurname(rs.getString("l_name"));
+            temp.setPhone(rs.getString("phone"));
+            temp.setEmail(rs.getString("email"));
+            temp.setRole(rs.getInt("user_role"));
+            temp.setUserID(rs.getInt("id"));
+            
+            toReturn.add(temp);
+        }
+        
+        return toReturn;
     }
     
 }

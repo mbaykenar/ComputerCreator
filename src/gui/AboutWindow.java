@@ -15,6 +15,7 @@ public class AboutWindow extends javax.swing.JFrame {
      */
     public AboutWindow() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -34,7 +35,7 @@ public class AboutWindow extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Team");
         setResizable(false);
 
@@ -42,6 +43,11 @@ public class AboutWindow extends javax.swing.JFrame {
         jLabel1.setText("Computer Wizard v1.0");
 
         jButton1.setText("Close");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Team", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Tarzan", 0, 14), java.awt.Color.black)); // NOI18N
 
@@ -110,6 +116,10 @@ public class AboutWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
  package gui;
+import javax.swing.JOptionPane;
  import source.*;
 /**
  *
@@ -175,15 +176,15 @@ public class computerWizardUI extends javax.swing.JFrame {
             newUser.authenticateUser(userName, password);
             
             if(newUser.getRole() == 0)
-                new UserHelpMenu().setVisible(true);
+                new UserHelpMenu(newUser).setVisible(true);
             else
-                new AdminMainMenu().setVisible(true);
+                new AdminMainMenu(newUser).setVisible(true);
             
             
             this.dispose();
         }
         catch(Exception e){
-            //to do
+            JOptionPane.showMessageDialog(null, "Invalid Username or Password!", "Authentication failed!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_OKbuttonActionPerformed
 
@@ -197,7 +198,7 @@ public class computerWizardUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new NewUserWindow().setVisible(true);
+        new NewUserWindow(0).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void OKbuttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OKbuttonKeyPressed

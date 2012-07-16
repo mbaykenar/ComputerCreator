@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package gui;
+import javax.swing.JOptionPane;
 import source.*;
 /**
  *
@@ -13,9 +14,11 @@ public class NewUserWindow extends javax.swing.JFrame {
     /**
      * Creates new form NewUserWindow
      */
-    public NewUserWindow() {
+    int userRole = 0;
+    public NewUserWindow(int userRole) {
         initComponents();
         setLocationRelativeTo( null ); //to center the window
+        this.userRole = userRole;
     }
 
     /**
@@ -64,6 +67,13 @@ public class NewUserWindow extends javax.swing.JFrame {
         jLabel6.setText("Phone");
 
         jLabel9.setText("Address");
+
+        ;
+        jTextField6.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTextField6PropertyChange(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -198,12 +208,19 @@ public class NewUserWindow extends javax.swing.JFrame {
         User newUser = new User();
         
         try {
-            newUser.insertUser(jTextArea1.getText(), jTextField3.getText(), jPasswordField1.getPassword().toString(), jTextField1.getText(), 
-                    jTextField2.getText(), jTextField6.getText(), jTextField5.getText(), 0);
+            String fname = jTextField1.getText();
+            String lname = jTextField2.getText();
+            String username = jTextField3.getText();
+            String password = jPasswordField1.getPassword().toString();
+            String email = jTextField5.getText();
+            String phone = jTextField6.getText();
+            String address = jTextArea1.getText();
+            
+            newUser.insertUser(address, username, password, fname, lname, phone, email, userRole);
             this.dispose();
         }
         catch(Exception e)  {
-            //do to
+            JOptionPane.showMessageDialog(null, "Inappropriate input. Please check your information above!", "Warning!", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -221,6 +238,10 @@ public class NewUserWindow extends javax.swing.JFrame {
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jTextField6PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextField6PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6PropertyChange
 
     /**
      * @param args the command line arguments
@@ -259,7 +280,7 @@ public class NewUserWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new NewUserWindow().setVisible(true);
+                new NewUserWindow(0).setVisible(true);
             }
         });
     }
