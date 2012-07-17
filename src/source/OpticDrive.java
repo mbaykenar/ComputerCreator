@@ -28,7 +28,7 @@ public class OpticDrive extends ExternalDevice {
     public void insertOpticDrive() throws Exception{
         
         String insertQuery = "INSERT INTO opticDrive (model, vendor, interface, e_type, speed, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getConnectionInterface() + "," + super.getType() + "," + speed + "," + super.getPrice() + ")";
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "','" + super.getConnectionInterface() + "','" + super.getType() + "'," + speed + "," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     

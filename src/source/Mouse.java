@@ -17,7 +17,7 @@ public class Mouse extends ExternalDevice {
     public void insertMouse() throws Exception{
         
         String insertQuery = "INSERT INTO mouse (model, vendor, interface, e_type, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getConnectionInterface() + "," + super.getType() + "," + super.getPrice() + ")";
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "','" + super.getConnectionInterface() + "','" + super.getType() + "'," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     

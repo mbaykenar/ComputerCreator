@@ -28,8 +28,8 @@ public class Keyboard extends ExternalDevice {
     public void insertKeyboard() throws Exception{
         
         String insertQuery = "INSERT INTO keyboard (model, vendor, interface, e_type, layout, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getConnectionInterface() + "," + super.getType() + "," +
-                   layout + "," + super.getPrice() + ")";
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "','" + super.getConnectionInterface() + "','" + super.getType() + "','" +
+                   layout + "'," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     

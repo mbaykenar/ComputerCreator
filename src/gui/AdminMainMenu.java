@@ -801,15 +801,15 @@ public class AdminMainMenu extends javax.swing.JFrame {
         switch(jComboBox1.getSelectedIndex()){
             case 0: break;
             case 1: new AddNewCPU().setVisible(true); break;
-            case 2: break;
-            case 3: break;
-            case 4: break;
-            case 5: break;
-            case 6: break;
-            case 7: break;
-            case 8: break;
-            case 9: break;
-            case 10: break;
+            case 2: new AddNewMemory().setVisible(true); break;
+            case 3: new AddNewGpu().setVisible(true); break;
+            case 4: new AddNewHdd().setVisible(true); break;
+            case 5: new AddNewSsd().setVisible(true); break;
+            case 6: new AddNewMonitor().setVisible(true); break;
+            case 7: new AddNewKeyboard().setVisible(true); break;
+            case 8: new AddNewMouse().setVisible(true); break;
+            case 9: new AddNewOpticDrive().setVisible(true); break;
+            case 10: new AddNewOperatingSystem().setVisible(true); break;
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

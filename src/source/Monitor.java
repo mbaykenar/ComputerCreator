@@ -50,8 +50,8 @@ public class Monitor extends ExternalDevice {
     public void insertMonitor() throws Exception{
         
         String insertQuery = "INSERT INTO monitor (model, vendor, interface, e_type, resolution, refresh_rate, screen_size, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getConnectionInterface() + "," + super.getType() + "," +
-                   resolution + "," + refreshRate + "," + screenSize + "," + super.getPrice() + ")";
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "','" + super.getConnectionInterface() + "','" + super.getType() + "','" +
+                   resolution + "'," + refreshRate + "," + screenSize + "," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     

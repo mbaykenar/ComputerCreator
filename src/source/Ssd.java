@@ -38,9 +38,9 @@ public class Ssd extends Storage {
     
     public void insertSsd() throws Exception{
         
-        String insertQuery = "INSERT INTO sdd (model, vendor, capacity, interface, write_speed, read_speed, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getCapacity() + "," +
-                   super.getConnectionInterface() + "," + writeSpeed + "," + readSpeed + "," + super.getPrice() + ")";
+        String insertQuery = "INSERT INTO ssd (model, vendor, capacity, interface, write_speed, read_speed, price)" +
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getCapacity() + ",'" +
+                   super.getConnectionInterface() + "'," + writeSpeed + "," + readSpeed + "," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     

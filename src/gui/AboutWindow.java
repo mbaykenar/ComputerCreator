@@ -36,7 +36,7 @@ public class AboutWindow extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Team");
+        setTitle("About");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tarzan", 0, 24)); // NOI18N

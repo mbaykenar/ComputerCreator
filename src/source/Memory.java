@@ -50,8 +50,8 @@ public class Memory extends Hardware {
     public void insertMemory() throws Exception{
         
         String insertQuery = "INSERT INTO memory (model, vendor, capacity, memory_type, frequency, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + capacity + "," +
-                   memoryType + "," + frequency + "," + super.getPrice() + ")";
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + capacity + ",'" +
+                   memoryType + "'," + frequency + "," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     

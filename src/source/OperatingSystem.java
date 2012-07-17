@@ -17,7 +17,7 @@ public class OperatingSystem extends Software {
     public void insertOperatingSystem() throws Exception{
         
         String insertQuery = "INSERT INTO operatingSystem (model, vendor, s_version, platform, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getVersion() + "," + super.getPlatform() + "," + super.getPrice() + ")";
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "','" + super.getVersion() + "','" + super.getPlatform() + "'," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     

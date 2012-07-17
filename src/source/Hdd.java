@@ -39,8 +39,8 @@ public class Hdd extends Storage {
     public void insertHdd() throws Exception{
         
         String insertQuery = "INSERT INTO hdd (model, vendor, capacity, interface, rpm, diameter, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getCapacity() + "," +
-                   super.getConnectionInterface() + "," + rpm + "," + diameter + "," + super.getPrice() + ")";
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + super.getCapacity() + ",'" +
+                   super.getConnectionInterface() + "'," + rpm + "," + diameter + "," + super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     
