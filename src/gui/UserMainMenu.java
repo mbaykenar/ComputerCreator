@@ -83,21 +83,6 @@ public class UserMainMenu extends javax.swing.JFrame {
         }
         jComboBox15.setModel(new javax.swing.DefaultComboBoxModel(monitorModel));
         
-        /*int hddsize = hdd.size();
-        String [] hddModel = new String[hddsize];
-        for(int i=0; i<hddsize; i++){
-            hddModel[i] = hdd.get(i).getModel();
-        }
-        jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(hddModel));
-        
-        int ssdsize = ssd.size();
-        String [] ssdModel = new String[ssdsize];
-        for(int i=0; i<ssdsize; i++){
-            ssdModel[i] = ssd.get(i).getModel();
-        }
-        jComboBox17.setModel(new javax.swing.DefaultComboBoxModel(ssdModel));
-        */
-        
         int keyboardsize = keyboard.size();
         String [] keyboardModel = new String[keyboardsize];
         for(int i=0; i<keyboardsize; i++){
@@ -125,6 +110,93 @@ public class UserMainMenu extends javax.swing.JFrame {
             osModel[i] = os.get(i).getModel();
         }
         jComboBox21.setModel(new javax.swing.DefaultComboBoxModel(osModel));
+        
+        jComboBox12.setEnabled(false);
+        jComboBox13.setEnabled(false);
+        jComboBox14.setEnabled(false);
+        jComboBox16.setEnabled(false);
+        jComboBox17.setEnabled(false);
+    }
+    
+    private void initMotherboardMatchedEntities() throws Exception{
+        int mbIndex = jComboBox1.getSelectedIndex();
+        Motherboard mb = motherboard.get(mbIndex);
+        int mbId = mb.getId();
+        
+        mb.retrieveCpuMatches(mbId);
+        mb.retrieveGpuMatches(mbId);
+        mb.retrieveMemoryMatches(mbId);
+        mb.retrieveStorageMatches(mbId);
+        
+        Cpu cpu = new Cpu();
+        for(int i=0; i<mb.getMatchedCpuIDs().size(); i++){
+            int id = mb.getMatchedCpuIDs().get(i);
+            cpu.retrieveCpu(id);
+            this.cpu.add(cpu);
+        }
+        
+        GraphicsCard gpu = new GraphicsCard();
+        for(int i=0; i<mb.getMatchedGpuIDs().size(); i++){
+            int id = mb.getMatchedGpuIDs().get(i);
+            gpu.retrieveGraphicsCard(id);
+            this.gpu.add(gpu);
+        }
+        
+        Memory memory = new Memory();
+        for(int i=0; i<mb.getMatchedMemoryIDs().size(); i++){
+            int id = mb.getMatchedMemoryIDs().get(i);
+            memory.retrieveMemory(id);
+            this.memory.add(memory);
+        }
+        
+        Hdd hdd = new Hdd();
+        Ssd ssd = new Ssd();
+        
+        for(int i=0; i<mb.getMatchedStorageIDs().size(); i++){
+            int id = mb.getMatchedStorageIDs().get(i);
+            try{
+                hdd.retrieveHdd(id);
+                this.hdd.add(hdd);
+            }catch(Exception e){
+                ssd.retrieveSsd(id);
+                this.ssd.add(ssd);
+            } 
+        }
+        
+        int hddsize = this.hdd.size();
+        String [] hddModel = new String[hddsize];
+        for(int i=0; i<hddsize; i++){
+            hddModel[i] = this.hdd.get(i).getModel();
+        }
+        jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(hddModel));
+        
+        int ssdsize = this.ssd.size();
+        String [] ssdModel = new String[ssdsize];
+        for(int i=0; i<ssdsize; i++){
+            ssdModel[i] = this.ssd.get(i).getModel();
+        }
+        jComboBox17.setModel(new javax.swing.DefaultComboBoxModel(ssdModel));
+        
+        int memorysize = this.memory.size();
+        String [] memoryModel = new String[memorysize];
+        for(int i=0; i<memorysize; i++){
+            memoryModel[i] = this.memory.get(i).getModel();
+        }
+        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(memoryModel));      
+        
+        int cpusize = this.cpu.size();
+        String [] cpuModel = new String[cpusize];
+        for(int i=0; i<cpusize; i++){
+            cpuModel[i] = this.cpu.get(i).getModel();
+        }
+        jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(cpuModel));
+        
+        int gpusize = this.gpu.size();
+        String [] gpuModel = new String[gpusize];
+        for(int i=0; i<gpusize; i++){
+            gpuModel[i] = this.gpu.get(i).getModel();
+        }
+        jComboBox14.setModel(new javax.swing.DefaultComboBoxModel(gpuModel));
     }
 
     /**
@@ -182,37 +254,37 @@ public class UserMainMenu extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 12))); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
-        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
         jComboBox13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox13ActionPerformed(evt);
             }
         });
 
-        jComboBox14.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox14.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
-        jComboBox15.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox15.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
-        jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
-        jComboBox17.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox17.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
-        jComboBox18.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox18.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
-        jComboBox19.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox19.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
-        jComboBox20.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox20.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
-        jComboBox21.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox21.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
 
         jLabel23.setText("PRICE ($)");
 
@@ -481,7 +553,12 @@ public class UserMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            initMotherboardMatchedEntities();
+        } catch (Exception ex) {
+            //Logger.getLogger(UserMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
