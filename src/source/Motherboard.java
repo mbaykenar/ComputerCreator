@@ -76,7 +76,7 @@ public class Motherboard extends Hardware {
         return matchedMemoryIDs;
     }
 
-    public ArrayList<Integer> getMatchedSorageIDs() {
+    public ArrayList<Integer> getMatchedStorageIDs() {
         return matchedStorageIDs;
     }
 
