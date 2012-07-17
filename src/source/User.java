@@ -152,6 +152,11 @@ public class User {
         Helper.update(updateQuery);
     }
     
+    public void deleteUser() throws Exception{
+        String deleteQuery = "DELETE FROM users WHERE username = '" + this.getUsername() + "'";
+        Helper.delete(deleteQuery);
+    }
+    
     /*
      * Genel amacli user retrive metodu
      */

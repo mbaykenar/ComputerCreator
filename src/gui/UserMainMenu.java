@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import source.*;
 
 /**
@@ -43,7 +44,7 @@ public class UserMainMenu extends javax.swing.JFrame {
     /**
      * Creates new form UserMainMenu
      */
-    public UserMainMenu() throws Exception {        
+    public UserMainMenu(){        
         initComponents();
         initEntities();
         setLocationRelativeTo( null ); //to center the window
@@ -53,15 +54,20 @@ public class UserMainMenu extends javax.swing.JFrame {
      * cpu, gpu, memory, storage listeleri motherboard secimine bagli olarak ayrıca doldurulacagi icin
      * bu metodda doldurmaya gerek yok.
      */
-    private void initEntities() throws Exception {
-        motherboard = Motherboard.retriveAllMotherboards();
-        monitor = Monitor.retrieveAllMonitors();
-        hdd = Hdd.retrieveAllHdds();
-        mouse = Mouse.retrieveAllMouses();
-        keyboard = Keyboard.retrieveAllKeyboards();
-        opticdrive = OpticDrive.retrieveAllOpticDrives();
-        ssd = Ssd.retrieveAllSsds();
-        os = OperatingSystem.retrieveAllOperatingSystems();
+    private void initEntities(){
+        try{
+            motherboard = Motherboard.retriveAllMotherboards();
+            monitor = Monitor.retrieveAllMonitors();
+            hdd = Hdd.retrieveAllHdds();
+            mouse = Mouse.retrieveAllMouses();
+            keyboard = Keyboard.retrieveAllKeyboards();
+            opticdrive = OpticDrive.retrieveAllOpticDrives();
+            ssd = Ssd.retrieveAllSsds();
+            os = OperatingSystem.retrieveAllOperatingSystems();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Unable to connect to database!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         
         int mbsize = motherboard.size();
         String [] motherboardModel = new String[mbsize];
@@ -313,7 +319,7 @@ public class UserMainMenu extends javax.swing.JFrame {
                             .addComponent(jComboBox20, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox21, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel23)
@@ -333,7 +339,7 @@ public class UserMainMenu extends javax.swing.JFrame {
                         .addComponent(jLabel22)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox1, jComboBox12, jComboBox13, jComboBox14, jComboBox15, jComboBox16, jComboBox17, jComboBox18, jComboBox19, jComboBox20, jComboBox21});
@@ -343,11 +349,13 @@ public class UserMainMenu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jComboBox1))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jRadioButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -416,7 +424,7 @@ public class UserMainMenu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
                 .addComponent(jButton3)
                 .addGap(28, 28, 28))
         );

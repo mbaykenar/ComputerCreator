@@ -17,19 +17,17 @@ public class AdminMainMenu extends javax.swing.JFrame {
      * Creates new form AdminMainMenu
      */
     User currentUser;
+    ArrayList<User> users = null;
+    
     public AdminMainMenu(User u) {
         initComponents();
         setLocationRelativeTo(null);
         currentUser = u;
         jLabel1.setText("Welcome " + currentUser.getName() + " " + currentUser.getSurname());
-        
-        reloadUsers();
     }
     
     public void reloadUsers(){
         String[] columns = {"Username", "Name", "Surname", "Phone", "Email", "User Role"};
-        
-        ArrayList<User> users = null;
         
         try{
              users = User.retrieveAllUsers();
@@ -129,6 +127,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
 
         jButton1.setText("Delete User");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Edit");
 
@@ -303,6 +306,21 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         reloadUsers();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int toDelete = jTable1.getSelectedRow();
+        
+        if(toDelete != -1){
+            try{
+                users.get(toDelete).deleteUser();
+                reloadUsers();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Unable to Delete", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

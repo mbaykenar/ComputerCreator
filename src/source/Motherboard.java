@@ -14,7 +14,7 @@ public class Motherboard extends Hardware {
 
   private int pciESlots;
 
-  private int busInterface;
+  private String busInterface;
 
   private double frequency;
   
@@ -30,7 +30,7 @@ public class Motherboard extends Hardware {
     public Motherboard() {
     }
 
-    public Motherboard(String socket, int memorySlots, int pciSlots, int pciESlots, int busInterface, double frequency, String model, String vendor, double price) {
+    public Motherboard(String socket, int memorySlots, int pciSlots, int pciESlots, String busInterface, double frequency, String model, String vendor, double price) {
         super(model, vendor, price);
         this.socket = socket;
         this.memorySlots = memorySlots;
@@ -40,7 +40,7 @@ public class Motherboard extends Hardware {
         this.frequency = frequency;
     }
     
-    public int getBusInterface() {
+    public String getBusInterface() {
         return busInterface;
     }
 
@@ -80,7 +80,7 @@ public class Motherboard extends Hardware {
         return matchedStorageIDs;
     }
 
-    public void setBusInterface(int busInterface) {
+    public void setBusInterface(String busInterface) {
         this.busInterface = busInterface;
     }
 
@@ -173,7 +173,7 @@ public class Motherboard extends Hardware {
             memorySlots = rs.getInt("memory_slots");
             pciSlots = rs.getInt("pci_slots");
             pciESlots = rs.getInt("pci_e_slots");
-            busInterface = rs.getInt("bus_interface");
+            busInterface = rs.getString("bus_interface");
             frequency = rs.getDouble("frequency");       
         }
         else{
@@ -196,7 +196,7 @@ public class Motherboard extends Hardware {
             mb.setMemorySlots(rs.getInt("memory_slots"));
             mb.setPciSlots(rs.getInt("pci_slots"));
             mb.setPciESlots(rs.getInt("pci_e_slots"));
-            mb.setBusInterface(rs.getInt("bus_interface"));
+            mb.setBusInterface(rs.getString("bus_interface"));
             mb.setFrequency(rs.getDouble("frequency"));
             
             motherboards.add(mb);
