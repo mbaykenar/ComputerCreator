@@ -78,10 +78,10 @@ public class Monitor extends ExternalDevice {
     public static ArrayList<Monitor> retrieveAllMonitors() throws Exception{
         ArrayList<Monitor> monitors = new ArrayList<Monitor>();
         String retrieveQuery = "SELECT * FROM monitor";
-        
+        Monitor monitor;
         ResultSet rs = Helper.retrieve(retrieveQuery);
         while(rs.next()){
-            Monitor monitor = new Monitor();
+            monitor = new Monitor();
             monitor.setId(rs.getInt("id"));
             monitor.setModel(rs.getString("model"));
             monitor.setVendor(rs.getString("vendor"));
