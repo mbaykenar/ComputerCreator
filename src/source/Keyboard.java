@@ -54,9 +54,10 @@ public class Keyboard extends ExternalDevice {
     public static ArrayList<Keyboard> retrieveAllKeyboards() throws Exception{
         String retrieveQuery = "SELECT * FROM keyboard";
         ArrayList<Keyboard> keyboards = new ArrayList<Keyboard>();
-        Keyboard keyboard = new Keyboard();
+        Keyboard keyboard;
         ResultSet rs = Helper.retrieve(retrieveQuery);
         while(rs.next()){
+            keyboard = new Keyboard();
             keyboard.setId(rs.getInt("id"));
             keyboard.setModel(rs.getString("model"));
             keyboard.setVendor(rs.getString("vendor"));

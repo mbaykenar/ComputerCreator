@@ -41,9 +41,10 @@ public class OperatingSystem extends Software {
     public static ArrayList<OperatingSystem> retrieveAllOperatingSystems() throws Exception{
         ArrayList<OperatingSystem> operatingSystems = new ArrayList<OperatingSystem>();
         String retrieveQuery = "SELECT * FROM operatingSystem";
-        OperatingSystem operatingSystem = new OperatingSystem();
+        OperatingSystem operatingSystem;
         ResultSet rs = Helper.retrieve(retrieveQuery);
         while(rs.next()){
+            operatingSystem = new OperatingSystem();
             operatingSystem.setId(rs.getInt("id"));
             operatingSystem.setModel(rs.getString("model"));
             operatingSystem.setVendor(rs.getString("vendor"));
