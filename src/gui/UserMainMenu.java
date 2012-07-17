@@ -47,6 +47,7 @@ public class UserMainMenu extends javax.swing.JFrame {
     public UserMainMenu(){        
         initComponents();
         initEntities();
+        initPrices();
         setLocationRelativeTo( null ); //to center the window
     }
     
@@ -56,7 +57,7 @@ public class UserMainMenu extends javax.swing.JFrame {
      */
     private void initEntities(){
         try{
-            motherboard = Motherboard.retrieveAllMotherboards();
+            motherboard = Motherboard.retriveAllMotherboards();
             monitor = Monitor.retrieveAllMonitors();
             hdd = Hdd.retrieveAllHdds();
             mouse = Mouse.retrieveAllMouses();
@@ -72,42 +73,42 @@ public class UserMainMenu extends javax.swing.JFrame {
         int mbsize = motherboard.size();
         String [] motherboardModel = new String[mbsize];
         for(int i=0; i<mbsize; i++){
-            motherboardModel[i] = motherboard.get(i).getModel();
+            motherboardModel[i] = motherboard.get(i).getVendor()+" "+motherboard.get(i).getModel();
         }
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(motherboardModel));
         
         int monitorsize = monitor.size();
         String [] monitorModel = new String[monitorsize];
         for(int i=0; i<monitorsize; i++){
-            monitorModel[i] = monitor.get(i).getModel();
+            monitorModel[i] = monitor.get(i).getVendor()+" "+monitor.get(i).getModel();
         }
         jComboBox15.setModel(new javax.swing.DefaultComboBoxModel(monitorModel));
         
         int keyboardsize = keyboard.size();
         String [] keyboardModel = new String[keyboardsize];
         for(int i=0; i<keyboardsize; i++){
-            keyboardModel[i] = keyboard.get(i).getModel();
+            keyboardModel[i] = keyboard.get(i).getVendor()+" "+keyboard.get(i).getModel();
         }
         jComboBox18.setModel(new javax.swing.DefaultComboBoxModel(keyboardModel)); 
         
         int mousesize = mouse.size();
         String [] mouseModel = new String[mousesize];
         for(int i=0; i<mousesize; i++){
-            mouseModel[i] = mouse.get(i).getModel();
+            mouseModel[i] = mouse.get(i).getVendor()+" "+mouse.get(i).getModel();
         }
         jComboBox19.setModel(new javax.swing.DefaultComboBoxModel(mouseModel)); 
         
         int opticdrivesize = opticdrive.size();
         String [] opticdriveModel = new String[opticdrivesize];
         for(int i=0; i<opticdrivesize; i++){
-            opticdriveModel[i] = opticdrive.get(i).getModel();
+            opticdriveModel[i] = opticdrive.get(i).getVendor()+" "+opticdrive.get(i).getModel();
         }
         jComboBox20.setModel(new javax.swing.DefaultComboBoxModel(opticdriveModel));
         
         int ossize = os.size();
         String [] osModel = new String[ossize];
         for(int i=0; i<ossize; i++){
-            osModel[i] = os.get(i).getModel();
+            osModel[i] = os.get(i).getVendor()+" "+os.get(i).getModel();
         }
         jComboBox21.setModel(new javax.swing.DefaultComboBoxModel(osModel));
         
@@ -166,37 +167,68 @@ public class UserMainMenu extends javax.swing.JFrame {
         int hddsize = this.hdd.size();
         String [] hddModel = new String[hddsize];
         for(int i=0; i<hddsize; i++){
-            hddModel[i] = this.hdd.get(i).getModel();
+            hddModel[i] = this.hdd.get(i).getVendor()+" "+this.hdd.get(i).getModel();
         }
         jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(hddModel));
         
         int ssdsize = this.ssd.size();
         String [] ssdModel = new String[ssdsize];
         for(int i=0; i<ssdsize; i++){
-            ssdModel[i] = this.ssd.get(i).getModel();
+            ssdModel[i] = this.ssd.get(i).getVendor()+" "+this.ssd.get(i).getModel();
         }
         jComboBox17.setModel(new javax.swing.DefaultComboBoxModel(ssdModel));
         
         int memorysize = this.memory.size();
         String [] memoryModel = new String[memorysize];
         for(int i=0; i<memorysize; i++){
-            memoryModel[i] = this.memory.get(i).getModel();
+            memoryModel[i] = this.memory.get(i).getVendor()+" "+this.memory.get(i).getModel();
         }
         jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(memoryModel));      
         
         int cpusize = this.cpu.size();
         String [] cpuModel = new String[cpusize];
         for(int i=0; i<cpusize; i++){
-            cpuModel[i] = this.cpu.get(i).getModel();
+            cpuModel[i] = this.cpu.get(i).getVendor()+" "+this.cpu.get(i).getModel();
         }
         jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(cpuModel));
         
         int gpusize = this.gpu.size();
         String [] gpuModel = new String[gpusize];
         for(int i=0; i<gpusize; i++){
-            gpuModel[i] = this.gpu.get(i).getModel();
+            gpuModel[i] = this.gpu.get(i).getVendor()+" "+this.gpu.get(i).getModel();
         }
         jComboBox14.setModel(new javax.swing.DefaultComboBoxModel(gpuModel));
+    }
+    
+    public void initPrices(){
+        jTextField1.setText("0");
+        jTextField2.setText("0");
+        jTextField3.setText("0");
+        jTextField4.setText("0");
+        jTextField5.setText("0");
+        jTextField6.setText("0");
+        jTextField7.setText("0");
+        jTextField8.setText("0");
+        jTextField9.setText("0");
+        jTextField10.setText("0");
+        jTextField11.setText("0");
+    }
+    
+    public void updateTotalPrice(){
+        double total = 0;
+        total += Double.valueOf(jTextField1.getText());
+        total += Double.valueOf(jTextField2.getText());
+        total += Double.valueOf(jTextField3.getText());
+        total += Double.valueOf(jTextField4.getText());
+        total += Double.valueOf(jTextField5.getText());
+        total += Double.valueOf(jTextField6.getText());
+        total += Double.valueOf(jTextField7.getText());
+        total += Double.valueOf(jTextField8.getText());
+        total += Double.valueOf(jTextField9.getText());
+        total += Double.valueOf(jTextField10.getText());
+        total += Double.valueOf(jTextField11.getText());
+        
+        jTextField12.setText(total+"");
     }
 
     /**
@@ -262,6 +294,11 @@ public class UserMainMenu extends javax.swing.JFrame {
         });
 
         jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox12ActionPerformed(evt);
+            }
+        });
 
         jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
         jComboBox13.addActionListener(new java.awt.event.ActionListener() {
@@ -271,20 +308,60 @@ public class UserMainMenu extends javax.swing.JFrame {
         });
 
         jComboBox14.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox14ActionPerformed(evt);
+            }
+        });
 
         jComboBox15.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox15ActionPerformed(evt);
+            }
+        });
 
         jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox16ActionPerformed(evt);
+            }
+        });
 
         jComboBox17.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox17ActionPerformed(evt);
+            }
+        });
 
         jComboBox18.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox18ActionPerformed(evt);
+            }
+        });
 
         jComboBox19.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox19ActionPerformed(evt);
+            }
+        });
 
         jComboBox20.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox20ActionPerformed(evt);
+            }
+        });
 
         jComboBox21.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox21ActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("PRICE ($)");
 
@@ -559,11 +636,102 @@ public class UserMainMenu extends javax.swing.JFrame {
         } catch (Exception ex) {
             //Logger.getLogger(UserMainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
+        int mbIndex = jComboBox1.getSelectedIndex();
+        Motherboard mb = motherboard.get(mbIndex);
+        jTextField1.setText(mb.getPrice()+"");
+        
+        updateTotalPrice();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
         // TODO add your handling code here:
+        int memoryIndex = jComboBox13.getSelectedIndex();
+        Memory memory = this.memory.get(memoryIndex);
+        jTextField3.setText(memory.getPrice()+"");
+        
+        updateTotalPrice();
     }//GEN-LAST:event_jComboBox13ActionPerformed
+
+    private void jComboBox12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox12ActionPerformed
+        // TODO add your handling code here:
+        int cpuIndex = jComboBox12.getSelectedIndex();
+        Cpu cpu = this.cpu.get(cpuIndex);
+        jTextField2.setText(cpu.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox12ActionPerformed
+
+    private void jComboBox14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox14ActionPerformed
+        // TODO add your handling code here:
+        int gpuIndex = jComboBox14.getSelectedIndex();
+        GraphicsCard gpu = this.gpu.get(gpuIndex);
+        jTextField4.setText(gpu.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox14ActionPerformed
+
+    private void jComboBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox15ActionPerformed
+        // TODO add your handling code here:
+        int index = jComboBox15.getSelectedIndex();
+        Monitor monitor = this.monitor.get(index);
+        jTextField5.setText(monitor.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox15ActionPerformed
+
+    private void jComboBox16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox16ActionPerformed
+        // TODO add your handling code here:
+        int index = jComboBox16.getSelectedIndex();
+        Hdd hdd = this.hdd.get(index);
+        jTextField6.setText(hdd.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox16ActionPerformed
+
+    private void jComboBox17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox17ActionPerformed
+        // TODO add your handling code here:
+        int index = jComboBox17.getSelectedIndex();
+        Ssd ssd = this.ssd.get(index);
+        jTextField7.setText(ssd.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox17ActionPerformed
+
+    private void jComboBox18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox18ActionPerformed
+        // TODO add your handling code here:
+        int index = jComboBox15.getSelectedIndex();
+        Keyboard keyboard = this.keyboard.get(index);
+        jTextField8.setText(keyboard.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox18ActionPerformed
+
+    private void jComboBox19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox19ActionPerformed
+        // TODO add your handling code here:
+        int index = jComboBox19.getSelectedIndex();
+        Mouse mouse = this.mouse.get(index);
+        jTextField9.setText(mouse.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox19ActionPerformed
+
+    private void jComboBox20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox20ActionPerformed
+        // TODO add your handling code here:
+        int index = jComboBox20.getSelectedIndex();
+        OpticDrive od = this.opticdrive.get(index);
+        jTextField10.setText(od.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox20ActionPerformed
+
+    private void jComboBox21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox21ActionPerformed
+        // TODO add your handling code here:
+        int index = jComboBox21.getSelectedIndex();
+        OperatingSystem os = this.os.get(index);
+        jTextField11.setText(os.getPrice()+"");
+        
+        updateTotalPrice();
+    }//GEN-LAST:event_jComboBox21ActionPerformed
 
     /**
      * @param args the command line arguments
