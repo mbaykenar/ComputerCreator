@@ -8,6 +8,7 @@ import source.User;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import source.Motherboard;
 /**
  *
  * @author ArthaS
@@ -19,12 +20,28 @@ public class AdminMainMenu extends javax.swing.JFrame {
      */
     User currentUser;
     ArrayList<User> users = null;
+    ArrayList<Motherboard> motherboards = null;
     
     public AdminMainMenu(User u) {
         initComponents();
         setLocationRelativeTo(null);
         currentUser = u;
         jLabel1.setText("Welcome " + currentUser.getName() + " " + currentUser.getSurname());
+        
+        jComboBox1.removeAllItems();
+        
+        jComboBox1.addItem("Motherboard");
+        jComboBox1.addItem("CPU");
+        jComboBox1.addItem("Memory");
+        jComboBox1.addItem("Graphics Card");
+        jComboBox1.addItem("HDD");
+        jComboBox1.addItem("SSD");
+        jComboBox1.addItem("Monitor");
+        jComboBox1.addItem("Keyboard");
+        jComboBox1.addItem("Mouse");
+        jComboBox1.addItem("Optic Drive");
+        jComboBox1.addItem("Operating System");
+        jComboBox1.setSelectedIndex(-1);
         
     }
     
@@ -58,6 +75,68 @@ public class AdminMainMenu extends javax.swing.JFrame {
         
         jTable1.setModel(tableModel);
     }
+    
+    public void reloadMotherboards(){
+        String[] columns = {"Model", "Vendor", "Socket", "Memory Slots", "Bus Interface", "Price"};
+        
+        try{
+             motherboards = Motherboard.retriveAllMotherboards();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[motherboards.size()][columns.length];
+        
+        for(int i = 0; i < motherboards.size(); i++){
+            data[i][0] = motherboards.get(i).getModel();
+            data[i][1] = motherboards.get(i).getVendor();
+            data[i][2] = motherboards.get(i).getSocket();
+            data[i][3] = motherboards.get(i).getMemorySlots() + "";
+            data[i][4] = motherboards.get(i).getBusInterface();
+            data[i][5] = motherboards.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadCpus(){
+        String[] columns = {"Model", "Vendor", "Cores", "Threads", "Cache Size", "Frequency", "Price"};
+        
+        try{
+             cpus = ;
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[motherboards.size()][columns.length];
+        
+        for(int i = 0; i < motherboards.size(); i++){
+            data[i][0] = motherboards.get(i).getModel();
+            data[i][1] = motherboards.get(i).getVendor();
+            data[i][2] = motherboards.get(i).getSocket();
+            data[i][3] = motherboards.get(i).getMemorySlots() + "";
+            data[i][4] = motherboards.get(i).getBusInterface();
+            data[i][5] = motherboards.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,6 +156,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -148,6 +228,13 @@ public class AdminMainMenu extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Show Address");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,11 +242,12 @@ public class AdminMainMenu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButton14)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton4))
                 .addGap(29, 29, 29))
         );
         jPanel1Layout.setVerticalGroup(
@@ -176,13 +264,25 @@ public class AdminMainMenu extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addGap(0, 246, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
+                        .addGap(0, 203, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Users", jPanel1);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Select Component");
 
@@ -342,6 +442,32 @@ public class AdminMainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if(jTable1.getSelectedRow() != -1){
+            JOptionPane.showMessageDialog(null, users.get(jTable1.getSelectedRow()).getAddress(), "Address", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        switch(jComboBox1.getSelectedIndex()){
+            case 0: reloadMotherboards(); break;
+            case 1: reloadCpus(); break;
+            case 2: reloadMemories(); break;
+            case 3: reloadGpus(); break;
+            case 4: reloadHdds(); break;
+            case 5: reloadSsds(); break;
+            case 6: reloadMonitors(); break;
+            case 7: reloadKeyboards(); break;
+            case 8: reloadMice(); break;
+            case 9: reloadOpticDrives(); break;
+            case 10: reloadOperatingSystems(); break;
+        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -389,6 +515,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
