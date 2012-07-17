@@ -577,6 +577,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jButton3.setText("Add New");
 
         jButton6.setText("Delete");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -732,6 +737,27 @@ public class AdminMainMenu extends javax.swing.JFrame {
             case 10: reloadOperatingSystems(); break;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+            switch(jComboBox1.getSelectedIndex()){
+                case 0: motherboards.get(jTable2.getSelectedRow()).deleteMotherboard(); break;
+                case 1: cpus.get(jTable2.getSelectedRow()).deleteCpu(); break;
+                case 2: reloadMemories(); break;
+                case 3: reloadGraphicsCards(); break;
+                case 4: reloadHDDs(); break;
+                case 5: reloadSSDs(); break;
+                case 6: reloadMonitors(); break;
+                case 7: reloadKeyboards(); break;
+                case 8: reloadMice(); break;
+                case 9: reloadOpticDrives(); break;
+                case 10: reloadOperatingSystems(); break;
+            }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Can't delete!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -57,7 +57,7 @@ public class UserMainMenu extends javax.swing.JFrame {
      */
     private void initEntities(){
         try{
-            motherboard = Motherboard.retriveAllMotherboards();
+            motherboard = Motherboard.retrieveAllMotherboards();
             monitor = Monitor.retrieveAllMonitors();
             hdd = Hdd.retrieveAllHdds();
             mouse = Mouse.retrieveAllMouses();

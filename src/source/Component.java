@@ -15,10 +15,11 @@ public class Component {
     public Component() {
     }
 
-    public Component(String model, String vendor, double price) {
+    public Component(int id, String model, String vendor, double price) {
         this.model = model;
         this.vendor = vendor;
         this.price = price;
+        this.id = id;
     }
 
     public String getModel() {

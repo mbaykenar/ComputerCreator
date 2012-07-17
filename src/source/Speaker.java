@@ -12,8 +12,8 @@ public class Speaker extends ExternalDevice {
     public Speaker() {
     }
 
-    public Speaker(int power, String connectionInterface, String type, String model, String vendor, double price) {
-        super(connectionInterface, type, model, vendor, price);
+    public Speaker(int id, int power, String connectionInterface, String type, String model, String vendor, double price) {
+        super(id, connectionInterface, type, model, vendor, price);
         this.power = power;
     }
 
@@ -71,8 +71,8 @@ public class Speaker extends ExternalDevice {
         return speakers;
     }
     
-     public static void deleteSpeaker(int id) throws Exception{
-        String deleteQuery = "DELETE FROM speaker WHERE id = " + id;
+     public void deleteSpeaker() throws Exception{
+        String deleteQuery = "DELETE FROM speaker WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
   

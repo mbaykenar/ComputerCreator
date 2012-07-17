@@ -9,8 +9,8 @@ public class Software extends Component {
     public Software() {
     }
 
-    public Software(String version, String platform, String model, String vendor, double price) {
-        super(model, vendor, price);
+    public Software(int id, String version, String platform, String model, String vendor, double price) {
+        super(id, model, vendor, price);
         this.version = version;
         this.platform = platform;
     }

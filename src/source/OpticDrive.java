@@ -12,8 +12,8 @@ public class OpticDrive extends ExternalDevice {
     public OpticDrive() {
     }
 
-    public OpticDrive(int Speed, String connectionInterface, String type, String model, String vendor, double price) {
-        super(connectionInterface, type, model, vendor, price);
+    public OpticDrive(int id, int Speed, String connectionInterface, String type, String model, String vendor, double price) {
+        super(id, connectionInterface, type, model, vendor, price);
         this.speed = Speed;
     }
 
@@ -71,8 +71,8 @@ public class OpticDrive extends ExternalDevice {
         return opticDrives;
     }
     
-     public static void deleteOpticDrive(int id) throws Exception{
-        String deleteQuery = "DELETE FROM opticDrive WHERE id = " + id;
+     public void deleteOpticDrive() throws Exception{
+        String deleteQuery = "DELETE FROM opticDrive WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
 }

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class Motherboard extends Hardware {
-
+  
   private String socket;
 
   private int memorySlots;
@@ -31,8 +31,8 @@ public class Motherboard extends Hardware {
     public Motherboard() {
     }
 
-    public Motherboard(String socket, int memorySlots, int pciSlots, int pciESlots, String busInterface, double frequency, String model, String vendor, double price) {
-        super(model, vendor, price);
+    public Motherboard(int id, String socket, int memorySlots, int pciSlots, int pciESlots, String busInterface, double frequency, String model, String vendor, double price) {
+        super(id, model, vendor, price);
         this.socket = socket;
         this.memorySlots = memorySlots;
         this.pciSlots = pciSlots;
@@ -45,7 +45,7 @@ public class Motherboard extends Hardware {
         return busInterface;
     }
 
-    public double getdouble() {
+    public double getFrequency() {
         return frequency;
     }
 
@@ -206,8 +206,8 @@ public class Motherboard extends Hardware {
         return motherboards;
     }
     
-    public static void deleteMotherboard(int id) throws Exception{
-       String deleteQuery = "DELETE FROM motherboard WHERE id = " + id;
+    public void deleteMotherboard() throws Exception{
+       String deleteQuery = "DELETE FROM motherboard WHERE id = " + super.getId();
        Helper.delete(deleteQuery);
     }
     

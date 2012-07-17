@@ -24,8 +24,8 @@ public class GraphicsCard extends Hardware {
     public GraphicsCard() {
     }
 
-    public GraphicsCard(double clockSpeed, int coreNumber, int interfaceWidth, double textureFillRate, double memorySize, String model, String vendor, double price) {
-        super(model, vendor, price);
+    public GraphicsCard(int id, double clockSpeed, int coreNumber, int interfaceWidth, double textureFillRate, double memorySize, String model, String vendor, double price) {
+        super(id, model, vendor, price);
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;
         this.interfaceWidth = interfaceWidth;
@@ -135,8 +135,8 @@ public class GraphicsCard extends Hardware {
         }
     }
     
-     public static void deleteGraphicsCard(int id) throws Exception{
-        String deleteQuery = "DELETE FROM graphicsCard WHERE id = " + id;
+     public void deleteGraphicsCard() throws Exception{
+        String deleteQuery = "DELETE FROM graphicsCard WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
      

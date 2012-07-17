@@ -23,8 +23,8 @@ public class Cpu extends Hardware {
     public Cpu() {
     }
 
-    public Cpu(double cacheSize, double clockSpeed, int coreNumber, int threadNumber, String model, String vendor, double price) {
-        super(model, vendor, price);
+    public Cpu(int id, double cacheSize, double clockSpeed, int coreNumber, int threadNumber, String model, String vendor, double price) {
+        super(id, model, vendor, price);
         this.cacheSize = cacheSize;
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;
@@ -133,8 +133,8 @@ public class Cpu extends Hardware {
         }
     }
     
-    public static void deleteCpu(int id) throws Exception{
-        String deleteQuery = "DELETE FROM cpu WHERE id = " + id;
+    public void deleteCpu() throws Exception{
+        String deleteQuery = "DELETE FROM cpu WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
     

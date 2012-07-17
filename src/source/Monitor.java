@@ -16,8 +16,8 @@ public class Monitor extends ExternalDevice {
     public Monitor() {
     }
 
-    public Monitor(String resolution, int refreshRate, double screenSize, String connectionInterface, String type, String model, String vendor, double price) {
-        super(connectionInterface, type, model, vendor, price);
+    public Monitor(int id, String resolution, int refreshRate, double screenSize, String connectionInterface, String type, String model, String vendor, double price) {
+        super(id, connectionInterface, type, model, vendor, price);
         this.resolution = resolution;
         this.refreshRate = refreshRate;
         this.screenSize = screenSize;
@@ -98,8 +98,8 @@ public class Monitor extends ExternalDevice {
         return monitors;
     }
     
-     public static void deleteMonitor(int id) throws Exception{
-        String deleteQuery = "DELETE FROM monitor WHERE id = " + id;
+     public void deleteMonitor() throws Exception{
+        String deleteQuery = "DELETE FROM monitor WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
 

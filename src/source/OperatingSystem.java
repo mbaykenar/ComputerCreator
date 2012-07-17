@@ -10,8 +10,8 @@ public class OperatingSystem extends Software {
     public OperatingSystem() {
     }
 
-    public OperatingSystem(String version, String platform, String model, String vendor, double price) {
-        super(version, platform, model, vendor, price);
+    public OperatingSystem(int id, String version, String platform, String model, String vendor, double price) {
+        super(id, version, platform, model, vendor, price);
     }
     
     public void insertOperatingSystem() throws Exception{
@@ -58,8 +58,8 @@ public class OperatingSystem extends Software {
         return operatingSystems;
     }
     
-     public static void deleteOperatingSystem(int id) throws Exception{
-        String deleteQuery = "DELETE FROM operatingSystem WHERE id = " + id;
+     public void deleteOperatingSystem() throws Exception{
+        String deleteQuery = "DELETE FROM operatingSystem WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
 

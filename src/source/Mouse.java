@@ -10,8 +10,8 @@ public class Mouse extends ExternalDevice {
     public Mouse() {
     }
 
-    public Mouse(String connectionInterface, String type, String model, String vendor, double price) {
-        super(connectionInterface, type, model, vendor, price);
+    public Mouse(int id, String connectionInterface, String type, String model, String vendor, double price) {
+        super(id, connectionInterface, type, model, vendor, price);
     }
     
     public void insertMouse() throws Exception{
@@ -58,8 +58,8 @@ public class Mouse extends ExternalDevice {
         return mouses;
     }
     
-     public static void deleteMouse(int id) throws Exception{
-        String deleteQuery = "DELETE FROM mouse WHERE id = " + id;
+     public void deleteMouse() throws Exception{
+        String deleteQuery = "DELETE FROM mouse WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
 

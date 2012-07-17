@@ -16,8 +16,8 @@ public class Memory extends Hardware {
     public Memory() {
     }
 
-    public Memory(double capacity, String memoryType, double frequency, String model, String vendor, double price) {
-        super(model, vendor, price);
+    public Memory(int id, double capacity, String memoryType, double frequency, String model, String vendor, double price) {
+        super(id, model, vendor, price);
         this.capacity = capacity;
         this.memoryType = memoryType;
         this.frequency = frequency;
@@ -74,8 +74,8 @@ public class Memory extends Hardware {
         }
     }
     
-     public static void deleteMemory(int id) throws Exception{
-        String deleteQuery = "DELETE FROM memory WHERE id = " + id;
+     public void deleteMemory() throws Exception{
+        String deleteQuery = "DELETE FROM memory WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
      

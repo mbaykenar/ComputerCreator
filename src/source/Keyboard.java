@@ -12,8 +12,8 @@ public class Keyboard extends ExternalDevice {
     public Keyboard() {
     }
 
-    public Keyboard(String layout, String connectionInterface, String type, String model, String vendor, double price) {
-        super(connectionInterface, type, model, vendor, price);
+    public Keyboard(int id, String layout, String connectionInterface, String type, String model, String vendor, double price) {
+        super(id, connectionInterface, type, model, vendor, price);
         this.layout = layout;
     }
 
@@ -72,8 +72,8 @@ public class Keyboard extends ExternalDevice {
         return keyboards;
     }
     
-     public static void deleteKeyboard(int id) throws Exception{
-        String deleteQuery = "DELETE FROM keyboard WHERE id = " + id;
+     public void deleteKeyboard() throws Exception{
+        String deleteQuery = "DELETE FROM keyboard WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
     }
 
