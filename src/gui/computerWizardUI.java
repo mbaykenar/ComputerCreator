@@ -185,6 +185,7 @@ public class computerWizardUI extends javax.swing.JFrame {
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Invalid Username or Password!", "Authentication failed!", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_OKbuttonActionPerformed
 

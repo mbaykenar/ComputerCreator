@@ -182,12 +182,12 @@ public class Motherboard extends Hardware {
         }
     }
     
-    public static ArrayList<Motherboard> retriveAllMotherboards() throws Exception{
+    public static ArrayList<Motherboard> retrieveAllMotherboards() throws Exception{
         ArrayList<Motherboard> motherboards = new ArrayList<Motherboard>();
         String retrieveQuery = "SELECT * FROM motherboard";
-        Motherboard mb = new Motherboard();
         ResultSet rs = Helper.retrieve(retrieveQuery);
         while(rs.next()){
+            Motherboard mb = new Motherboard();
             mb.setId(rs.getInt("id"));
             mb.setModel(rs.getString("model"));
             mb.setVendor(rs.getString("vendor"));

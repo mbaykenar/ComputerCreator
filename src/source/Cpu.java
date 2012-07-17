@@ -136,4 +136,26 @@ public class Cpu extends Hardware {
         String deleteQuery = "DELETE FROM cpu WHERE id = " + id;
         Helper.delete(deleteQuery);
     }
+    
+    public static ArrayList<Cpu> retrieveAllCpus() throws Exception{
+        ArrayList<Cpu> cpus = new ArrayList<Cpu>();
+        String retrieveQuery = "SELECT * FROM cpu";
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            Cpu c = new Cpu();
+            c.setId(rs.getInt("id"));
+            c.setModel(rs.getString("model"));
+            c.setVendor(rs.getString("vendor"));
+            c.setPrice(rs.getDouble("price"));
+            c.setCacheSize(rs.getDouble("cache_size"));
+            c.setClockSpeed(rs.getDouble("clock_speed"));
+            c.setCoreNumber(rs.getInt("cores"));
+            c.setThreadNumber(rs.getInt("threads"));
+            c.setLithography(rs.getInt("lithography"));
+            c.setMaxTDP(rs.getInt("max_tdp"));
+            
+            cpus.add(c);
+        } 
+        return cpus;
+    }
 }

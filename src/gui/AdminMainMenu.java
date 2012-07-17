@@ -4,10 +4,11 @@
  */
 package gui;
 import java.util.ArrayList;
-import source.User;
+import source.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import source.Motherboard;
 /**
  *
  * @author ArthaS
@@ -20,11 +21,39 @@ public class AdminMainMenu extends javax.swing.JFrame {
     User currentUser;
     ArrayList<User> users = null;
     
+    ArrayList<Motherboard> motherboards = null;
+    ArrayList<Cpu> cpus = null;
+    ArrayList<Memory> memories = null;
+    ArrayList<GraphicsCard> graphicsCards = null;
+    ArrayList<Hdd> hdds = null;
+    ArrayList<Ssd> ssds = null;
+    ArrayList<Monitor> monitors = null;
+    ArrayList<Keyboard> keyboards = null;
+    ArrayList<Mouse> mice = null;
+    ArrayList<OpticDrive> opticDrives = null;
+    ArrayList<OperatingSystem> operatingSystems = null;
+    
+    
     public AdminMainMenu(User u) {
         initComponents();
         setLocationRelativeTo(null);
         currentUser = u;
         jLabel1.setText("Welcome " + currentUser.getName() + " " + currentUser.getSurname());
+        
+        jComboBox1.removeAllItems();
+        
+        jComboBox1.addItem("Motherboard");
+        jComboBox1.addItem("Cpu");
+        jComboBox1.addItem("Memory");
+        jComboBox1.addItem("Graphics Card");
+        jComboBox1.addItem("HDD");
+        jComboBox1.addItem("SSD");
+        jComboBox1.addItem("Monitor");
+        jComboBox1.addItem("Keyboard");
+        jComboBox1.addItem("Mouse");
+        jComboBox1.addItem("Optic Drive");
+        jComboBox1.addItem("Operating System");
+        //jComboBox1.setSelectedIndex(-1);
         
     }
     
@@ -57,6 +86,350 @@ public class AdminMainMenu extends javax.swing.JFrame {
         };
         
         jTable1.setModel(tableModel);
+    }
+    
+    public void reloadMotherboards(){
+        String[] columns = {"Model", "Vendor", "Socket", "Memory Slots", "Bus Interface", "Price"};
+        
+        try{
+             motherboards = Motherboard.retrieveAllMotherboards();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[motherboards.size()][columns.length];
+        
+        for(int i = 0; i < motherboards.size(); i++){
+            data[i][0] = motherboards.get(i).getModel();
+            data[i][1] = motherboards.get(i).getVendor();
+            data[i][2] = motherboards.get(i).getSocket();
+            data[i][3] = motherboards.get(i).getMemorySlots() + "";
+            data[i][4] = motherboards.get(i).getBusInterface();
+            data[i][5] = motherboards.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadCpus(){
+        String[] columns = {"Model", "Vendor", "Cores", "Threads", "Cache Size", "Frequency", "Price"};
+        
+        try{
+             cpus = Cpu.retrieveAllCpus();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[cpus.size()][columns.length];
+        
+        for(int i = 0; i < cpus.size(); i++){
+            data[i][0] = cpus.get(i).getModel();
+            data[i][1] = cpus.get(i).getVendor();
+            data[i][2] = cpus.get(i).getCoreNumber() + "";
+            data[i][3] = cpus.get(i).getThreadNumber() + "";
+            data[i][4] = cpus.get(i).getCacheSize() + "";
+            data[i][5] = cpus.get(i).getClockSpeed() + "";
+            data[i][6] = cpus.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadMemories(){
+        String[] columns = {"Model", "Vendor", "Capacity", "Memory Type", "Frequency", "Price"};
+        
+        try{
+             memories = Memory.retrieveAllMemories();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[memories.size()][columns.length];
+        
+        for(int i = 0; i < memories.size(); i++){
+            data[i][0] = memories.get(i).getModel();
+            data[i][1] = memories.get(i).getVendor();
+            data[i][2] = memories.get(i).getCapacity() + "";
+            data[i][3] = memories.get(i).getMemoryType();
+            data[i][4] = memories.get(i).getFrequency() + "";
+            data[i][5] = memories.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadGraphicsCards(){
+        String[] columns = {"Model", "Vendor", "Cores", "Frequency", "Interface Width", "Texture Fill Rate", "Memory Size", "Price"};
+        
+        try{
+             graphicsCards = GraphicsCard.retrieveAllGraphicsCards();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[graphicsCards.size()][columns.length];
+        
+        for(int i = 0; i < graphicsCards.size(); i++){
+            data[i][0] = graphicsCards.get(i).getModel();
+            data[i][1] = graphicsCards.get(i).getVendor();
+            data[i][2] = graphicsCards.get(i).getCoreNumber() + "";
+            data[i][3] = graphicsCards.get(i).getClockSpeed() + "";
+            data[i][4] = graphicsCards.get(i).getInterfaceWidth() + "";
+            data[i][5] = graphicsCards.get(i).getTextureFillRate() + "";
+            data[i][6] = graphicsCards.get(i).getMemorySize() + "";
+            data[i][7] = graphicsCards.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadHDDs(){
+        String[] columns = {"Model", "Vendor", "Capacity", "Interface", "Rpm", "Price"};
+        
+        try{
+            hdds  = Hdd.retrieveAllHdds();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[hdds.size()][columns.length];
+        
+        for(int i = 0; i < hdds.size(); i++){
+            data[i][0] = hdds.get(i).getModel();
+            data[i][1] = hdds.get(i).getVendor();
+            data[i][2] = hdds.get(i).getCapacity() + "";
+            data[i][3] = hdds.get(i).getConnectionInterface();
+            data[i][4] = hdds.get(i).getRpm() + "";
+            data[i][5] = hdds.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadSSDs(){
+        String[] columns = {"Model", "Vendor", "Capacity", "Interface", "Write Speed", "Read Speed", "Price"};
+        
+        try{
+            ssds  = Ssd.retrieveAllSsds();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[ssds.size()][columns.length];
+        
+        for(int i = 0; i < ssds.size(); i++){
+            data[i][0] = ssds.get(i).getModel();
+            data[i][1] = ssds.get(i).getVendor();
+            data[i][2] = ssds.get(i).getCapacity() + "";
+            data[i][3] = ssds.get(i).getConnectionInterface();
+            data[i][4] = ssds.get(i).getWriteSpeed() + "";
+            data[i][5] = ssds.get(i).getReadSpeed() + "";
+            data[i][6] = ssds.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadMonitors(){
+        String[] columns = {"Model", "Vendor", "Interface", "Type", "Resolution", "Refresh Rate(Hz)", "Screen Size(Inch)", "Price(Dollar)"};
+        
+        try{
+            monitors  = Monitor.retrieveAllMonitors();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[monitors.size()][columns.length];
+        
+        for(int i = 0; i < monitors.size(); i++){
+            data[i][0] = monitors.get(i).getModel();
+            data[i][1] = monitors.get(i).getVendor();
+            data[i][2] = monitors.get(i).getConnectionInterface();
+            data[i][3] = monitors.get(i).getType();
+            data[i][4] = monitors.get(i).getResolution();
+            data[i][5] = monitors.get(i).getRefreshRate() + "";
+            data[i][6] = monitors.get(i).getScreenSize() + "";
+            data[i][7] = monitors.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadKeyboards(){
+        String[] columns = {"Model", "Vendor", "Interface", "Type", "Layout", "Price(Dollar)"};
+        
+        try{
+            keyboards  = Keyboard.retrieveAllKeyboards();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[keyboards.size()][columns.length];
+        
+        for(int i = 0; i < keyboards.size(); i++){
+            data[i][0] = keyboards.get(i).getModel();
+            data[i][1] = keyboards.get(i).getVendor();
+            data[i][2] = keyboards.get(i).getConnectionInterface();
+            data[i][3] = keyboards.get(i).getType();
+            data[i][4] = keyboards.get(i).getLayout();
+            data[i][5] = keyboards.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadMice(){
+        String[] columns = {"Model", "Vendor", "Interface", "Type", "Price(Dollar)"};
+        
+        try{
+            mice  = Mouse.retrieveAllMouses();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[mice.size()][columns.length];
+        
+        for(int i = 0; i < mice.size(); i++){
+            data[i][0] = mice.get(i).getModel();
+            data[i][1] = mice.get(i).getVendor();
+            data[i][2] = mice.get(i).getConnectionInterface();
+            data[i][3] = mice.get(i).getType();
+            data[i][4] = mice.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadOpticDrives(){
+        String[] columns = {"Model", "Vendor", "Interface", "Type", "Speed", "Price(Dollar)"};
+        
+        try{
+            opticDrives  = OpticDrive.retrieveAllOpticDrives();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[opticDrives.size()][columns.length];
+        
+        for(int i = 0; i < opticDrives.size(); i++){
+            data[i][0] = opticDrives.get(i).getModel();
+            data[i][1] = opticDrives.get(i).getVendor();
+            data[i][2] = opticDrives.get(i).getConnectionInterface();
+            data[i][3] = opticDrives.get(i).getType();
+            data[i][4] = opticDrives.get(i).getSpeed() + "x";
+            data[i][5] = opticDrives.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
+    }
+    
+    public void reloadOperatingSystems(){
+        String[] columns = {"Model", "Vendor", "Version", "Price(Dollar)"};
+        
+        try{
+            operatingSystems  = OperatingSystem.retrieveAllOperatingSystems();
+        }
+        catch(Exception e){
+            //todo
+        }
+        
+        String[][] data = new String[operatingSystems.size()][columns.length];
+        
+        for(int i = 0; i < operatingSystems.size(); i++){
+            data[i][0] = operatingSystems.get(i).getModel();
+            data[i][1] = operatingSystems.get(i).getVendor();
+            data[i][2] = operatingSystems.get(i).getVersion();
+            data[i][3] = operatingSystems.get(i).getPrice() + "";
+        }
+        
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
+        
+        jTable2.setModel(tableModel);
     }
 
     /**
@@ -183,6 +556,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jTabbedPane1.addTab("Users", jPanel1);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Select Component");
 
@@ -341,6 +719,22 @@ public class AdminMainMenu extends javax.swing.JFrame {
             a.setVisible(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        switch(jComboBox1.getSelectedIndex()){
+            case 0: reloadMotherboards(); break;
+            case 1: reloadCpus(); break;
+            case 2: reloadMemories(); break;
+            case 3: reloadGraphicsCards(); break;
+            case 4: reloadHDDs(); break;
+            case 5: reloadSSDs(); break;
+            case 6: reloadMonitors(); break;
+            case 7: reloadKeyboards(); break;
+            case 8: reloadMice(); break;
+            case 9: reloadOpticDrives(); break;
+            case 10: reloadOperatingSystems(); break;
+        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments

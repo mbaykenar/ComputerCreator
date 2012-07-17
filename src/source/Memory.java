@@ -2,6 +2,7 @@ package source;
 
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Memory extends Hardware {
 
@@ -25,7 +26,7 @@ public class Memory extends Hardware {
         return capacity;
     }
 
-    public double getdouble() {
+    public double getFrequency() {
         return frequency;
     }
 
@@ -37,7 +38,7 @@ public class Memory extends Hardware {
         this.capacity = capacity;
     }
 
-    public void setdouble(double frequency) {
+    public void setFrequency(double frequency) {
         this.frequency = frequency;
     }
 
@@ -75,6 +76,26 @@ public class Memory extends Hardware {
      public static void deleteMemory(int id) throws Exception{
         String deleteQuery = "DELETE FROM memory WHERE id = " + id;
         Helper.delete(deleteQuery);
+    }
+     
+     public static ArrayList<Memory> retrieveAllMemories() throws Exception{
+        ArrayList<Memory> memories = new ArrayList<Memory>();
+        String retrieveQuery = "SELECT * FROM memory";
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            Memory m = new Memory();
+            m.setId(rs.getInt("id"));
+            m.setModel(rs.getString("model"));
+            m.setVendor(rs.getString("vendor"));
+            m.setPrice(rs.getDouble("price"));
+            m.setCapacity(rs.getDouble("capacity"));
+            m.setMemoryType(rs.getString("memory_type"));
+            m.setFrequency(rs.getDouble("frequency"));
+            
+            memories.add(m);
+        } 
+        return memories;
     }
 
 }

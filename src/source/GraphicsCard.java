@@ -138,4 +138,27 @@ public class GraphicsCard extends Hardware {
         String deleteQuery = "DELETE FROM graphicsCard WHERE id = " + id;
         Helper.delete(deleteQuery);
     }
+     
+     public static ArrayList<GraphicsCard> retrieveAllGraphicsCards() throws Exception{
+        ArrayList<GraphicsCard> graphicsCards = new ArrayList<GraphicsCard>();
+        String retrieveQuery = "SELECT * FROM graphicscard";
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        while(rs.next()){
+            GraphicsCard g = new GraphicsCard();
+            g.setId(rs.getInt("id"));
+            g.setModel(rs.getString("model"));
+            g.setVendor(rs.getString("vendor"));
+            g.setPrice(rs.getDouble("price"));
+            g.setClockSpeed(rs.getDouble("clock_speed"));
+            g.setCoreNumber(rs.getInt("cores"));
+            g.setInterfaceWidth(rs.getInt("interface_width"));
+            g.setMaxTDP(rs.getInt("max_tdp"));
+            g.setTextureFillRate(rs.getDouble("texture_fill_rate"));
+            g.setMemorySize(rs.getInt("memory_size"));
+            
+            graphicsCards.add(g);
+        } 
+        return graphicsCards;
+    }
 }

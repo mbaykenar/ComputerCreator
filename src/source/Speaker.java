@@ -53,9 +53,10 @@ public class Speaker extends ExternalDevice {
     public static ArrayList<Speaker> retrieveAllSpeakers() throws Exception{
         ArrayList<Speaker> speakers = new ArrayList<Speaker>();
         String retrieveQuery = "SELECT * FROM speaker";
-        Speaker speaker = new Speaker();
+        
         ResultSet rs = Helper.retrieve(retrieveQuery);
         while(rs.next()){
+            Speaker speaker = new Speaker();
             speaker.setId(rs.getInt("id"));
             speaker.setModel(rs.getString("model"));
             speaker.setVendor(rs.getString("vendor"));

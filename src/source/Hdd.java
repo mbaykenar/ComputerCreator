@@ -66,9 +66,10 @@ public class Hdd extends Storage {
     public static ArrayList<Hdd> retrieveAllHdds() throws Exception{
         ArrayList<Hdd> hdds = new ArrayList<Hdd>();
         String retrieveQuery = "SELECT * FROM hdd";
-        Hdd hdd = new Hdd();
+        
         ResultSet rs = Helper.retrieve(retrieveQuery);
         while(rs.next()){
+            Hdd hdd = new Hdd();
             hdd.setId(rs.getInt("id"));
             hdd.setModel(rs.getString("model"));
             hdd.setVendor(rs.getString("vendor"));

@@ -66,9 +66,10 @@ public class Ssd extends Storage {
     public static ArrayList<Ssd> retrieveAllSsds() throws Exception{
         ArrayList<Ssd> ssds = new ArrayList<Ssd>();
         String retrieveQuery = "SELECT * FROM ssd";
-        Ssd ssd = new Ssd();
+        
         ResultSet rs = Helper.retrieve(retrieveQuery);
         while(rs.next()){
+            Ssd ssd = new Ssd();
             ssd.setId(rs.getInt("id"));
             ssd.setModel(rs.getString("model"));
             ssd.setVendor(rs.getString("vendor"));
