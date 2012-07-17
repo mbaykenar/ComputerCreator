@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import source.User;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 /**
  *
  * @author ArthaS
@@ -24,6 +25,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         currentUser = u;
         jLabel1.setText("Welcome " + currentUser.getName() + " " + currentUser.getSurname());
+        
     }
     
     public void reloadUsers(){
@@ -47,7 +49,12 @@ public class AdminMainMenu extends javax.swing.JFrame {
             data[i][5] = users.get(i).getRole() + "";
         }
         
-        DefaultTableModel tableModel = new DefaultTableModel(data, columns);
+        TableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+            return false;
+            }
+        };
         
         jTable1.setModel(tableModel);
     }
@@ -106,6 +113,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -134,6 +142,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         });
 
         jButton2.setText("Edit");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -321,6 +334,13 @@ public class AdminMainMenu extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(jTable1.getSelectedRow() != - 1){
+            AdminUserEdit a = new AdminUserEdit(users.get(jTable1.getSelectedRow()));
+            a.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

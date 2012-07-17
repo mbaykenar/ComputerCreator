@@ -146,9 +146,10 @@ public class User {
     /*
      * 
      */
-    public void updateUser(String address, String username, String password, String name, String surname, String phone, String email, String role) throws Exception{
-        String updateQuery = "UPDATE INTO users "
-                            + "SET user_role='"+role+"', f_name='"+name+"', l_name='"+surname+"', username='"+username+"', passw'"+getPasswordHash(password)+"', phone='"+phone+"', email='"+email+"', address='"+address+"')";
+    public static void updateUser(String address, String oldUsername, String username, String name, String surname, String phone, String email, String role) throws Exception{
+        String updateQuery = "UPDATE users "
+                            + "SET user_role="+role+", f_name='"+name+"', l_name='"+surname+"', username='"+username+"',phone='"+phone+"', email='"+email+"', address='"+address+"'"
+                            + " WHERE username = '" + oldUsername + "'";
         Helper.update(updateQuery);
     }
     
@@ -208,7 +209,7 @@ public class User {
         }
     }
     
-    public String getPasswordHash(String passwordToEncrypt) throws NoSuchAlgorithmException{
+    public static String getPasswordHash(String passwordToEncrypt) throws NoSuchAlgorithmException{
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256"); // SHA-256 sadece bir ornek. Baska algoritmalar da secilebilir.
         messageDigest.update(passwordToEncrypt.getBytes());
         String encryptedPassword = new String(messageDigest.digest());
