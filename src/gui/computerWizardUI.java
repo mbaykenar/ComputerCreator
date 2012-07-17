@@ -170,7 +170,7 @@ public class computerWizardUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         User newUser = new User();
         String userName = UsernameTextField.getText();
-        String password = String.copyValueOf(jPasswordField1.getPassword());
+        String password = new String(jPasswordField1.getPassword());
         
         try{
             newUser.authenticateUser(userName, password);

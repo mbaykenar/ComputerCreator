@@ -208,7 +208,7 @@ public class NewUserWindow extends javax.swing.JFrame {
             String fname = jTextField1.getText();
             String lname = jTextField2.getText();
             String username = jTextField3.getText();
-            String password = jPasswordField1.getPassword().toString();
+            String password = new String(jPasswordField1.getPassword());
             String email = jTextField5.getText();
             String phone = jTextField6.getText();
             String address = jTextArea1.getText();

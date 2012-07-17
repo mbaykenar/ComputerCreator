@@ -204,7 +204,7 @@ public class User {
             //retrieveProducts(id);
         }
         else{
-            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            Exception NoSuchTuple = new Exception("Tuple with given username does not exists!");
             throw NoSuchTuple;
         }
     }

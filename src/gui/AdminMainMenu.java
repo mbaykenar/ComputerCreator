@@ -447,6 +447,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -518,6 +519,13 @@ public class AdminMainMenu extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Show Address");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -525,11 +533,12 @@ public class AdminMainMenu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButton14)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton4))
                 .addGap(29, 29, 29))
         );
         jPanel1Layout.setVerticalGroup(
@@ -546,7 +555,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addGap(0, 246, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
+                        .addGap(0, 203, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -741,23 +752,29 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
             switch(jComboBox1.getSelectedIndex()){
-                case 0: motherboards.get(jTable2.getSelectedRow()).deleteMotherboard(); break;
-                case 1: cpus.get(jTable2.getSelectedRow()).deleteCpu(); break;
-                case 2: reloadMemories(); break;
-                case 3: reloadGraphicsCards(); break;
-                case 4: reloadHDDs(); break;
-                case 5: reloadSSDs(); break;
-                case 6: reloadMonitors(); break;
-                case 7: reloadKeyboards(); break;
-                case 8: reloadMice(); break;
-                case 9: reloadOpticDrives(); break;
-                case 10: reloadOperatingSystems(); break;
+                case 0: motherboards.get(jTable2.getSelectedRow()).deleteMotherboard(); reloadMotherboards(); break;
+                case 1: cpus.get(jTable2.getSelectedRow()).deleteCpu(); reloadCpus(); break;
+                case 2: memories.get(jTable2.getSelectedRow()).deleteMemory(); reloadMemories(); break;
+                case 3: graphicsCards.get(jTable2.getSelectedRow()).deleteGraphicsCard(); reloadGraphicsCards(); break;
+                case 4: hdds.get(jTable2.getSelectedRow()).deleteHdd(); reloadHDDs(); break;
+                case 5: ssds.get(jTable2.getSelectedRow()).deleteSsd(); reloadSSDs(); break;
+                case 6: monitors.get(jTable2.getSelectedRow()).deleteMonitor(); reloadMonitors(); break;
+                case 7: keyboards.get(jTable2.getSelectedRow()).deleteKeyboard(); reloadKeyboards(); break;
+                case 8: mice.get(jTable2.getSelectedRow()).deleteMouse(); reloadMice(); break;
+                case 9: opticDrives.get(jTable2.getSelectedRow()).deleteOpticDrive(); reloadOpticDrives(); break;
+                case 10: operatingSystems.get(jTable2.getSelectedRow()).deleteOperatingSystem(); reloadOperatingSystems(); break;
             }
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Can't delete!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if(jTable1.getSelectedRow() != -1){
+            JOptionPane.showMessageDialog(null, users.get(jTable1.getSelectedRow()).getAddress(), "Address", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -806,6 +823,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
