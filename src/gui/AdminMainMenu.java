@@ -586,6 +586,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         jButton3.setText("Add New");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Delete");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -709,6 +714,21 @@ public class AdminMainMenu extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         reloadUsers();
+        
+        switch(jComboBox1.getSelectedIndex()){
+            case 0: reloadMotherboards(); break;
+            case 1: reloadCpus(); break;
+            case 2: reloadMemories(); break;
+            case 3: reloadGraphicsCards(); break;
+            case 4: reloadHDDs(); break;
+            case 5: reloadSSDs(); break;
+            case 6: reloadMonitors(); break;
+            case 7: reloadKeyboards(); break;
+            case 8: reloadMice(); break;
+            case 9: reloadOpticDrives(); break;
+            case 10: reloadOperatingSystems(); break;
+        }
+        
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -775,6 +795,23 @@ public class AdminMainMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, users.get(jTable1.getSelectedRow()).getAddress(), "Address", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        switch(jComboBox1.getSelectedIndex()){
+            case 0: break;
+            case 1: new AddNewCPU().setVisible(true); break;
+            case 2: break;
+            case 3: break;
+            case 4: break;
+            case 5: break;
+            case 6: break;
+            case 7: break;
+            case 8: break;
+            case 9: break;
+            case 10: break;
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

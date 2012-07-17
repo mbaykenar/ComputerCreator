@@ -10,8 +10,8 @@ public class OperatingSystem extends Software {
     public OperatingSystem() {
     }
 
-    public OperatingSystem(int id, String version, String platform, String model, String vendor, double price) {
-        super(id, version, platform, model, vendor, price);
+    public OperatingSystem(String version, String platform, String model, String vendor, double price) {
+        super(version, platform, model, vendor, price);
     }
     
     public void insertOperatingSystem() throws Exception{

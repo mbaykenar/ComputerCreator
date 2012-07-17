@@ -16,8 +16,8 @@ public class Memory extends Hardware {
     public Memory() {
     }
 
-    public Memory(int id, double capacity, String memoryType, double frequency, String model, String vendor, double price) {
-        super(id, model, vendor, price);
+    public Memory(double capacity, String memoryType, double frequency, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.capacity = capacity;
         this.memoryType = memoryType;
         this.frequency = frequency;

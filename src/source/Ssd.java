@@ -14,8 +14,8 @@ public class Ssd extends Storage {
     public Ssd() {
     }
 
-    public Ssd(int id, double writeSpeed, double readSpeed, double capacity, String ConnectionInterface, String model, String vendor, double price) {
-        super(id, capacity, ConnectionInterface, model, vendor, price);
+    public Ssd(double writeSpeed, double readSpeed, double capacity, String ConnectionInterface, String model, String vendor, double price) {
+        super(capacity, ConnectionInterface, model, vendor, price);
         this.writeSpeed = writeSpeed;
         this.readSpeed = readSpeed;
     }

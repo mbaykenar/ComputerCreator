@@ -10,8 +10,8 @@ public class Mouse extends ExternalDevice {
     public Mouse() {
     }
 
-    public Mouse(int id, String connectionInterface, String type, String model, String vendor, double price) {
-        super(id, connectionInterface, type, model, vendor, price);
+    public Mouse(String connectionInterface, String type, String model, String vendor, double price) {
+        super(connectionInterface, type, model, vendor, price);
     }
     
     public void insertMouse() throws Exception{

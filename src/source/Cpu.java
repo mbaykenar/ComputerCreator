@@ -23,8 +23,8 @@ public class Cpu extends Hardware {
     public Cpu() {
     }
 
-    public Cpu(int id, double cacheSize, double clockSpeed, int coreNumber, int threadNumber, String model, String vendor, double price) {
-        super(id, model, vendor, price);
+    public Cpu(double cacheSize, double clockSpeed, int coreNumber, int threadNumber, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.cacheSize = cacheSize;
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;

@@ -4,6 +4,9 @@
  */
 package gui;
 
+import javax.swing.JOptionPane;
+import source.Cpu;
+
 /**
  *
  * @author ArthaS
@@ -15,6 +18,7 @@ public class AddNewCPU extends javax.swing.JFrame {
      */
     public AddNewCPU() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -69,9 +73,19 @@ public class AddNewCPU extends javax.swing.JFrame {
 
         jLabel9.setText("Price");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Apply");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,9 +107,7 @@ public class AddNewCPU extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
@@ -105,7 +117,7 @@ public class AddNewCPU extends javax.swing.JFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -181,6 +193,34 @@ public class AddNewCPU extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            String model = jTextField1.getText();
+            String vendor = jTextField2.getText();
+            int cores = Integer.parseInt(jTextField3.getText());
+            int threads = Integer.parseInt(jTextField4.getText());
+            int maxTdp = Integer.parseInt(jTextField5.getText());
+            int lithography = Integer.parseInt(jTextField6.getText());
+            double cacheSize = Double.parseDouble(jTextField7.getText());
+            double frequency = Double.parseDouble(jTextField8.getText());
+            double price = Double.parseDouble(jTextField9.getText());
+            
+            new Cpu(cacheSize, frequency, cores, threads, model, vendor, price).insertCpu();
+            
+            this.dispose();
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Check information you have entered!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

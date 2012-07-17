@@ -12,8 +12,8 @@ public class OpticDrive extends ExternalDevice {
     public OpticDrive() {
     }
 
-    public OpticDrive(int id, int Speed, String connectionInterface, String type, String model, String vendor, double price) {
-        super(id, connectionInterface, type, model, vendor, price);
+    public OpticDrive(int Speed, String connectionInterface, String type, String model, String vendor, double price) {
+        super(connectionInterface, type, model, vendor, price);
         this.speed = Speed;
     }
 

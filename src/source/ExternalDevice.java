@@ -9,8 +9,8 @@ public class ExternalDevice extends Hardware {
     public ExternalDevice() {
     }
 
-    public ExternalDevice(int id, String connectionInterface, String type, String model, String vendor, double price) {
-        super(id, model, vendor, price);
+    public ExternalDevice(String connectionInterface, String type, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.connectionInterface = connectionInterface;
         this.type = type;
     }

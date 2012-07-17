@@ -24,8 +24,8 @@ public class GraphicsCard extends Hardware {
     public GraphicsCard() {
     }
 
-    public GraphicsCard(int id, double clockSpeed, int coreNumber, int interfaceWidth, double textureFillRate, double memorySize, String model, String vendor, double price) {
-        super(id, model, vendor, price);
+    public GraphicsCard(double clockSpeed, int coreNumber, int interfaceWidth, double textureFillRate, double memorySize, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.clockSpeed = clockSpeed;
         this.coreNumber = coreNumber;
         this.interfaceWidth = interfaceWidth;

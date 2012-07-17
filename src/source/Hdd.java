@@ -14,8 +14,8 @@ public class Hdd extends Storage {
     public Hdd() {
     }
 
-    public Hdd(int id, int rpm, double diameter, double capacity, String ConnectionInterface, String model, String vendor, double price) {
-        super(id, capacity, ConnectionInterface, model, vendor, price);
+    public Hdd(int rpm, double diameter, double capacity, String ConnectionInterface, String model, String vendor, double price) {
+        super(capacity, ConnectionInterface, model, vendor, price);
         this.rpm = rpm;
         this.diameter = diameter;
     }

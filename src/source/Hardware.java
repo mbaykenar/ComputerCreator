@@ -7,8 +7,8 @@ public class Hardware extends Component {
     public Hardware() {
     }
     
-    public Hardware(int id, String model, String vendor, double price) {
-        super(id, model, vendor, price);
+    public Hardware(String model, String vendor, double price) {
+        super(model, vendor, price);
     }
 
     

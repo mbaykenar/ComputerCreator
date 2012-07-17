@@ -31,8 +31,8 @@ public class Motherboard extends Hardware {
     public Motherboard() {
     }
 
-    public Motherboard(int id, String socket, int memorySlots, int pciSlots, int pciESlots, String busInterface, double frequency, String model, String vendor, double price) {
-        super(id, model, vendor, price);
+    public Motherboard(String socket, int memorySlots, int pciSlots, int pciESlots, String busInterface, double frequency, String model, String vendor, double price) {
+        super(model, vendor, price);
         this.socket = socket;
         this.memorySlots = memorySlots;
         this.pciSlots = pciSlots;
