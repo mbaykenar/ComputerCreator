@@ -18,6 +18,7 @@ public class DisplayMotherboard extends javax.swing.JFrame {
      */
     public DisplayMotherboard() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public DisplayMotherboard(Motherboard mb){
@@ -85,7 +86,8 @@ public class DisplayMotherboard extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -18,6 +18,7 @@ public class DisplaySsd extends javax.swing.JFrame {
      */
     public DisplaySsd() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public DisplaySsd(Ssd ssd) {
@@ -78,7 +79,8 @@ public class DisplaySsd extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

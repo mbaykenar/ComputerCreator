@@ -16,6 +16,7 @@ public class DisplayMonitor extends javax.swing.JFrame {
      */
     public DisplayMonitor() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public DisplayMonitor(Monitor monitor) {
@@ -80,7 +81,8 @@ public class DisplayMonitor extends javax.swing.JFrame {
         jTextField16 = new javax.swing.JTextField();
         jTextField17 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -18,6 +18,7 @@ public class DisplaySpeaker extends javax.swing.JFrame {
      */
     public DisplaySpeaker() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public DisplaySpeaker(Speaker speaker) {
@@ -74,7 +75,8 @@ public class DisplaySpeaker extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -18,6 +18,7 @@ public class DisplayMouse extends javax.swing.JFrame {
      */
     public DisplayMouse() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public DisplayMouse(Mouse mouse) {
@@ -70,7 +71,8 @@ public class DisplayMouse extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -16,6 +16,7 @@ public class DisplayKeyboard extends javax.swing.JFrame {
      */
     public DisplayKeyboard() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public DisplayKeyboard(Keyboard keyboard) {
@@ -72,7 +73,8 @@ public class DisplayKeyboard extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
