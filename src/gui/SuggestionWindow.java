@@ -19,6 +19,8 @@ public class SuggestionWindow extends javax.swing.JFrame {
      * Creates new form SuggestionWindow
      */
     
+    User user;
+    
     static int numberOfQuestions = 6;
      ArrayList<String> questions = new ArrayList();
      ArrayList<String> jRadioButton1Text = new ArrayList();
@@ -75,11 +77,64 @@ public class SuggestionWindow extends javax.swing.JFrame {
         jRadioButton4Text.add("Graduate School");
         jRadioButton4Text.add("Unemployed");
         jRadioButton4Text.add(">6");
-        jRadioButton4Text.add(">5000");
+        jRadioButton4Text.add(">5000");  
+    }
+    
+    public SuggestionWindow(User user) {
+        setUser(user);
+        initComponents();
+        setLocationRelativeTo( null ); //to center the window
+        jRadioButton3.setVisible(false);
+        jRadioButton4.setVisible(false);
         
+ 
+        // questions
+        questions.add("What is your sex?"); // first question
+        questions.add("What is your age?");
+        questions.add("What is your education?");
+        questions.add("What is your occupation?");
+        questions.add("How many hours do you use computer in a day?");
+        questions.add("What is your income (monthly in TL)?");
         
-            
+        // jRadioButton1Text
+        jRadioButton1Text.add("Male");
+        jRadioButton1Text.add("<18");
+        jRadioButton1Text.add("Primary School");
+        jRadioButton1Text.add("Student");
+        jRadioButton1Text.add("<2");
+        jRadioButton1Text.add("<1000");
         
+        // jRadioButton2Text
+        jRadioButton2Text.add("Female");
+        jRadioButton2Text.add("18-26");
+        jRadioButton2Text.add("High School");
+        jRadioButton2Text.add("Officer");
+        jRadioButton2Text.add("2-4");
+        jRadioButton2Text.add("1000-2500");
+        
+        // jRadioButton3Text
+        jRadioButton3Text.add("NULL");
+        jRadioButton3Text.add("26-35");
+        jRadioButton3Text.add("Collage");
+        jRadioButton3Text.add("Engineer");
+        jRadioButton3Text.add("4-6");
+        jRadioButton3Text.add("2500-5000");
+        
+        // jRadioButton4Text
+        jRadioButton4Text.add("NULL");
+        jRadioButton4Text.add(">35");
+        jRadioButton4Text.add("Graduate School");
+        jRadioButton4Text.add("Unemployed");
+        jRadioButton4Text.add(">6");
+        jRadioButton4Text.add(">5000");  
+    }
+    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**

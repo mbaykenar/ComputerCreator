@@ -3,6 +3,14 @@
  * and open the template in the editor.
  */
 package gui;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import java.awt.Graphics2D;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +24,7 @@ import source.*;
  * @author SifresizAdmin
  */
 public class UserMainMenu extends javax.swing.JFrame {
+    private User user;
     
     private ArrayList<Motherboard> motherboard;
     private ArrayList<Cpu> cpu;
@@ -44,11 +53,28 @@ public class UserMainMenu extends javax.swing.JFrame {
     /**
      * Creates new form UserMainMenu
      */
-    public UserMainMenu(){        
+    public UserMainMenu(){
+        setUser(user);
         initComponents();
         initEntities();
         initPrices();
         setLocationRelativeTo( null ); //to center the window
+    }
+    
+    public UserMainMenu(User user){
+        setUser(user);
+        initComponents();
+        initEntities();
+        initPrices();
+        setLocationRelativeTo( null ); //to center the window
+    }
+    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     /*
@@ -355,6 +381,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         jRadioButton11 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Welcome");
@@ -525,7 +552,7 @@ public class UserMainMenu extends javax.swing.JFrame {
                                 .addComponent(jButton3)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap(79, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jRadioButton2)
                                     .addComponent(jRadioButton1)
@@ -569,7 +596,7 @@ public class UserMainMenu extends javax.swing.JFrame {
                         .addComponent(jLabel22)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox1, jComboBox12, jComboBox13, jComboBox14, jComboBox15, jComboBox16, jComboBox17, jComboBox18, jComboBox19, jComboBox20, jComboBox21});
@@ -660,12 +687,24 @@ public class UserMainMenu extends javax.swing.JFrame {
         );
 
         jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("OK");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Export to PDF");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -676,8 +715,10 @@ public class UserMainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 389, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -692,10 +733,12 @@ public class UserMainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
 
@@ -704,6 +747,7 @@ public class UserMainMenu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -842,6 +886,116 @@ public class UserMainMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a component to display.", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new UserHelpMenu(getUser()).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try{
+            String FILE = "tansel_vs_hassan.pdf";
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(FILE));       
+            document.open();
+            
+            
+      //       create a table
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell c1 = new PdfPCell(new Phrase("COMPONENTS"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+            
+            c1 = new PdfPCell(new Phrase("MODEL"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase("PRICE"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+//            c1 = new PdfPCell(new Phrase("Table Header 3"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
+//            table.setHeaderRows(1);
+
+            double price = 0.0;
+            
+            table.addCell("Motherboard");
+            table.addCell(motherboard.get(jComboBox1.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(motherboard.get(jComboBox1.getSelectedIndex()).getPrice()));            
+            price += motherboard.get(jComboBox1.getSelectedIndex()).getPrice();
+            
+            table.addCell("CPU");
+            table.addCell(cpu.get(jComboBox12.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(cpu.get(jComboBox12.getSelectedIndex()).getPrice()));
+            price += cpu.get(jComboBox12.getSelectedIndex()).getPrice();
+            
+            table.addCell("Memory");
+            table.addCell(memory.get(jComboBox13.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(memory.get(jComboBox13.getSelectedIndex()).getPrice()));
+            price += memory.get(jComboBox13.getSelectedIndex()).getPrice();
+            
+            table.addCell("GPU");
+            table.addCell(gpu.get(jComboBox14.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(gpu.get(jComboBox14.getSelectedIndex()).getPrice()));
+            price += gpu.get(jComboBox14.getSelectedIndex()).getPrice();
+            
+            table.addCell("Monitor");
+            table.addCell(monitor.get(jComboBox15.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(monitor.get(jComboBox15.getSelectedIndex()).getPrice()));
+            price += monitor.get(jComboBox15.getSelectedIndex()).getPrice();
+            
+            table.addCell("HDD");
+            table.addCell(hdd.get(jComboBox16.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(hdd.get(jComboBox16.getSelectedIndex()).getPrice()));
+            price += hdd.get(jComboBox16.getSelectedIndex()).getPrice();           
+            
+            table.addCell("SSD");
+            table.addCell(ssd.get(jComboBox17.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(ssd.get(jComboBox17.getSelectedIndex()).getPrice()));
+            price += ssd.get(jComboBox17.getSelectedIndex()).getPrice();
+            
+            table.addCell("Keyboard");
+            table.addCell(keyboard.get(jComboBox18.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(keyboard.get(jComboBox18.getSelectedIndex()).getPrice()));
+            price += keyboard.get(jComboBox18.getSelectedIndex()).getPrice();
+            
+            table.addCell("Mouse");
+            table.addCell(mouse.get(jComboBox19.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(mouse.get(jComboBox19.getSelectedIndex()).getPrice()));
+            price += mouse.get(jComboBox19.getSelectedIndex()).getPrice();
+            
+            table.addCell("Optic Drive");
+            table.addCell(opticdrive.get(jComboBox20.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(opticdrive.get(jComboBox20.getSelectedIndex()).getPrice()));
+            price += opticdrive.get(jComboBox20.getSelectedIndex()).getPrice();
+            
+            table.addCell("Operating System");
+            table.addCell(os.get(jComboBox21.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(os.get(jComboBox21.getSelectedIndex()).getPrice()));
+            price += os.get(jComboBox21.getSelectedIndex()).getPrice();
+            
+            table.addCell("");
+            table.addCell("TOTAL");
+            table.addCell(Double.toString(price));
+            
+            document.add(table);
+                
+               
+
+		
+            
+            document.close();
+            
+        }
+        catch (Exception e) {
+                // to do
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -892,6 +1046,7 @@ public class UserMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox12;
     private javax.swing.JComboBox jComboBox13;
