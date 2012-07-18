@@ -25,6 +25,7 @@ public class DisplaySsd extends javax.swing.JFrame {
         setSsd(ssd);
         initComponents();
         initSsdAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Ssd getSsd() {

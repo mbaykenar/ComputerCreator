@@ -23,6 +23,7 @@ public class DisplayMemory extends javax.swing.JFrame {
         setMemory(memory);
         initComponents();
         initMemoryAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Memory getMemory() {

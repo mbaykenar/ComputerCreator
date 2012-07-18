@@ -25,6 +25,7 @@ public class DisplayMotherboard extends javax.swing.JFrame {
         this.motherboard = mb;
         initComponents();
         initMotherboardAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Motherboard getMotherboard() {

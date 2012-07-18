@@ -25,6 +25,7 @@ public class DisplayCpu extends javax.swing.JFrame {
         setCpu(cpu);
         initComponents();
         initCpuAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Cpu getCpu() {

@@ -25,6 +25,7 @@ public class DisplayHdd extends javax.swing.JFrame {
         setHdd(hdd);
         initComponents();
         initHddAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Hdd getHdd() {

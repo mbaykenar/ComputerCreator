@@ -25,6 +25,7 @@ public class DisplayMouse extends javax.swing.JFrame {
         setCpu(mouse);
         initComponents();
         initCpuAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Mouse getMouse() {

@@ -25,6 +25,7 @@ public class DisplayOperatingSystem extends javax.swing.JFrame {
         setCpu(os);
         initComponents();
         initCpuAttributes();
+        setLocationRelativeTo(null);
     }
     
     public OperatingSystem getOperatingSystem() {

@@ -23,6 +23,7 @@ public class DisplayMonitor extends javax.swing.JFrame {
         setCpu(monitor);
         initComponents();
         initMonitorAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Monitor getMonitor() {

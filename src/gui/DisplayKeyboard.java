@@ -23,6 +23,7 @@ public class DisplayKeyboard extends javax.swing.JFrame {
         setKeyboard(keyboard);
         initComponents();
         initKeyboardAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Keyboard getKeyboard() {

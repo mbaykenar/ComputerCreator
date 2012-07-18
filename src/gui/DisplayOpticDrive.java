@@ -25,6 +25,7 @@ public class DisplayOpticDrive extends javax.swing.JFrame {
         setOpticDrive(opticdrive);
         initComponents();
         initOpticDriveAttributes();
+        setLocationRelativeTo(null);
     }
     
     public OpticDrive getOpticDrive() {

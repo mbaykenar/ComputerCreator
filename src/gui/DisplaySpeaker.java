@@ -25,6 +25,7 @@ public class DisplaySpeaker extends javax.swing.JFrame {
         setSpeaker(speaker);
         initComponents();
         initSpeakerAttributes();
+        setLocationRelativeTo(null);
     }
     
     public Speaker getSpeaker() {

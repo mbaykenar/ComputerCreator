@@ -23,6 +23,7 @@ public class DisplayGpu extends javax.swing.JFrame {
         setCpu(gpu);
         initComponents();
         initCpuAttributes();
+        setLocationRelativeTo(null);
     }
     
     public GraphicsCard getGpu() {
