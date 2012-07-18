@@ -208,6 +208,9 @@ public class SuggestionWindow extends javax.swing.JFrame {
           // to do
           if (score > 0 && score <= 100 )    {
               // to do
+              
+              new SuggestionResultWindow();
+              
               this.dispose();
           }
           else if (score > 100 && score <= 200 )    {
