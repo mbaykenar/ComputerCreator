@@ -3,7 +3,10 @@
  * and open the template in the editor.
  */
 package gui;
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import source.*;
 
 /**
@@ -158,6 +161,11 @@ public class SuggestionWindow extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Next");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -204,27 +212,499 @@ public class SuggestionWindow extends javax.swing.JFrame {
       
       if (count == numberOfQuestions)
       {
-          // finished
-          // to do
+          String minMotherboard = "";
+          String minCpu = "";
+          String minGpu = "";
+          String minMemory = "";
+          String minHdd = "";
+          String minSsd = "";
+          String minMonitor = "";
+          String minKeyboard = "";
+          String minMouse = "";
+          String minOpticDrive = "";
+          String minOperatingSystem = "";
+          
+          
+          
           if (score > 0 && score <= 100 )    {
-              // to do
               
-              new SuggestionResultWindow();
+              
+                  //motherboard
+                minMotherboard = "SELECT model FROM motherboard AS m WHERE m.price = (SELECT MIN(price) FROM motherboard)";
+                Motherboard m = null;
+                try{
+                  //retrieve motherboard
+                    ResultSet r = Helper.retrieve(minMotherboard);
+                    if(r.next()){
+                        minMotherboard = r.getString("model");
+                    }
+                    else{ 
+                        JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    m = new Motherboard();
+                    m.retrieveMotherboard(minMotherboard);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Motherboard does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                
+                
+                //cpu
+                minCpu = "SELECT id FROM cpu AS c WHERE c.price = (SELECT MIN(price) FROM cpu AS c2, cpu_motherboard AS cm WHERE c2.id = cm.cpu_id AND motherboard_id =" + m.getId() + ")";
+                
+                //gpu
+                minGpu = "SELECT id FROM graphicscard AS g WHERE g.price = (SELECT MIN(price) FROM graphicscardh AS g2, gpu_motherboard AS gm WHERE g2.id = gm.gpu_id AND motherboard_id =" + m.getId() + ")";
+                
+                //memory
+                minMemory = "SELECT id FROM memory AS m WHERE m.price = (SELECT MIN(price) FROM memory AS m2, memory_motherboard AS mm WHERE m2.id = mm.memory_id AND motherboard_id =" + m.getId() + ")";
+                
+                //hdd
+                minHdd = "SELECT id FROM hdd AS h WHERE h.price = (SELECT MIN(price) FROM hdd AS h2, hdd_motherboard AS hm WHERE h2.id = hm.hdd_id AND motherboard_id =" + m.getId() + ")";
+                
+                //ssd
+                minSsd = "SELECT id FROM ssd AS s WHERE s.price = (SELECT MIN(price) FROM ssd AS s2, ssd_motherboard AS sm WHERE s2.id = sm.ssd_id AND motherboard_id =" + m.getId() + ")";
+                
+                // monitor
+                minMonitor = "SELECT id FROM monitor AS m WHERE m.price = (SELECT MIN(price) FROM monitor)";
+                
+                //keyboard
+                minKeyboard = "SELECT id FROM keyboard AS k WHERE k.price = (SELECT MIN(price) FROM keyboard)";
+               
+                //mouse
+                minMouse = "SELECT id FROM mouse AS m WHERE m.price = (SELECT MIN(price) FROM mouse)";
+                
+                //optic drive
+                minOpticDrive = "SELECT id FROM opticdrive AS o WHERE o.price = (SELECT MIN(price) FROM opticdrive)";
+                
+                //operating system
+                minOperatingSystem = "SELECT id FROM operatingsystem AS o WHERE o.price = (SELECT MIN(price) FROM operatingsystem)";
+                
+          }
+          else if (score > 100 && score <= 200 )    { //ALL AVERAGE
+              //motherboard
+                minMotherboard = "SELECT * FROM motherboard WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM motherboard m1, motherboard m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM motherboard))";
+                Motherboard m = null;
+                try{
+                  //retrieve motherboard
+                    ResultSet r = Helper.retrieve(minMotherboard);
+                    if(r.next()){
+                        minMotherboard = r.getString("model");
+                    }
+                    else{ 
+                        JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    m = new Motherboard();
+                    m.retrieveMotherboard(minMotherboard);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Motherboard does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                
+                
+                //cpu
+                minCpu = "SELECT * FROM cpu WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from cpu as c1 where c1.id IN (select cpu_id from cpu_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from cpu as c1 where c1.id IN (select cpu_id from cpu_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from cpu as c1 where c1.id IN (select cpu_id from cpu_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                
+                //gpu
+                minGpu = "SELECT * FROM graphicscard WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from graphicscard as c1 where c1.id IN (select gpu_id from gpu_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from graphicscard as c1 where c1.id IN (select gpu_id from gpu_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from graphicscard as c1 where c1.id IN (select gpu_id from gpu_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                
+                //memory
+                minMemory = "SELECT * FROM memory WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from memory as c1 where c1.id IN (select memory_id from memory_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from memory as c1 where c1.id IN (select memory_id from memory_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from memory as c1 where c1.id IN (select memory_id from memory_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                //hdd
+                minHdd = "SELECT * FROM hdd WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from hdd as c1 where c1.id IN (select hdd_id from hdd_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from hdd as c1 where c1.id IN (select hdd_id from hdd_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from hdd as c1 where c1.id IN (select hdd_id from hdd_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                //ssd
+                minSsd = "SELECT * FROM ssd WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from ssd as c1 where c1.id IN (select ssd_id from ssd_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from ssd as c1 where c1.id IN (select ssd_id from ssd_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from ssd as c1 where c1.id IN (select ssd_id from ssd_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                // monitor
+                minMonitor = "SELECT * FROM monitor WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM monitor m1, monitor m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM monitor))";
+                
+                //keyboard
+                minKeyboard = "SELECT * FROM keyboard WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM keyboard m1, keyboard m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM keyboard))";
+               
+                //mouse
+                minMouse = "SELECT * FROM mouse WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM mouse m1, mouse m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM mouse))";
+                
+                //optic drive
+                minOpticDrive = "SELECT * FROM opticdrive WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM opticdrive m1, opticdrive m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM opticdrive))";
+                
+                //operating system
+                minOperatingSystem = "SELECT * FROM operatingsystem WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM operatingsystem m1, operatingsystem m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM operatingsystem))";
+          }
+          
+          
+          else if (score > 200 && score <= 300 )    { //EXPENSIVE GPU AVERAGE CPU
+              
+              //gpu
+                minGpu = "SELECT id FROM graphicscard AS g WHERE g.price = (SELECT MAX(price) FROM graphicscard)";
+                
+                GraphicsCard g = null;
+                try{
+                  //retrieve motherboard
+                    ResultSet r = Helper.retrieve(minGpu);
+                    int minG = 0;
+                    if(r.next()){
+                        minG = r.getInt("id");
+                    }
+                    else{ 
+                        JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    g = new GraphicsCard();
+                    g.retrieveGraphicsCard(minG);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Graphics Card does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                //motherboard
+                minMotherboard = "SELECT * FROM motherboard WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from motherboard as c1 where c1.id IN (select motherboard_id from gpu_motherboard where gpu_id =" + g.getId() + ")) m1,"
+                        + " (select * from cpu as c1 where c1.id IN (select motherboard_id from gpu_motherboard where gpu_id =" + g.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from motherboard as c1 where c1.id IN (select motherboard_id from gpu_motherboard where gpu_id =" + g.getId() + "))m4))";
+                
+                Motherboard m = null;
+                try{
+                  //retrieve motherboard
+                    ResultSet r = Helper.retrieve(minMotherboard);
+                    if(r.next()){
+                        minMotherboard = r.getString("model");
+                    }
+                    else{ 
+                        JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    m = new Motherboard();
+                    m.retrieveMotherboard(minMotherboard);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Motherboard does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                //cpu
+                minCpu = "SELECT * FROM cpu WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from cpu as c1 where c1.id IN (select cpu_id from cpu_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from cpu as c1 where c1.id IN (select cpu_id from cpu_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from cpu as c1 where c1.id IN (select cpu_id from cpu_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                
+                 //memory
+                minMemory = "SELECT * FROM memory WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from memory as c1 where c1.id IN (select memory_id from memory_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from memory as c1 where c1.id IN (select memory_id from memory_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from memory as c1 where c1.id IN (select memory_id from memory_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                //hdd
+                minHdd = "SELECT * FROM hdd WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from hdd as c1 where c1.id IN (select hdd_id from hdd_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from hdd as c1 where c1.id IN (select hdd_id from hdd_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from hdd as c1 where c1.id IN (select hdd_id from hdd_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                //ssd
+                minSsd = "SELECT * FROM ssd WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
+                        + " (select * from ssd as c1 where c1.id IN (select ssd_id from ssd_motherboard where motherboard_id =" + m.getId() + ")) m1,"
+                        + " (select * from ssd as c1 where c1.id IN (select ssd_id from ssd_motherboard where motherboard_id =" + m.getId() + ")) m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
+                        + "(select * from ssd as c1 where c1.id IN (select ssd_id from ssd_motherboard where motherboard_id =" + m.getId() + "))m4))";
+                // monitor
+                minMonitor = "SELECT * FROM monitor WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM monitor m1, monitor m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM monitor))";
+                
+                //keyboard
+                minKeyboard = "SELECT * FROM keyboard WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM keyboard m1, keyboard m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM keyboard))";
+               
+                //mouse
+                minMouse = "SELECT * FROM mouse WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM mouse m1, mouse m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM mouse))";
+                
+                //optic drive
+                minOpticDrive = "SELECT * FROM opticdrive WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM opticdrive m1, opticdrive m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM opticdrive))";
+                
+                //operating system
+                minOperatingSystem = "SELECT * FROM operatingsystem WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM operatingsystem m1, operatingsystem m2 "
+                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
+                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM operatingsystem))";
+          }
+          else { //ALL EXPENSIVE
+               //motherboard
+                minMotherboard = "SELECT model FROM motherboard AS m WHERE m.price = (SELECT MAX(price) FROM motherboard)";
+                Motherboard m = null;
+                try{
+                  //retrieve motherboard
+                    ResultSet r = Helper.retrieve(minMotherboard);
+                    if(r.next()){
+                        minMotherboard = r.getString("model");
+                    }
+                    else{ 
+                        JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    m = new Motherboard();
+                    m.retrieveMotherboard(minMotherboard);
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Motherboard does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                
+                
+                //cpu
+                minCpu = "SELECT id FROM cpu AS c WHERE c.price = (SELECT MAX(price) FROM cpu AS c2, cpu_motherboard AS cm WHERE c2.id = cm.cpu_id AND motherboard_id =" + m.getId() + ")";
+                
+                //gpu
+                minGpu = "SELECT id FROM graphicscard AS g WHERE g.price = (SELECT MAX(price) FROM graphicscardh AS g2, gpu_motherboard AS gm WHERE g2.id = gm.gpu_id AND motherboard_id =" + m.getId() + ")";
+                
+                //memory
+                minMemory = "SELECT id FROM memory AS m WHERE m.price = (SELECT MAX(price) FROM memory AS m2, memory_motherboard AS mm WHERE m2.id = mm.memory_id AND motherboard_id =" + m.getId() + ")";
+                
+                //hdd
+                minHdd = "SELECT id FROM hdd AS h WHERE h.price = (SELECT MAX(price) FROM hdd AS h2, hdd_motherboard AS hm WHERE h2.id = hm.hdd_id AND motherboard_id =" + m.getId() + ")";
+                
+                //ssd
+                minSsd = "SELECT id FROM ssd AS s WHERE s.price = (SELECT MAX(price) FROM ssd AS s2, ssd_motherboard AS sm WHERE s2.id = sm.ssd_id AND motherboard_id =" + m.getId() + ")";
+                
+                // monitor
+                minMonitor = "SELECT id FROM monitor AS m WHERE m.price = (SELECT MAX(price) FROM monitor)";
+                
+                //keyboard
+                minKeyboard = "SELECT id FROM keyboard AS k WHERE k.price = (SELECT MAX(price) FROM keyboard)";
+               
+                //mouse
+                minMouse = "SELECT id FROM mouse AS m WHERE m.price = (SELECT MAX(price) FROM mouse)";
+                
+                //optic drive
+                minOpticDrive = "SELECT id FROM opticdrive AS o WHERE o.price = (SELECT MAX(price) FROM opticdrive)";
+                
+                //operating system
+                minOperatingSystem = "SELECT id FROM operatingsystem AS o WHERE o.price = (SELECT MAX(price) FROM operatingsystem)";
+          }
+          
+          SuggestionResultWindow resultWindow = new SuggestionResultWindow();
+              
+              try{
+                  //retrieve motherboard
+                ResultSet r = Helper.retrieve(minMotherboard);
+                if(r.next()){
+                    minMotherboard = r.getString("model");
+                }
+                else{ 
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                Motherboard m = new Motherboard();
+                m.retrieveMotherboard(minMotherboard);
+                
+                //retrieve cpu
+                
+                r = Helper.retrieve(minCpu);
+                
+                int minC = 0;
+                
+                if(r.next())
+                    minC = r.getInt("id");
+                else{
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                Cpu c = new Cpu();
+                c.retrieveCpu(minC);
+                
+                //retrieve gpu
+                
+                r = Helper.retrieve(minGpu);
+                
+                int minG = 0;
+                
+                if(r.next())
+                    minG = r.getInt("id");
+                else{
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                GraphicsCard g = new GraphicsCard();
+                g.retrieveGraphicsCard(minG);
+                
+                //retrieve memory
+                
+                r = Helper.retrieve(minMemory);
+                
+                int minM = 0;
+                
+                if(r.next())
+                    minM = r.getInt("id");
+                else{
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                Memory mem = new Memory();
+                mem.retrieveMemory(minM);
+                
+                //retrieve hdd
+                
+                r = Helper.retrieve(minHdd);
+                
+                int minH = 0;
+                
+                if(r.next())
+                    minH = r.getInt("id");
+                else{
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                Hdd h = new Hdd();
+                h.retrieveHdd(minH);
+                
+                //retrieve ssd
+                
+                r = Helper.retrieve(minSsd);
+                
+                int minS = 0;
+                
+                if(r.next())
+                    minS = r.getInt("id");
+                else{
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                Ssd s = new Ssd();
+                s.retrieveSsd(minS);
+                
+                //retrieve monitor
+                
+                r = Helper.retrieve(minMonitor);
+                int minMon = 0;
+                if(r.next()){
+                    minMon = r.getInt("id");
+                }
+                else{ 
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                Monitor mon = new Monitor();
+                mon.retrieveMonitor(minMon);
+                
+                //keyboard
+                
+                r = Helper.retrieve(minKeyboard);
+                int minKey = 0;
+                if(r.next()){
+                    minKey = r.getInt("id");
+                }
+                else{ 
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                Keyboard key = new Keyboard();
+                key.retrieveKeyboard(minKey);
+                
+                
+                //mouse
+                
+                r = Helper.retrieve(minMouse);
+                int minMou = 0;
+                if(r.next()){
+                    minMou = r.getInt("id");
+                }
+                else{ 
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                Mouse mou = new Mouse();
+                mou.retrieveMouse(minMou);
+                
+                
+                
+                //optic drive
+                r = Helper.retrieve(minOpticDrive);
+                int minOD = 0;
+                if(r.next()){
+                    minOD = r.getInt("id");
+                }
+                else{ 
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                OpticDrive od = new OpticDrive();
+                od.retrieveOpticDrive(minOD);
+                
+                
+                //operating system
+                
+                r = Helper.retrieve(minOperatingSystem);
+                int minOS = 0;
+                if(r.next()){
+                    minOS = r.getInt("id");
+                }
+                else{ 
+                    JOptionPane.showMessageDialog(null, "Connection Error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                OperatingSystem os = new OperatingSystem();
+                os.retrieveOperatingSystem(minOS);
+                
+                resultWindow.motherboard.add(m);
+                resultWindow.cpu.add(c);
+                resultWindow.gpu.add(g);
+                resultWindow.hdd.add(h);
+                resultWindow.keyboard.add(key);
+                resultWindow.memory.add(mem);
+                resultWindow.monitor.add(mon);
+                resultWindow.mouse.add(mou);
+                resultWindow.opticdrive.add(od);
+                resultWindow.os.add(os);
+                resultWindow.ssd.add(s);
+                
+                resultWindow.loadEntities();
+                resultWindow.loadPrices();
+                
+              }
+              catch(Exception e){
+                  JOptionPane.showMessageDialog(null, "Motherboard does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+              }
+              
+              resultWindow.setVisible(true);
               
               this.dispose();
-          }
-          else if (score > 100 && score <= 200 )    {
-              // to do
-              this.dispose();
-          }
-          else if (score > 200 && score <= 300 )    {
-              // to do
-              this.dispose();
-          }
-          else {
-              // to do
-              this.dispose();
-          }
           
       }
       else
@@ -361,6 +841,11 @@ public class SuggestionWindow extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new computerWizardUI().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
