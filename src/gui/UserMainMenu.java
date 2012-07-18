@@ -766,6 +766,12 @@ public class UserMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        jTextField1.setText(0+"");
+        jTextField2.setText(0+"");
+        jTextField3.setText(0+"");
+        jTextField4.setText(0+"");
+        jTextField6.setText(0+"");
+        jTextField7.setText(0+"");
         try {
             // TODO add your handling code here:
             initMotherboardMatchedEntities();
