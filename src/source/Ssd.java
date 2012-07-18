@@ -45,7 +45,7 @@ public class Ssd extends Storage {
     }
     
     public void retrieveSsd(int id) throws Exception{
-        String retrieveQuery = "SELECT * FROM sdd WHERE id = "+id;
+        String retrieveQuery = "SELECT * FROM ssd WHERE id = "+id;
         
         ResultSet rs = Helper.retrieve(retrieveQuery);
         if(rs.next()){
