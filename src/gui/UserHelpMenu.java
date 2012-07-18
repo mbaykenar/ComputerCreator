@@ -152,12 +152,12 @@ public class UserHelpMenu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(jRadioButton1.isSelected()){
-            new UserMainMenu().setVisible(true);
+            new UserMainMenu(this.currentUser).setVisible(true);
             this.dispose();
         }
         else if(jRadioButton2.isSelected()){
             //TODO
-            new SuggestionWindow().setVisible(true);
+            new SuggestionWindow(this.currentUser).setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed

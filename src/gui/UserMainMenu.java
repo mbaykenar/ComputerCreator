@@ -16,6 +16,7 @@ import source.*;
  * @author SifresizAdmin
  */
 public class UserMainMenu extends javax.swing.JFrame {
+    private User user;
     
     private ArrayList<Motherboard> motherboard;
     private ArrayList<Cpu> cpu;
@@ -44,11 +45,28 @@ public class UserMainMenu extends javax.swing.JFrame {
     /**
      * Creates new form UserMainMenu
      */
-    public UserMainMenu(){        
+    public UserMainMenu(){
+        setUser(user);
         initComponents();
         initEntities();
         initPrices();
         setLocationRelativeTo( null ); //to center the window
+    }
+    
+    public UserMainMenu(User user){
+        setUser(user);
+        initComponents();
+        initEntities();
+        initPrices();
+        setLocationRelativeTo( null ); //to center the window
+    }
+    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     /*
@@ -660,6 +678,11 @@ public class UserMainMenu extends javax.swing.JFrame {
         );
 
         jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("OK");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -704,6 +727,7 @@ public class UserMainMenu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -841,6 +865,12 @@ public class UserMainMenu extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(null, "Please select a component to display.", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new UserHelpMenu(getUser()).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
