@@ -19,7 +19,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
      * Creates new form SuggestionWindow
      */
     
-    User user;
+    User user = null;
     
     static int numberOfQuestions = 6;
      ArrayList<String> questions = new ArrayList();
@@ -32,7 +32,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
      int score = 0;
 
     
-    public SuggestionWindow() {
+   /* public SuggestionWindow(User u) {
         initComponents();
         setLocationRelativeTo( null ); //to center the window
         jRadioButton3.setVisible(false);
@@ -78,7 +78,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
         jRadioButton4Text.add("Unemployed");
         jRadioButton4Text.add(">6");
         jRadioButton4Text.add(">5000");  
-    }
+    }*/
     
     public SuggestionWindow(User user) {
         setUser(user);
@@ -279,14 +279,13 @@ public class SuggestionWindow extends javax.swing.JFrame {
           String minOpticDrive = "";
           String minOperatingSystem = "";
           
-          
+          Motherboard m = null;
           
           if (score > 0 && score <= 100 )    {
               
               
                   //motherboard
                 minMotherboard = "SELECT model FROM motherboard AS m WHERE m.price = (SELECT MIN(price) FROM motherboard)";
-                Motherboard m = null;
                 try{
                   //retrieve motherboard
                     ResultSet r = Helper.retrieve(minMotherboard);
@@ -334,7 +333,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
                 minOpticDrive = "SELECT id FROM opticdrive AS o WHERE o.price = (SELECT MIN(price) FROM opticdrive)";
                 
                 //operating system
-                minOperatingSystem = "SELECT id FROM operatingsystem AS o WHERE o.price = (SELECT MIN(price) FROM operatingsystem)";
+                minOperatingSystem = "SELECT id FROM operatingsystem AS o WHERE o.price = (SELECT MAX(price) FROM operatingsystem)";
                 
           }
           else if (score > 100 && score <= 200 )    { //ALL AVERAGE
@@ -342,7 +341,6 @@ public class SuggestionWindow extends javax.swing.JFrame {
                 minMotherboard = "SELECT * FROM motherboard WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM motherboard m1, motherboard m2 "
                         + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
                         + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM motherboard))";
-                Motherboard m = null;
                 try{
                   //retrieve motherboard
                     ResultSet r = Helper.retrieve(minMotherboard);
@@ -415,9 +413,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
                         + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM opticdrive))";
                 
                 //operating system
-                minOperatingSystem = "SELECT * FROM operatingsystem WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM operatingsystem m1, operatingsystem m2 "
-                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
-                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM operatingsystem))";
+                minOperatingSystem = "SELECT id FROM operatingsystem AS o WHERE o.price = (SELECT MAX(price) FROM operatingsystem)";
           }
           
           
@@ -452,7 +448,6 @@ public class SuggestionWindow extends javax.swing.JFrame {
                         + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
                         + "(select * from motherboard as c1 where c1.id IN (select motherboard_id from gpu_motherboard where gpu_id =" + g.getId() + "))m4))";
                 
-                Motherboard m = null;
                 try{
                   //retrieve motherboard
                     ResultSet r = Helper.retrieve(minMotherboard);
@@ -516,14 +511,12 @@ public class SuggestionWindow extends javax.swing.JFrame {
                         + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM opticdrive))";
                 
                 //operating system
-                minOperatingSystem = "SELECT * FROM operatingsystem WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM operatingsystem m1, operatingsystem m2 "
-                        + "WHERE m1.price < m2.price OR (m1.price=m2.price) "
-                        + "GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM operatingsystem))";
+                minOperatingSystem = "SELECT id FROM operatingsystem AS o WHERE o.price = (SELECT MAX(price) FROM operatingsystem)";
           }
           else { //ALL EXPENSIVE
                //motherboard
                 minMotherboard = "SELECT model FROM motherboard AS m WHERE m.price = (SELECT MAX(price) FROM motherboard)";
-                Motherboard m = null;
+                
                 try{
                   //retrieve motherboard
                     ResultSet r = Helper.retrieve(minMotherboard);
@@ -574,11 +567,12 @@ public class SuggestionWindow extends javax.swing.JFrame {
                 minOperatingSystem = "SELECT id FROM operatingsystem AS o WHERE o.price = (SELECT MAX(price) FROM operatingsystem)";
           }
           
-          SuggestionResultWindow resultWindow = new SuggestionResultWindow();
+          SuggestionResultWindow resultWindow = new SuggestionResultWindow(user);
               
               try{
+                  ResultSet r;
                   //retrieve motherboard
-                ResultSet r = Helper.retrieve(minMotherboard);
+                /*r = Helper.retrieve(minMotherboard);
                 if(r.next()){
                     minMotherboard = r.getString("model");
                 }
@@ -587,7 +581,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
                 }
 
                 Motherboard m = new Motherboard();
-                m.retrieveMotherboard(minMotherboard);
+                m.retrieveMotherboard(minMotherboard);*/
                 
                 //retrieve cpu
                 
@@ -751,6 +745,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
                 
                 resultWindow.loadEntities();
                 resultWindow.loadPrices();
+                resultWindow.updateTotalPrice();
                 
               }
               catch(Exception e){
@@ -939,7 +934,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new SuggestionWindow().setVisible(true);
+                new SuggestionWindow(null).setVisible(true);
             }
         });
     }

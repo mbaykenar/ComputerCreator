@@ -3,6 +3,13 @@
  * and open the template in the editor.
  */
 package gui;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,17 +24,17 @@ import source.*;
  */
 public class SuggestionResultWindow extends javax.swing.JFrame {
     
-    public ArrayList<Motherboard> motherboard;
-    public ArrayList<Cpu> cpu;
-    public ArrayList<Memory> memory;
-    public ArrayList<GraphicsCard> gpu;
-    public ArrayList<Monitor> monitor;
-    public ArrayList<Hdd> hdd;
-    public ArrayList<Mouse> mouse;
-    public ArrayList<Keyboard> keyboard;
-    public ArrayList<OpticDrive> opticdrive;
-    public ArrayList<Ssd> ssd;
-    public ArrayList<OperatingSystem> os;
+    public ArrayList<Motherboard> motherboard = new ArrayList<Motherboard>();
+    public ArrayList<Cpu> cpu = new ArrayList<Cpu>();
+    public ArrayList<Memory> memory = new ArrayList<Memory>();
+    public ArrayList<GraphicsCard> gpu = new ArrayList<GraphicsCard>();
+    public ArrayList<Monitor> monitor = new ArrayList<Monitor>();
+    public ArrayList<Hdd> hdd = new ArrayList<Hdd>();
+    public ArrayList<Mouse> mouse = new ArrayList<Mouse>();
+    public ArrayList<Keyboard> keyboard = new ArrayList<Keyboard>();
+    public ArrayList<OpticDrive> opticdrive = new ArrayList<OpticDrive>();
+    public ArrayList<Ssd> ssd = new ArrayList<Ssd>();
+    public ArrayList<OperatingSystem> os = new ArrayList<OperatingSystem>();
     
     private DefaultComboBoxModel jComboBox1Model;
     private DefaultComboBoxModel jComboBox12Model;
@@ -41,13 +48,15 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
     private DefaultComboBoxModel jComboBox20Model;
     private DefaultComboBoxModel jComboBox21Model;
                     
+    User currentUser = null;
     /**
      * Creates new form UserMainMenu
      */
-    public SuggestionResultWindow(){        
+    public SuggestionResultWindow(User u){        
         initComponents();
         initEntities();
         initPrices();
+        currentUser = u;
         setLocationRelativeTo( null ); //to center the window
     }
     
@@ -91,6 +100,46 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
             motherboardModel[i] = motherboard.get(i).getVendor()+" "+motherboard.get(i).getModel();
         }
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(motherboardModel));
+        
+        //cpu
+        int cpusize = cpu.size();
+        String [] cpuModel = new String[cpusize];
+        for(int i=0; i<cpusize; i++){
+            cpuModel[i] = cpu.get(i).getVendor()+" "+cpu.get(i).getModel();
+        }
+        jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(cpuModel));
+        
+        //gpu
+        int gpusize = gpu.size();
+        String [] gpuModel = new String[gpusize];
+        for(int i=0; i<gpusize; i++){
+            gpuModel[i] = gpu.get(i).getVendor()+" "+gpu.get(i).getModel();
+        }
+        jComboBox14.setModel(new javax.swing.DefaultComboBoxModel(gpuModel));
+        
+        //memory
+        int memorysize = memory.size();
+        String [] memoryModel = new String[memorysize];
+        for(int i=0; i<memorysize; i++){
+            memoryModel[i] = memory.get(i).getVendor()+" "+memory.get(i).getModel();
+        }
+        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(memoryModel));
+        
+        //hdd
+        int hddsize = hdd.size();
+        String [] hddModel = new String[hddsize];
+        for(int i=0; i<hddsize; i++){
+            hddModel[i] = hdd.get(i).getVendor()+" "+hdd.get(i).getModel();
+        }
+        jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(hddModel));
+        
+        //ssd
+        int ssdsize = ssd.size();
+        String [] ssdModel = new String[ssdsize];
+        for(int i=0; i<ssdsize; i++){
+            ssdModel[i] = ssd.get(i).getVendor()+" "+ssd.get(i).getModel();
+        }
+        jComboBox17.setModel(new javax.swing.DefaultComboBoxModel(ssdModel));
         
         int monitorsize = monitor.size();
         String [] monitorModel = new String[monitorsize];
@@ -291,10 +340,10 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
         jRadioButton10 = new javax.swing.JRadioButton();
         jRadioButton11 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Welcome");
+        setTitle("Our Suggestion");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 12))); // NOI18N
@@ -467,7 +516,7 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
                                 .addComponent(jButton3)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap(55, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jRadioButton2)
                                     .addComponent(jRadioButton1)
@@ -511,7 +560,7 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
                         .addComponent(jLabel22)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox1, jComboBox12, jComboBox13, jComboBox14, jComboBox15, jComboBox16, jComboBox17, jComboBox18, jComboBox19, jComboBox20, jComboBox21});
@@ -602,12 +651,16 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
         );
 
         jButton1.setText("Exit");
-
-        jButton2.setText("OK");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Export to PDF");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -616,37 +669,31 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 389, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -783,6 +830,114 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String FILE = "tansel_vs_hassan.pdf";
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            document.open();
+
+
+            //       create a table
+            PdfPTable table = new PdfPTable(3);
+
+            PdfPCell c1 = new PdfPCell(new Phrase("COMPONENTS"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase("MODEL"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase("PRICE"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+//            c1 = new PdfPCell(new Phrase("Table Header 3"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
+//            table.setHeaderRows(1);
+
+            double price = 0.0;
+
+            table.addCell("Motherboard");
+            table.addCell(motherboard.get(jComboBox1.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(motherboard.get(jComboBox1.getSelectedIndex()).getPrice()));
+            price += motherboard.get(jComboBox1.getSelectedIndex()).getPrice();
+
+            table.addCell("CPU");
+            table.addCell(cpu.get(jComboBox12.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(cpu.get(jComboBox12.getSelectedIndex()).getPrice()));
+            price += cpu.get(jComboBox12.getSelectedIndex()).getPrice();
+
+            table.addCell("Memory");
+            table.addCell(memory.get(jComboBox13.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(memory.get(jComboBox13.getSelectedIndex()).getPrice()));
+            price += memory.get(jComboBox13.getSelectedIndex()).getPrice();
+
+            table.addCell("GPU");
+            table.addCell(gpu.get(jComboBox14.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(gpu.get(jComboBox14.getSelectedIndex()).getPrice()));
+            price += gpu.get(jComboBox14.getSelectedIndex()).getPrice();
+
+            table.addCell("Monitor");
+            table.addCell(monitor.get(jComboBox15.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(monitor.get(jComboBox15.getSelectedIndex()).getPrice()));
+            price += monitor.get(jComboBox15.getSelectedIndex()).getPrice();
+
+            table.addCell("HDD");
+            table.addCell(hdd.get(jComboBox16.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(hdd.get(jComboBox16.getSelectedIndex()).getPrice()));
+            price += hdd.get(jComboBox16.getSelectedIndex()).getPrice();
+
+            table.addCell("SSD");
+            table.addCell(ssd.get(jComboBox17.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(ssd.get(jComboBox17.getSelectedIndex()).getPrice()));
+            price += ssd.get(jComboBox17.getSelectedIndex()).getPrice();
+
+            table.addCell("Keyboard");
+            table.addCell(keyboard.get(jComboBox18.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(keyboard.get(jComboBox18.getSelectedIndex()).getPrice()));
+            price += keyboard.get(jComboBox18.getSelectedIndex()).getPrice();
+
+            table.addCell("Mouse");
+            table.addCell(mouse.get(jComboBox19.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(mouse.get(jComboBox19.getSelectedIndex()).getPrice()));
+            price += mouse.get(jComboBox19.getSelectedIndex()).getPrice();
+
+            table.addCell("Optic Drive");
+            table.addCell(opticdrive.get(jComboBox20.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(opticdrive.get(jComboBox20.getSelectedIndex()).getPrice()));
+            price += opticdrive.get(jComboBox20.getSelectedIndex()).getPrice();
+
+            table.addCell("Operating System");
+            table.addCell(os.get(jComboBox21.getSelectedIndex()).getModel());
+            table.addCell(Double.toString(os.get(jComboBox21.getSelectedIndex()).getPrice()));
+            price += os.get(jComboBox21.getSelectedIndex()).getPrice();
+
+            table.addCell("");
+            table.addCell("TOTAL");
+            table.addCell(Double.toString(price));
+
+            document.add(table);
+
+
+
+
+
+            document.close();
+
+        } catch (Exception e) {
+            // to do
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new UserHelpMenu(currentUser).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -821,7 +976,7 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
 
             public void run() {
                 try {
-                    new SuggestionResultWindow().setVisible(true);
+                    new SuggestionResultWindow(null).setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(SuggestionResultWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -831,8 +986,8 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox12;
     private javax.swing.JComboBox jComboBox13;
