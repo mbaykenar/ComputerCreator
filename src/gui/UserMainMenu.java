@@ -61,6 +61,18 @@ public class UserMainMenu extends javax.swing.JFrame {
         initPrices();
         setLocationRelativeTo( null ); //to center the window
         
+        jComboBox1.setSelectedIndex(-1);
+        jComboBox12.setSelectedIndex(-1);
+        jComboBox13.setSelectedIndex(-1);
+        jComboBox14.setSelectedIndex(-1);
+        jComboBox15.setSelectedIndex(-1);
+        jComboBox16.setSelectedIndex(-1);
+        jComboBox17.setSelectedIndex(-1);
+        jComboBox18.setSelectedIndex(-1);
+        jComboBox19.setSelectedIndex(-1);
+        jComboBox20.setSelectedIndex(-1);
+        jComboBox21.setSelectedIndex(-1);
+        
     }
     
     public UserMainMenu(User user){
@@ -69,6 +81,18 @@ public class UserMainMenu extends javax.swing.JFrame {
         initEntities();
         initPrices();
         setLocationRelativeTo( null ); //to center the window
+        
+        jComboBox1.setSelectedIndex(-1);
+        jComboBox12.setSelectedIndex(-1);
+        jComboBox13.setSelectedIndex(-1);
+        jComboBox14.setSelectedIndex(-1);
+        jComboBox15.setSelectedIndex(-1);
+        jComboBox16.setSelectedIndex(-1);
+        jComboBox17.setSelectedIndex(-1);
+        jComboBox18.setSelectedIndex(-1);
+        jComboBox19.setSelectedIndex(-1);
+        jComboBox20.setSelectedIndex(-1);
+        jComboBox21.setSelectedIndex(-1);
     }
     
     public User getUser() {
@@ -276,70 +300,92 @@ public class UserMainMenu extends javax.swing.JFrame {
     }
     
     private void displayMotherboard() {
-        int mbIndex = jComboBox1.getSelectedIndex();
-        Motherboard mb = this.motherboard.get(mbIndex);
-        new DisplayMotherboard(mb).setVisible(true);
+        if(jComboBox1.getSelectedIndex() != -1){
+            int mbIndex = jComboBox1.getSelectedIndex();
+            Motherboard mb = this.motherboard.get(mbIndex);
+            new DisplayMotherboard(mb).setVisible(true);
+        }
     }
 
     private void displayCpu() {
-        int cpuIndex = jComboBox12.getSelectedIndex();
-        Cpu cpu = this.cpu.get(cpuIndex);
-        new DisplayCpu(cpu).setVisible(true);  
+        if(jComboBox12.getSelectedIndex() != -1){
+            int cpuIndex = jComboBox12.getSelectedIndex();
+            Cpu cpu = this.cpu.get(cpuIndex);
+            new DisplayCpu(cpu).setVisible(true);  
+        }
     }
 
     private void displayMemory() {
-        int memoryIndex = jComboBox13.getSelectedIndex();
-        Memory memory = this.memory.get(memoryIndex);
-        new DisplayMemory(memory).setVisible(true);
+        if(jComboBox13.getSelectedIndex() != -1){
+            int memoryIndex = jComboBox13.getSelectedIndex();
+            Memory memory = this.memory.get(memoryIndex);
+            new DisplayMemory(memory).setVisible(true);
+        }
         
     }
 
     private void displayGpu() {
-        int gpuIndex = jComboBox14.getSelectedIndex();
-        GraphicsCard gpu = this.gpu.get(gpuIndex);
-        new DisplayGpu(gpu).setVisible(true);
+        if(jComboBox14.getSelectedIndex() != -1){
+            int gpuIndex = jComboBox14.getSelectedIndex();
+            GraphicsCard gpu = this.gpu.get(gpuIndex);
+            new DisplayGpu(gpu).setVisible(true);
+        }
     }
 
     private void displayMonitor() {
-        int index = jComboBox15.getSelectedIndex();
-        Monitor monitor = this.monitor.get(index);
-        new DisplayMonitor(monitor).setVisible(true);
+        if(jComboBox15.getSelectedIndex() != -1){
+            int index = jComboBox15.getSelectedIndex();
+            Monitor monitor = this.monitor.get(index);
+            new DisplayMonitor(monitor).setVisible(true);
+        }
     }
 
     private void displayHdd() {
-        int index = jComboBox16.getSelectedIndex();
-        Hdd hdd = this.hdd.get(index);
-        new DisplayHdd(hdd).setVisible(true);
+        if(jComboBox16.getSelectedIndex() != -1){
+            int index = jComboBox16.getSelectedIndex();
+            Hdd hdd = this.hdd.get(index);
+            new DisplayHdd(hdd).setVisible(true);
+        }
     }
 
     private void displaySsd() {
-        int index = jComboBox17.getSelectedIndex();
-        Ssd ssd = this.ssd.get(index);
-        new DisplaySsd(ssd).setVisible(true);
+        if(jComboBox17.getSelectedIndex() != -1){
+            int index = jComboBox17.getSelectedIndex();
+            Ssd ssd = this.ssd.get(index);
+            new DisplaySsd(ssd).setVisible(true);
+        }
     }
 
     private void displayKeyboard() {
-        int index = jComboBox18.getSelectedIndex();
-        Keyboard kb = this.keyboard.get(index);
-        new DisplayKeyboard(kb).setVisible(true);
+        if(jComboBox18.getSelectedIndex() != -1){
+            int index = jComboBox18.getSelectedIndex();
+            Keyboard kb = this.keyboard.get(index);
+            new DisplayKeyboard(kb).setVisible(true);
+        }
     }
 
     private void displayMouse() {
-        int index = jComboBox19.getSelectedIndex();
-        Mouse mouse = this.mouse.get(index);
-        new DisplayMouse(mouse).setVisible(true);
+        if(jComboBox19.getSelectedIndex() != -1){
+            int index = jComboBox19.getSelectedIndex();
+            Mouse mouse = this.mouse.get(index);
+            new DisplayMouse(mouse).setVisible(true);
+        }
     }
 
     private void displayOpticDrive() {
-        int index = jComboBox20.getSelectedIndex();
-        Hdd hdd = this.hdd.get(index);
-        new DisplayHdd(hdd).setVisible(true);
+        if(jComboBox20.getSelectedIndex() != -1){
+            int index = jComboBox20.getSelectedIndex();
+            Hdd hdd = this.hdd.get(index);
+            new DisplayHdd(hdd).setVisible(true);
+        }
     }
 
     private void displayOperatingSystem() {
-        int index = jComboBox21.getSelectedIndex();
-        OperatingSystem os = this.os.get(index);
-        new DisplayOperatingSystem(os).setVisible(true);
+        if(jComboBox21.getSelectedIndex() != -1){
+            int index = jComboBox21.getSelectedIndex();
+            OperatingSystem os = this.os.get(index);
+            new DisplayOperatingSystem(os).setVisible(true);
+        }
     }
 
     /**
@@ -766,125 +812,137 @@ public class UserMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        jTextField1.setText(0+"");
+        /*jTextField1.setText(0+"");
         jTextField2.setText(0+"");
         jTextField3.setText(0+"");
         jTextField4.setText(0+"");
         jTextField6.setText(0+"");
-        jTextField7.setText(0+"");
-        try {
-            // TODO add your handling code here:
-            initMotherboardMatchedEntities();
-        } catch (Exception ex) {
-            Logger.getLogger(UserMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        jTextField7.setText(0+"");*/
+        if(jComboBox1.getSelectedIndex() != -1){
+            try {
+                // TODO add your handling code here:
+                initMotherboardMatchedEntities();
+            } catch (Exception ex) {
+                Logger.getLogger(UserMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            jComboBox12.setEnabled(true);
+            jComboBox13.setEnabled(true);
+            jComboBox14.setEnabled(true);
+            jComboBox16.setEnabled(true);
+            jComboBox17.setEnabled(true);
+
+            jRadioButton2.setEnabled(true);
+            jRadioButton3.setEnabled(true);
+            jRadioButton4.setEnabled(true);
+            jRadioButton6.setEnabled(true);
+            jRadioButton7.setEnabled(true);
+
+            int mbIndex = jComboBox1.getSelectedIndex();
+            Motherboard mb = motherboard.get(mbIndex);
+            jTextField1.setText(mb.getPrice()+"");
+
+            updateTotalPrice();
         }
-        jComboBox12.setEnabled(true);
-        jComboBox13.setEnabled(true);
-        jComboBox14.setEnabled(true);
-        jComboBox16.setEnabled(true);
-        jComboBox17.setEnabled(true);
-        
-        jRadioButton2.setEnabled(true);
-        jRadioButton3.setEnabled(true);
-        jRadioButton4.setEnabled(true);
-        jRadioButton6.setEnabled(true);
-        jRadioButton7.setEnabled(true);
-        
-        int mbIndex = jComboBox1.getSelectedIndex();
-        Motherboard mb = motherboard.get(mbIndex);
-        jTextField1.setText(mb.getPrice()+"");
-        
-        updateTotalPrice();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
-        // TODO add your handling code here:
-        int memoryIndex = jComboBox13.getSelectedIndex();
-        Memory memory = this.memory.get(memoryIndex);
-        jTextField3.setText(memory.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox13.getSelectedIndex() != -1){
+            int memoryIndex = jComboBox13.getSelectedIndex();
+            Memory memory = this.memory.get(memoryIndex);
+            jTextField3.setText(memory.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox13ActionPerformed
 
     private void jComboBox12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox12ActionPerformed
-        // TODO add your handling code here:
-        int cpuIndex = jComboBox12.getSelectedIndex();
-        Cpu cpu = this.cpu.get(cpuIndex);
-        jTextField2.setText(cpu.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox12.getSelectedIndex() != -1){
+            int cpuIndex = jComboBox12.getSelectedIndex();
+            Cpu cpu = this.cpu.get(cpuIndex);
+            jTextField2.setText(cpu.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox12ActionPerformed
 
     private void jComboBox14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox14ActionPerformed
-        // TODO add your handling code here:
-        int gpuIndex = jComboBox14.getSelectedIndex();
-        GraphicsCard gpu = this.gpu.get(gpuIndex);
-        jTextField4.setText(gpu.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox14.getSelectedIndex() != -1){
+            int gpuIndex = jComboBox14.getSelectedIndex();
+            GraphicsCard gpu = this.gpu.get(gpuIndex);
+            jTextField4.setText(gpu.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox14ActionPerformed
 
     private void jComboBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox15ActionPerformed
-        // TODO add your handling code here:
-        int index = jComboBox15.getSelectedIndex();
-        Monitor monitor = this.monitor.get(index);
-        jTextField5.setText(monitor.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox15.getSelectedIndex() != -1){
+            int index = jComboBox15.getSelectedIndex();
+            Monitor monitor = this.monitor.get(index);
+            jTextField5.setText(monitor.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox15ActionPerformed
 
     private void jComboBox16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox16ActionPerformed
-        // TODO add your handling code here:
-        int index = jComboBox16.getSelectedIndex();
-        Hdd hdd = this.hdd.get(index);
-        jTextField6.setText(hdd.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox16.getSelectedIndex() != -1){
+            int index = jComboBox16.getSelectedIndex();
+            Hdd hdd = this.hdd.get(index);
+            jTextField6.setText(hdd.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox16ActionPerformed
 
     private void jComboBox17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox17ActionPerformed
-        // TODO add your handling code here:
-        int index = jComboBox17.getSelectedIndex();
-        Ssd ssd = this.ssd.get(index);
-        jTextField7.setText(ssd.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox17.getSelectedIndex() != -1){
+            int index = jComboBox17.getSelectedIndex();
+            Ssd ssd = this.ssd.get(index);
+            jTextField7.setText(ssd.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox17ActionPerformed
 
     private void jComboBox18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox18ActionPerformed
-        // TODO add your handling code here:
-        int index = jComboBox15.getSelectedIndex();
-        Keyboard keyboard = this.keyboard.get(index);
-        jTextField8.setText(keyboard.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox18.getSelectedIndex() != -1){
+            int index = jComboBox18.getSelectedIndex();
+            Keyboard keyboard = this.keyboard.get(index);
+            jTextField8.setText(keyboard.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox18ActionPerformed
 
     private void jComboBox19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox19ActionPerformed
-        // TODO add your handling code here:
-        int index = jComboBox19.getSelectedIndex();
-        Mouse mouse = this.mouse.get(index);
-        jTextField9.setText(mouse.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox19.getSelectedIndex() != -1){
+            int index = jComboBox19.getSelectedIndex();
+            Mouse mouse = this.mouse.get(index);
+            jTextField9.setText(mouse.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox19ActionPerformed
 
     private void jComboBox20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox20ActionPerformed
-        // TODO add your handling code here:
-        int index = jComboBox20.getSelectedIndex();
-        OpticDrive od = this.opticdrive.get(index);
-        jTextField10.setText(od.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox20.getSelectedIndex() != -1){
+            int index = jComboBox20.getSelectedIndex();
+            OpticDrive od = this.opticdrive.get(index);
+            jTextField10.setText(od.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox20ActionPerformed
 
     private void jComboBox21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox21ActionPerformed
-        // TODO add your handling code here:
-        int index = jComboBox21.getSelectedIndex();
-        OperatingSystem os = this.os.get(index);
-        jTextField11.setText(os.getPrice()+"");
-        
-        updateTotalPrice();
+        if(jComboBox21.getSelectedIndex() != -1){
+            int index = jComboBox21.getSelectedIndex();
+            OperatingSystem os = this.os.get(index);
+            jTextField11.setText(os.getPrice()+"");
+
+            updateTotalPrice();
+        }
     }//GEN-LAST:event_jComboBox21ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
