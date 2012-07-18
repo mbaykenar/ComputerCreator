@@ -10,13 +10,16 @@ import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import java.awt.Graphics2D;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import source.*;
 
 /**
@@ -1016,9 +1019,20 @@ public class UserMainMenu extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         try{
-            String FILE = "tansel_vs_hassan.pdf";
+            JFileChooser jf = new JFileChooser();
+            File selFile = null;
+            
+            jf.setAcceptAllFileFilterUsed(false);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF", "pdf", "pdf");
+            jf.setFileFilter(filter);
+            
+            if(jf.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
+                selFile = jf.getSelectedFile();
+            }
+            
+            String filepath = selFile.getAbsolutePath();
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));       
+            PdfWriter.getInstance(document, new FileOutputStream(filepath + ".pdf"));
             document.open();
             
             
