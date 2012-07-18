@@ -231,6 +231,73 @@ public class UserMainMenu extends javax.swing.JFrame {
         
         jTextField12.setText(total+"");
     }
+    
+    private void displayMotherboard() {
+        int mbIndex = jComboBox1.getSelectedIndex();
+        Motherboard mb = this.motherboard.get(mbIndex);
+        new DisplayMotherboard(mb).setVisible(true);
+    }
+
+    private void displayCpu() {
+        int cpuIndex = jComboBox12.getSelectedIndex();
+        Cpu cpu = this.cpu.get(cpuIndex);
+        new DisplayCpu(cpu).setVisible(true);  
+    }
+
+    private void displayMemory() {
+        int memoryIndex = jComboBox13.getSelectedIndex();
+        Memory memory = this.memory.get(memoryIndex);
+        new DisplayMemory(memory).setVisible(true);
+        
+    }
+
+    private void displayGpu() {
+        int gpuIndex = jComboBox14.getSelectedIndex();
+        GraphicsCard gpu = this.gpu.get(gpuIndex);
+        new DisplayGpu(gpu).setVisible(true);
+    }
+
+    private void displayMonitor() {
+        int index = jComboBox15.getSelectedIndex();
+        Monitor monitor = this.monitor.get(index);
+        new DisplayMonitor(monitor).setVisible(true);
+    }
+
+    private void displayHdd() {
+        int index = jComboBox16.getSelectedIndex();
+        Hdd hdd = this.hdd.get(index);
+        new DisplayHdd(hdd).setVisible(true);
+    }
+
+    private void displaySsd() {
+        int index = jComboBox17.getSelectedIndex();
+        Ssd ssd = this.ssd.get(index);
+        new DisplaySsd(ssd).setVisible(true);
+    }
+
+    private void displayKeyboard() {
+        int index = jComboBox18.getSelectedIndex();
+        Keyboard kb = this.keyboard.get(index);
+        new DisplayKeyboard(kb).setVisible(true);
+    }
+
+    private void displayMouse() {
+        int index = jComboBox19.getSelectedIndex();
+        Mouse mouse = this.mouse.get(index);
+        new DisplayMouse(mouse).setVisible(true);
+    }
+
+    private void displayOpticDrive() {
+        int index = jComboBox20.getSelectedIndex();
+        Hdd hdd = this.hdd.get(index);
+        new DisplayHdd(hdd).setVisible(true);
+    }
+
+    private void displayOperatingSystem() {
+        int index = jComboBox21.getSelectedIndex();
+        OperatingSystem os = this.os.get(index);
+        new DisplayOperatingSystem(os).setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -400,6 +467,11 @@ public class UserMainMenu extends javax.swing.JFrame {
         jTextField12.setEditable(false);
 
         jButton3.setText("Inspect");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Motherboard");
@@ -735,6 +807,34 @@ public class UserMainMenu extends javax.swing.JFrame {
         
         updateTotalPrice();
     }//GEN-LAST:event_jComboBox21ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if(jRadioButton1.isSelected())
+            displayMotherboard();   
+        else if(jRadioButton2.isSelected())
+            displayCpu();
+        else if(jRadioButton3.isSelected())
+            displayMemory();
+        else if(jRadioButton4.isSelected())
+            displayGpu();
+        else if(jRadioButton5.isSelected())
+            displayMonitor();
+        else if(jRadioButton6.isSelected())
+            displayHdd();
+        else if(jRadioButton7.isSelected())
+            displaySsd();
+        else if(jRadioButton8.isSelected())
+            displayKeyboard();
+        else if(jRadioButton6.isSelected())
+            displayMouse();
+        else if(jRadioButton6.isSelected())
+            displayOpticDrive();
+        else if(jRadioButton6.isSelected())
+            displayOperatingSystem();
+        else
+            JOptionPane.showMessageDialog(null, "Please select a component to display.", "Error", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
