@@ -157,6 +157,8 @@ public class UserHelpMenu extends javax.swing.JFrame {
         }
         else if(jRadioButton2.isSelected()){
             //TODO
+            new SuggestionWindow().setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
