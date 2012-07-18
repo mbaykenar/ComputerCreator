@@ -26,17 +26,17 @@ import source.*;
 public class UserMainMenu extends javax.swing.JFrame {
     private User user;
     
-    private ArrayList<Motherboard> motherboard;
-    private ArrayList<Cpu> cpu;
-    private ArrayList<Memory> memory;
-    private ArrayList<GraphicsCard> gpu;
-    private ArrayList<Monitor> monitor;
-    private ArrayList<Hdd> hdd;
-    private ArrayList<Mouse> mouse;
-    private ArrayList<Keyboard> keyboard;
-    private ArrayList<OpticDrive> opticdrive;
-    private ArrayList<Ssd> ssd;
-    private ArrayList<OperatingSystem> os;
+    private ArrayList<Motherboard> motherboard = new ArrayList<Motherboard>();
+    private ArrayList<Cpu> cpu = new ArrayList<Cpu>();
+    private ArrayList<Memory> memory = new ArrayList<Memory>();
+    private ArrayList<GraphicsCard> gpu = new ArrayList<GraphicsCard>();
+    private ArrayList<Monitor> monitor = new ArrayList<Monitor>();
+    private ArrayList<Hdd> hdd = new ArrayList<Hdd>();
+    private ArrayList<Mouse> mouse = new ArrayList<Mouse>();
+    private ArrayList<Keyboard> keyboard = new ArrayList<Keyboard>();
+    private ArrayList<OpticDrive> opticdrive = new ArrayList<OpticDrive>();
+    private ArrayList<Ssd> ssd = new ArrayList<Ssd>();
+    private ArrayList<OperatingSystem> os = new ArrayList<OperatingSystem>();
     
     private DefaultComboBoxModel jComboBox1Model;
     private DefaultComboBoxModel jComboBox12Model;
@@ -54,11 +54,13 @@ public class UserMainMenu extends javax.swing.JFrame {
      * Creates new form UserMainMenu
      */
     public UserMainMenu(){
+        
         setUser(user);
         initComponents();
         initEntities();
         initPrices();
         setLocationRelativeTo( null ); //to center the window
+        
     }
     
     public UserMainMenu(User user){
@@ -156,14 +158,21 @@ public class UserMainMenu extends javax.swing.JFrame {
         Motherboard mb = motherboard.get(mbIndex);
         int mbId = mb.getId();
         
+        this.cpu.clear();
+        this.memory.clear();
+        this.cpu.clear();
+        this.hdd.clear();
+        this.ssd.clear();
+        
         mb.retrieveCpuMatches(mbId);
         mb.retrieveGpuMatches(mbId);
         mb.retrieveMemoryMatches(mbId);
         mb.retrieveHddMatches(mbId);
         mb.retrieveSsdMatches(mbId);
         
-        Cpu cpu = new Cpu();
+        Cpu cpu;
         for(int i=0; i<mb.getMatchedCpuIDs().size(); i++){
+            cpu = new Cpu();
             int id = mb.getMatchedCpuIDs().get(i);
             cpu.retrieveCpu(id);
             this.cpu.add(cpu);
@@ -245,6 +254,8 @@ public class UserMainMenu extends javax.swing.JFrame {
         jTextField9.setText("0");
         jTextField10.setText("0");
         jTextField11.setText("0");
+        
+        jComboBox1.setSelectedIndex(0);
     }
     
     public void updateTotalPrice(){
@@ -759,8 +770,20 @@ public class UserMainMenu extends javax.swing.JFrame {
             // TODO add your handling code here:
             initMotherboardMatchedEntities();
         } catch (Exception ex) {
-            //Logger.getLogger(UserMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserMainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jComboBox12.setEnabled(true);
+        jComboBox13.setEnabled(true);
+        jComboBox14.setEnabled(true);
+        jComboBox16.setEnabled(true);
+        jComboBox17.setEnabled(true);
+        
+        jRadioButton2.setEnabled(true);
+        jRadioButton3.setEnabled(true);
+        jRadioButton4.setEnabled(true);
+        jRadioButton6.setEnabled(true);
+        jRadioButton7.setEnabled(true);
+        
         int mbIndex = jComboBox1.getSelectedIndex();
         Motherboard mb = motherboard.get(mbIndex);
         jTextField1.setText(mb.getPrice()+"");
@@ -1060,7 +1083,7 @@ public class UserMainMenu extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    public javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton10;
     private javax.swing.JRadioButton jRadioButton11;
