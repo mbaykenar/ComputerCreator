@@ -117,6 +117,12 @@ public class UserMainMenu extends javax.swing.JFrame {
         jComboBox14.setEnabled(false);
         jComboBox16.setEnabled(false);
         jComboBox17.setEnabled(false);
+        
+        jRadioButton2.setEnabled(false);
+        jRadioButton3.setEnabled(false);
+        jRadioButton4.setEnabled(false);
+        jRadioButton6.setEnabled(false);
+        jRadioButton7.setEnabled(false);
     }
     
     private void initMotherboardMatchedEntities() throws Exception{
@@ -826,11 +832,11 @@ public class UserMainMenu extends javax.swing.JFrame {
             displaySsd();
         else if(jRadioButton8.isSelected())
             displayKeyboard();
-        else if(jRadioButton6.isSelected())
+        else if(jRadioButton9.isSelected())
             displayMouse();
-        else if(jRadioButton6.isSelected())
+        else if(jRadioButton10.isSelected())
             displayOpticDrive();
-        else if(jRadioButton6.isSelected())
+        else if(jRadioButton11.isSelected())
             displayOperatingSystem();
         else
             JOptionPane.showMessageDialog(null, "Please select a component to display.", "Error", JOptionPane.ERROR_MESSAGE);

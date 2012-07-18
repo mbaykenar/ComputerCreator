@@ -21,7 +21,7 @@ public class DisplayMonitor extends javax.swing.JFrame {
     public DisplayMonitor(Monitor monitor) {
         setCpu(monitor);
         initComponents();
-        initCpuAttributes();
+        initMonitorAttributes();
     }
     
     public Monitor getMonitor() {
@@ -32,24 +32,24 @@ public class DisplayMonitor extends javax.swing.JFrame {
         this.monitor = monitor;
     }
     
-    private void initCpuAttributes() {
-        jTextField1.setText(this.monitor.getVendor());
-        jTextField2.setText(this.monitor.getModel());
-        jTextField3.setText(this.monitor.getPrice()+"");
-        jTextField4.setText(this.monitor.getConnectionInterface()+"");
-        jTextField5.setText(this.monitor.getType()+"");
-        jTextField6.setText(this.monitor.getResolution()+"");
-        jTextField7.setText(this.monitor.getRefreshRate()+"");
-        jTextField8.setText(this.monitor.getScreenSize()+"");
+    private void initMonitorAttributes() {
+        jTextField10.setText(this.monitor.getVendor());
+        jTextField11.setText(this.monitor.getModel());
+        jTextField12.setText(this.monitor.getPrice()+"");
+        jTextField13.setText(this.monitor.getConnectionInterface()+"");
+        jTextField14.setText(this.monitor.getType()+"");
+        jTextField15.setText(this.monitor.getResolution()+"");
+        jTextField16.setText(this.monitor.getRefreshRate()+"");
+        jTextField17.setText(this.monitor.getScreenSize()+"");
         
-        jTextField1.setEditable(false);
-        jTextField2.setEditable(false);
-        jTextField3.setEditable(false);
-        jTextField4.setEditable(false);
-        jTextField5.setEditable(false);
-        jTextField6.setEditable(false);
-        jTextField7.setEditable(false);
-        jTextField8.setEditable(false);
+        jTextField10.setEditable(false);
+        jTextField11.setEditable(false);
+        jTextField12.setEditable(false);
+        jTextField13.setEditable(false);
+        jTextField14.setEditable(false);
+        jTextField15.setEditable(false);
+        jTextField16.setEditable(false);
+        jTextField17.setEditable(false);
     }
 
     /**
@@ -246,9 +246,7 @@ public class DisplayMonitor extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -256,17 +254,7 @@ public class DisplayMonitor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
@@ -275,13 +263,5 @@ public class DisplayMonitor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }
