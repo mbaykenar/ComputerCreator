@@ -25,7 +25,9 @@ public class Motherboard extends Hardware {
   
   private ArrayList<Integer> matchedMemoryIDs;
   
-  private ArrayList<Integer> matchedStorageIDs;
+  private ArrayList<Integer> matchedHddIDs;
+  
+  private ArrayList<Integer> matchedSsdIDs;
 
 
     public Motherboard() {
@@ -77,8 +79,12 @@ public class Motherboard extends Hardware {
         return matchedMemoryIDs;
     }
 
-    public ArrayList<Integer> getMatchedStorageIDs() {
-        return matchedStorageIDs;
+    public ArrayList<Integer> getMatchedHddIDs() {
+        return matchedHddIDs;
+    }
+    
+    public ArrayList<Integer> getMatchedSsdIDs() {
+        return matchedSsdIDs;
     }
 
     public void setBusInterface(String busInterface) {
@@ -117,8 +123,12 @@ public class Motherboard extends Hardware {
         this.matchedMemoryIDs = matchedMemoryIDs;
     }
 
-    public void setMatchedSorageIDs(ArrayList<Integer> matchedSorageIDs) {
-        this.matchedStorageIDs = matchedSorageIDs;
+    public void setMatchedHddIDs(ArrayList<Integer> matchedHddIDs) {
+        this.matchedHddIDs = matchedHddIDs;
+    }
+    
+    public void setMatchedSsdIDs(ArrayList<Integer> matchedSsdIDs) {
+        this.matchedSsdIDs = matchedSsdIDs;
     }
     
     public void addCpu(int id){
@@ -133,8 +143,12 @@ public class Motherboard extends Hardware {
         this.matchedMemoryIDs.add(id);
     }
     
-    public void addStorage(int id){
-        this.matchedStorageIDs.add(id);
+    public void addHdd(int id){
+        this.matchedHddIDs.add(id);
+    }
+    
+    public void addSsd(int id){
+        this.matchedSsdIDs.add(id);
     }
     
     public void clearMatchedCpus(){
@@ -142,27 +156,31 @@ public class Motherboard extends Hardware {
     }
     
     public void clearMatchedGpus(){
-        this.matchedCpuIDs = new ArrayList<Integer>();
+        this.matchedGpuIDs = new ArrayList<Integer>();
     }
     
     public void clearMatchedMemories(){
-        this.matchedCpuIDs = new ArrayList<Integer>();
+        this.matchedMemoryIDs = new ArrayList<Integer>();
     }
     
-    public void clearMatchedStorages(){
-        this.matchedCpuIDs = new ArrayList<Integer>();
+    public void clearMatchedHdds(){
+        this.matchedHddIDs = new ArrayList<Integer>();
+    }
+    
+    public void clearMatchedSsds(){
+        this.matchedSsdIDs = new ArrayList<Integer>();
     }
     
     public void insertMotherboard() throws Exception{
         
         String insertQuery = "INSERT INTO motherboard (model, vendor, socket, memory_slots, pci_slots, pci_e_slots, bus_interface, frequency, price)" +
-            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "'," + memorySlots + "," + pciSlots + "," + pciESlots + "," + busInterface + "," + frequency + "," +
+            "VALUES ('" + super.getModel() + "'," + "'" + super.getVendor() + "','" + socket + "'," + memorySlots + "," + pciSlots + "," + pciESlots + ",'" + busInterface + "'," + frequency + "," +
                 super.getPrice() + ")";
         Helper.insert(insertQuery);
     }
     
-    public void retrieveMotherboard(int id) throws Exception{
-        String retrieveQuery = "SELECT * FROM motherboard WHERE id = " + id;
+    public void retrieveMotherboard(String model) throws Exception{
+        String retrieveQuery = "SELECT * FROM motherboard WHERE model = '" + model + "'";
         
         ResultSet rs = Helper.retrieve(retrieveQuery);
         if(rs.next()){
@@ -235,11 +253,19 @@ public class Motherboard extends Hardware {
         }
     }
     
-    public void retrieveStorageMatches(int mbId) throws Exception{
-        String matchQuery = "SELECT storage_id FROM storage_motherboard WHERE motherboard_id="+mbId;
+    public void retrieveHddMatches(int mbId) throws Exception{
+        String matchQuery = "SELECT hdd_id FROM hdd_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
-            addMemory(rs.getInt("storage_id"));
+            addMemory(rs.getInt("hdd_id"));
+        }
+    }
+    
+    public void retrieveSsdMatches(int mbId) throws Exception{
+        String matchQuery = "SELECT ssd_id FROM ssd_motherboard WHERE motherboard_id="+mbId;
+        ResultSet rs = Helper.retrieve(matchQuery);
+        while(rs.next()){
+            addMemory(rs.getInt("ssd_id"));
         }
     }
     
@@ -285,14 +311,28 @@ public class Motherboard extends Hardware {
             
     }
     
-    //stores storage matches
-    public void storeStorageMatches() throws Exception{
-        String storeQuery = "INSERT INTO storage_motherboard (storage_id, motherboard_id)" +
+    //stores hdd matches
+    public void storeHddMatches() throws Exception{
+        String storeQuery = "INSERT INTO hdd_motherboard (hdd_id, motherboard_id)" +
                 "VALUES (";
         
-        for(int i = 0; i < matchedStorageIDs.size(); i++){
+        for(int i = 0; i < matchedHddIDs.size(); i++){
             String tempQuery = storeQuery;
-            tempQuery = tempQuery + matchedStorageIDs.get(i) + "," + this.getId() + ")";
+            tempQuery = tempQuery + matchedHddIDs.get(i) + "," + this.getId() + ")";
+        
+            Helper.insert(tempQuery);
+        }
+            
+    }
+    
+    //stores ssd matches
+    public void storeSsdMatches() throws Exception{
+        String storeQuery = "INSERT INTO ssd_motherboard (ssd_id, motherboard_id)" +
+                "VALUES (";
+        
+        for(int i = 0; i < matchedSsdIDs.size(); i++){
+            String tempQuery = storeQuery;
+            tempQuery = tempQuery + matchedSsdIDs.get(i) + "," + this.getId() + ")";
         
             Helper.insert(tempQuery);
         }

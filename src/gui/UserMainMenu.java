@@ -127,7 +127,8 @@ public class UserMainMenu extends javax.swing.JFrame {
         mb.retrieveCpuMatches(mbId);
         mb.retrieveGpuMatches(mbId);
         mb.retrieveMemoryMatches(mbId);
-        mb.retrieveStorageMatches(mbId);
+        mb.retrieveHddMatches(mbId);
+        mb.retrieveSsdMatches(mbId);
         
         Cpu cpu = new Cpu();
         for(int i=0; i<mb.getMatchedCpuIDs().size(); i++){
@@ -151,17 +152,17 @@ public class UserMainMenu extends javax.swing.JFrame {
         }
         
         Hdd hdd = new Hdd();
-        Ssd ssd = new Ssd();
+        for(int i=0; i<mb.getMatchedHddIDs().size(); i++){
+            int id = mb.getMatchedHddIDs().get(i);
+            hdd.retrieveHdd(id);
+            this.hdd.add(hdd);
+        }
         
-        for(int i=0; i<mb.getMatchedStorageIDs().size(); i++){
-            int id = mb.getMatchedStorageIDs().get(i);
-            try{
-                hdd.retrieveHdd(id);
-                this.hdd.add(hdd);
-            }catch(Exception e){
-                ssd.retrieveSsd(id);
-                this.ssd.add(ssd);
-            } 
+        Ssd ssd = new Ssd();
+        for(int i=0; i<mb.getMatchedSsdIDs().size(); i++){
+            int id = mb.getMatchedSsdIDs().get(i);
+            ssd.retrieveSsd(id);
+            this.ssd.add(ssd);
         }
         
         int hddsize = this.hdd.size();
@@ -283,6 +284,8 @@ public class UserMainMenu extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Welcome");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 12))); // NOI18N
 

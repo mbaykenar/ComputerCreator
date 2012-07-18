@@ -799,7 +799,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         
         switch(jComboBox1.getSelectedIndex()){
-            case 0: break;
+            case 0: new AddNewMotherboard().setVisible(true); break;
             case 1: new AddNewCPU().setVisible(true); break;
             case 2: new AddNewMemory().setVisible(true); break;
             case 3: new AddNewGpu().setVisible(true); break;
