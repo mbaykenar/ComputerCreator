@@ -444,7 +444,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
                 //motherboard
                 minMotherboard = "SELECT * FROM motherboard WHERE price =(SELECT price FROM (SELECT m1.price, COUNT(m1.price) Rank FROM"
                         + " (select * from motherboard as c1 where c1.id IN (select motherboard_id from gpu_motherboard where gpu_id =" + g.getId() + ")) m1,"
-                        + " (select * from cpu as c1 where c1.id IN (select motherboard_id from gpu_motherboard where gpu_id =" + g.getId() + ")) m2 "
+                        + " (select * from motherboard as c1 where c1.id IN (select motherboard_id from gpu_motherboard where gpu_id =" + g.getId() + ")) m2 "
                         + "WHERE m1.price < m2.price OR (m1.price=m2.price) GROUP BY m1.price ORDER BY m1.price DESC) m3 WHERE Rank = (SELECT (COUNT(*)+1)/2 FROM "
                         + "(select * from motherboard as c1 where c1.id IN (select motherboard_id from gpu_motherboard where gpu_id =" + g.getId() + "))m4))";
                 
