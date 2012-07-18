@@ -19,15 +19,15 @@ public class Motherboard extends Hardware {
 
   private double frequency;
   
-  private ArrayList<Integer> matchedCpuIDs;
+  private ArrayList<Integer> matchedCpuIDs = new ArrayList<Integer>();
   
-  private ArrayList<Integer> matchedGpuIDs;
+  private ArrayList<Integer> matchedGpuIDs = new ArrayList<Integer>();
   
-  private ArrayList<Integer> matchedMemoryIDs;
+  private ArrayList<Integer> matchedMemoryIDs = new ArrayList<Integer>();
   
-  private ArrayList<Integer> matchedHddIDs;
+  private ArrayList<Integer> matchedHddIDs = new ArrayList<Integer>();
   
-  private ArrayList<Integer> matchedSsdIDs;
+  private ArrayList<Integer> matchedSsdIDs = new ArrayList<Integer>();
 
 
     public Motherboard() {
@@ -230,6 +230,7 @@ public class Motherboard extends Hardware {
     }
     
     public void retrieveCpuMatches(int mbId) throws Exception{
+        this.matchedCpuIDs.clear();
         String matchQuery = "SELECT cpu_id FROM cpu_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
@@ -238,6 +239,7 @@ public class Motherboard extends Hardware {
     }
     
     public void retrieveGpuMatches(int mbId) throws Exception{
+        this.matchedGpuIDs.clear();
         String matchQuery = "SELECT gpu_id FROM gpu_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
@@ -246,6 +248,7 @@ public class Motherboard extends Hardware {
     }
     
     public void retrieveMemoryMatches(int mbId) throws Exception{
+        this.matchedMemoryIDs.clear();
         String matchQuery = "SELECT memory_id FROM memory_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
@@ -254,6 +257,7 @@ public class Motherboard extends Hardware {
     }
     
     public void retrieveHddMatches(int mbId) throws Exception{
+        this.matchedHddIDs.clear();
         String matchQuery = "SELECT hdd_id FROM hdd_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
@@ -262,6 +266,7 @@ public class Motherboard extends Hardware {
     }
     
     public void retrieveSsdMatches(int mbId) throws Exception{
+        this.matchedSsdIDs.clear();
         String matchQuery = "SELECT ssd_id FROM ssd_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
