@@ -261,7 +261,7 @@ public class Motherboard extends Hardware {
         String matchQuery = "SELECT hdd_id FROM hdd_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
-            addMemory(rs.getInt("hdd_id"));
+            addHdd(rs.getInt("hdd_id"));
         }
     }
     
@@ -270,7 +270,7 @@ public class Motherboard extends Hardware {
         String matchQuery = "SELECT ssd_id FROM ssd_motherboard WHERE motherboard_id="+mbId;
         ResultSet rs = Helper.retrieve(matchQuery);
         while(rs.next()){
-            addMemory(rs.getInt("ssd_id"));
+            addSsd(rs.getInt("ssd_id"));
         }
     }
     
