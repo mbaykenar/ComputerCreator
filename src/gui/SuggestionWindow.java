@@ -540,7 +540,7 @@ public class SuggestionWindow extends javax.swing.JFrame {
                 minCpu = "SELECT id FROM cpu AS c WHERE c.price = (SELECT MAX(price) FROM cpu AS c2, cpu_motherboard AS cm WHERE c2.id = cm.cpu_id AND motherboard_id =" + m.getId() + ")";
                 
                 //gpu
-                minGpu = "SELECT id FROM graphicscard AS g WHERE g.price = (SELECT MAX(price) FROM graphicscardh AS g2, gpu_motherboard AS gm WHERE g2.id = gm.gpu_id AND motherboard_id =" + m.getId() + ")";
+                minGpu = "SELECT id FROM graphicscard AS g WHERE g.price = (SELECT MAX(price) FROM graphicscard AS g2, gpu_motherboard AS gm WHERE g2.id = gm.gpu_id AND motherboard_id =" + m.getId() + ")";
                 
                 //memory
                 minMemory = "SELECT id FROM memory AS m WHERE m.price = (SELECT MAX(price) FROM memory AS m2, memory_motherboard AS mm WHERE m2.id = mm.memory_id AND motherboard_id =" + m.getId() + ")";
