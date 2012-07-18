@@ -61,7 +61,6 @@ public class UserMainMenu extends javax.swing.JFrame {
         initPrices();
         setLocationRelativeTo( null ); //to center the window
         
-        jComboBox1.setSelectedIndex(-1);
         jComboBox12.setSelectedIndex(-1);
         jComboBox13.setSelectedIndex(-1);
         jComboBox14.setSelectedIndex(-1);
@@ -72,6 +71,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         jComboBox19.setSelectedIndex(-1);
         jComboBox20.setSelectedIndex(-1);
         jComboBox21.setSelectedIndex(-1);
+        
         
     }
     
@@ -82,7 +82,6 @@ public class UserMainMenu extends javax.swing.JFrame {
         initPrices();
         setLocationRelativeTo( null ); //to center the window
         
-        jComboBox1.setSelectedIndex(-1);
         jComboBox12.setSelectedIndex(-1);
         jComboBox13.setSelectedIndex(-1);
         jComboBox14.setSelectedIndex(-1);
@@ -93,6 +92,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         jComboBox19.setSelectedIndex(-1);
         jComboBox20.setSelectedIndex(-1);
         jComboBox21.setSelectedIndex(-1);
+        
     }
     
     public User getUser() {
@@ -175,6 +175,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         jRadioButton4.setEnabled(false);
         jRadioButton6.setEnabled(false);
         jRadioButton7.setEnabled(false);
+        
     }
     
     private void initMotherboardMatchedEntities() throws Exception{
@@ -187,6 +188,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         this.cpu.clear();
         this.hdd.clear();
         this.ssd.clear();
+        this.gpu.clear();
         
         mb.retrieveCpuMatches(mbId);
         mb.retrieveGpuMatches(mbId);
@@ -202,29 +204,33 @@ public class UserMainMenu extends javax.swing.JFrame {
             this.cpu.add(cpu);
         }
         
-        GraphicsCard gpu = new GraphicsCard();
+        GraphicsCard gpu;
         for(int i=0; i<mb.getMatchedGpuIDs().size(); i++){
+            gpu = new GraphicsCard();
             int id = mb.getMatchedGpuIDs().get(i);
             gpu.retrieveGraphicsCard(id);
             this.gpu.add(gpu);
         }
         
-        Memory memory = new Memory();
+        Memory memory;
         for(int i=0; i<mb.getMatchedMemoryIDs().size(); i++){
+            memory = new Memory();
             int id = mb.getMatchedMemoryIDs().get(i);
             memory.retrieveMemory(id);
             this.memory.add(memory);
         }
         
-        Hdd hdd = new Hdd();
+        Hdd hdd;
         for(int i=0; i<mb.getMatchedHddIDs().size(); i++){
+            hdd  = new Hdd();
             int id = mb.getMatchedHddIDs().get(i);
             hdd.retrieveHdd(id);
             this.hdd.add(hdd);
         }
         
-        Ssd ssd = new Ssd();
+        Ssd ssd;
         for(int i=0; i<mb.getMatchedSsdIDs().size(); i++){
+            ssd = new Ssd();
             int id = mb.getMatchedSsdIDs().get(i);
             ssd.retrieveSsd(id);
             this.ssd.add(ssd);
@@ -447,6 +453,11 @@ public class UserMainMenu extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 12))); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -812,12 +823,13 @@ public class UserMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        /*jTextField1.setText(0+"");
+        jTextField1.setText(0+"");
         jTextField2.setText(0+"");
         jTextField3.setText(0+"");
         jTextField4.setText(0+"");
         jTextField6.setText(0+"");
-        jTextField7.setText(0+"");*/
+        jTextField7.setText(0+"");
+        
         if(jComboBox1.getSelectedIndex() != -1){
             try {
                 // TODO add your handling code here:
@@ -839,17 +851,39 @@ public class UserMainMenu extends javax.swing.JFrame {
 
             int mbIndex = jComboBox1.getSelectedIndex();
             Motherboard mb = motherboard.get(mbIndex);
-            jTextField1.setText(mb.getPrice()+"");
+            jTextField1.setText(twoDecimalPlaces(mb.getPrice()+""));
 
             updateTotalPrice();
+            
+            jComboBox12.setSelectedIndex(-1);
+            jComboBox13.setSelectedIndex(-1);
+            jComboBox14.setSelectedIndex(-1);
+            jComboBox15.setSelectedIndex(-1);
+            jComboBox16.setSelectedIndex(-1);
+            jComboBox17.setSelectedIndex(-1);
+            jComboBox18.setSelectedIndex(-1);
+            jComboBox19.setSelectedIndex(-1);
+            jComboBox20.setSelectedIndex(-1);
+            jComboBox21.setSelectedIndex(-1);
+            
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    public String twoDecimalPlaces(String s){
+        int dotIndex = s.indexOf(".");
+        try{
+            s = s.substring(0, dotIndex + 2);
+            return s;
+        }
+        catch(Exception e){
+            return s;
+        }
+    }
     private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
         if(jComboBox13.getSelectedIndex() != -1){
             int memoryIndex = jComboBox13.getSelectedIndex();
             Memory memory = this.memory.get(memoryIndex);
-            jTextField3.setText(memory.getPrice()+"");
+            jTextField3.setText(twoDecimalPlaces(memory.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -859,7 +893,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox12.getSelectedIndex() != -1){
             int cpuIndex = jComboBox12.getSelectedIndex();
             Cpu cpu = this.cpu.get(cpuIndex);
-            jTextField2.setText(cpu.getPrice()+"");
+            jTextField2.setText(twoDecimalPlaces(cpu.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -869,7 +903,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox14.getSelectedIndex() != -1){
             int gpuIndex = jComboBox14.getSelectedIndex();
             GraphicsCard gpu = this.gpu.get(gpuIndex);
-            jTextField4.setText(gpu.getPrice()+"");
+            jTextField4.setText(twoDecimalPlaces(gpu.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -879,7 +913,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox15.getSelectedIndex() != -1){
             int index = jComboBox15.getSelectedIndex();
             Monitor monitor = this.monitor.get(index);
-            jTextField5.setText(monitor.getPrice()+"");
+            jTextField5.setText(twoDecimalPlaces(monitor.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -889,7 +923,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox16.getSelectedIndex() != -1){
             int index = jComboBox16.getSelectedIndex();
             Hdd hdd = this.hdd.get(index);
-            jTextField6.setText(hdd.getPrice()+"");
+            jTextField6.setText(twoDecimalPlaces(hdd.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -899,7 +933,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox17.getSelectedIndex() != -1){
             int index = jComboBox17.getSelectedIndex();
             Ssd ssd = this.ssd.get(index);
-            jTextField7.setText(ssd.getPrice()+"");
+            jTextField7.setText(twoDecimalPlaces(ssd.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -909,7 +943,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox18.getSelectedIndex() != -1){
             int index = jComboBox18.getSelectedIndex();
             Keyboard keyboard = this.keyboard.get(index);
-            jTextField8.setText(keyboard.getPrice()+"");
+            jTextField8.setText(twoDecimalPlaces(keyboard.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -919,7 +953,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox19.getSelectedIndex() != -1){
             int index = jComboBox19.getSelectedIndex();
             Mouse mouse = this.mouse.get(index);
-            jTextField9.setText(mouse.getPrice()+"");
+            jTextField9.setText(twoDecimalPlaces(mouse.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -929,7 +963,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox20.getSelectedIndex() != -1){
             int index = jComboBox20.getSelectedIndex();
             OpticDrive od = this.opticdrive.get(index);
-            jTextField10.setText(od.getPrice()+"");
+            jTextField10.setText(twoDecimalPlaces(od.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -939,7 +973,7 @@ public class UserMainMenu extends javax.swing.JFrame {
         if(jComboBox21.getSelectedIndex() != -1){
             int index = jComboBox21.getSelectedIndex();
             OperatingSystem os = this.os.get(index);
-            jTextField11.setText(os.getPrice()+"");
+            jTextField11.setText(twoDecimalPlaces(os.getPrice()+""));
 
             updateTotalPrice();
         }
@@ -1082,6 +1116,10 @@ public class UserMainMenu extends javax.swing.JFrame {
                 // to do
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments
