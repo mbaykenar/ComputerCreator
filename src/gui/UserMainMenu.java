@@ -1018,24 +1018,10 @@ public class UserMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+                                         
+        Document document = new Document();
+        
         try{
-            JFileChooser jf = new JFileChooser();
-            File selFile = null;
-            
-            jf.setAcceptAllFileFilterUsed(false);
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF", "pdf", "pdf");
-            jf.setFileFilter(filter);
-            
-            if(jf.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
-                selFile = jf.getSelectedFile();
-            }
-            
-            String filepath = selFile.getAbsolutePath();
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(filepath + ".pdf"));
-            document.open();
-            
             
       //       create a table
             PdfPTable table = new PdfPTable(3);
@@ -1118,17 +1104,32 @@ public class UserMainMenu extends javax.swing.JFrame {
             table.addCell("TOTAL");
             table.addCell(Double.toString(price));
             
+            
+            JFileChooser jf = new JFileChooser();
+            File selFile = null;
+            
+            jf.setAcceptAllFileFilterUsed(false);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF", "pdf", "pdf");
+            jf.setFileFilter(filter);
+            
+            if(jf.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
+                selFile = jf.getSelectedFile();
+            }
+            
+            String filepath = selFile.getAbsolutePath();
+            PdfWriter.getInstance(document, new FileOutputStream(filepath + ".pdf"));
+            document.open();
+            
             document.add(table);
-                
-               
-
-		
             
             document.close();
             
+            JOptionPane.showMessageDialog(null, "PDF created succesfully!", "Succes", JOptionPane.INFORMATION_MESSAGE);
+            
         }
         catch (Exception e) {
-                // to do
+                JOptionPane.showMessageDialog(null, "Please Select make selection from all components", "Error", JOptionPane.ERROR_MESSAGE);
+                document.close();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
