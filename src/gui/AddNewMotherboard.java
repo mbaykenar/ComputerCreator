@@ -145,6 +145,7 @@ public class AddNewMotherboard extends javax.swing.JFrame {
 
         jLabel9.setText("Price");
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Compatible Components", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Tarzan", 0, 14))); // NOI18N
 
         jLabel10.setText("Cpu");

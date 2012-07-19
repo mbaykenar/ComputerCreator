@@ -49,6 +49,7 @@ public class AboutWindow extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Team", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Tarzan", 0, 14), java.awt.Color.black)); // NOI18N
 
         jLabel2.setText("Mehmet Burak Aykenar");
