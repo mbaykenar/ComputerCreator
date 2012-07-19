@@ -64,6 +64,26 @@ public class Hdd extends Storage {
         }
     }
     
+    public void retrieveHdd(String model) throws Exception{
+        String retrieveQuery = "SELECT * FROM hdd WHERE model = '"+model + "'";
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        if(rs.next()){
+            super.setId(rs.getInt("id"));
+            super.setModel(rs.getString("model"));
+            super.setVendor(rs.getString("vendor"));
+            super.setPrice(rs.getDouble("price"));
+            super.setCapacity(rs.getDouble("capacity"));
+            super.setConnectionInterface(rs.getString("interface"));
+            rpm = rs.getInt("rpm");
+            diameter = rs.getDouble("diameter");      
+        }
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
+        }
+    }
+    
     public static ArrayList<Hdd> retrieveAllHdds() throws Exception{
         ArrayList<Hdd> hdds = new ArrayList<Hdd>();
         String retrieveQuery = "SELECT * FROM hdd";

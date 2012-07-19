@@ -135,6 +135,28 @@ public class GraphicsCard extends Hardware {
         }
     }
     
+    public void retrieveGraphicsCard(String model) throws Exception{
+        String retrieveQuery = "SELECT * FROM graphicsCard WHERE model = '"+model + "'";
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        if(rs.next()){
+            super.setId(rs.getInt("id"));
+            super.setModel(rs.getString("model"));
+            super.setVendor(rs.getString("vendor"));
+            super.setPrice(rs.getDouble("price"));
+            clockSpeed = rs.getDouble("clock_speed");
+            coreNumber = rs.getInt("cores");
+            maxTDP = rs.getInt("max_tdp");
+            interfaceWidth = rs.getInt("interface_width");
+            textureFillRate = rs.getDouble("texture_fill_rate");
+            memorySize = rs.getDouble("memory_size");       
+        }
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
+        }
+    }
+    
      public void deleteGraphicsCard() throws Exception{
         String deleteQuery = "DELETE FROM graphicsCard WHERE id = " + this.getId();
         Helper.delete(deleteQuery);

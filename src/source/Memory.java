@@ -74,6 +74,25 @@ public class Memory extends Hardware {
         }
     }
     
+    public void retrieveMemory(String model) throws Exception{
+        String retrieveQuery = "SELECT * FROM memory WHERE model = '"+model + "'";
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        if(rs.next()){
+            super.setId(rs.getInt("id"));
+            super.setModel(rs.getString("model"));
+            super.setVendor(rs.getString("vendor"));
+            super.setPrice(rs.getDouble("price"));
+            capacity = rs.getDouble("capacity");
+            memoryType = rs.getString("memory_type");
+            frequency = rs.getDouble("frequency");    
+        }
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
+        }
+    }
+    
      public void deleteMemory() throws Exception{
         String deleteQuery = "DELETE FROM memory WHERE id = " + this.getId();
         Helper.delete(deleteQuery);

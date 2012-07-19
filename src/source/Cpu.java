@@ -133,6 +133,28 @@ public class Cpu extends Hardware {
         }
     }
     
+    public void retrieveCpu(String model) throws Exception{
+        String retrieveQuery = "SELECT * FROM cpu WHERE model = '"+model + "'";
+        
+        ResultSet rs = Helper.retrieve(retrieveQuery);
+        if(rs.next()){
+            super.setId(rs.getInt("id"));
+            super.setModel(rs.getString("model"));
+            super.setVendor(rs.getString("vendor"));
+            super.setPrice(rs.getDouble("price"));
+            threadNumber = rs.getInt("threads");
+            cacheSize = rs.getDouble("cache_size");
+            maxTDP = rs.getInt("max_tdp");
+            coreNumber = rs.getInt("cores");
+            lithography = rs.getInt("lithography");
+            clockSpeed = rs.getDouble("clock_speed");       
+        }
+        else{
+            Exception NoSuchTuple = new Exception("Tuple with given id does not exists!");
+            throw NoSuchTuple;
+        }
+    }
+    
     public void deleteCpu() throws Exception{
         String deleteQuery = "DELETE FROM cpu WHERE id = " + this.getId();
         Helper.delete(deleteQuery);
