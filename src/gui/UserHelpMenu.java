@@ -43,6 +43,7 @@ public class UserHelpMenu extends javax.swing.JFrame {
         setTitle("Welcome");
         setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel1.setText("What do you want to do:");
