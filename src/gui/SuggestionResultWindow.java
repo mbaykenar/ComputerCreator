@@ -198,17 +198,17 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
     }
     
     public void loadPrices(){
-        jTextField1.setText(motherboard.get(0).getPrice() + "");
-        jTextField2.setText(cpu.get(0).getPrice() + "");
-        jTextField3.setText(memory.get(0).getPrice() + "");
-        jTextField4.setText(gpu.get(0).getPrice() + "");
-        jTextField5.setText(monitor.get(0).getPrice() + "");
-        jTextField6.setText(hdd.get(0).getPrice() + "");
-        jTextField7.setText(ssd.get(0).getPrice() + "");
-        jTextField8.setText(keyboard.get(0).getPrice() + "");
-        jTextField9.setText(mouse.get(0).getPrice() + "");
-        jTextField10.setText(opticdrive.get(0).getPrice() + "");
-        jTextField11.setText(os.get(0).getPrice() + "");
+        jTextField1.setText(twoDecimalPlaces(motherboard.get(0).getPrice() + ""));
+        jTextField2.setText(twoDecimalPlaces(cpu.get(0).getPrice() + ""));
+        jTextField3.setText(twoDecimalPlaces(memory.get(0).getPrice() + ""));
+        jTextField4.setText(twoDecimalPlaces(gpu.get(0).getPrice() + ""));
+        jTextField5.setText(twoDecimalPlaces(monitor.get(0).getPrice() + ""));
+        jTextField6.setText(twoDecimalPlaces(hdd.get(0).getPrice() + ""));
+        jTextField7.setText(twoDecimalPlaces(ssd.get(0).getPrice() + ""));
+        jTextField8.setText(twoDecimalPlaces(keyboard.get(0).getPrice() + ""));
+        jTextField9.setText(twoDecimalPlaces(mouse.get(0).getPrice() + ""));
+        jTextField10.setText(twoDecimalPlaces(opticdrive.get(0).getPrice() + ""));
+        jTextField11.setText(twoDecimalPlaces(os.get(0).getPrice() + ""));
     }
     
     public void updateTotalPrice(){
@@ -226,6 +226,17 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
         total += Double.valueOf(jTextField11.getText());
         
         jTextField12.setText(total+"");
+    }
+    
+    public String twoDecimalPlaces(String s){
+        int dotIndex = s.indexOf(".");
+        try{
+            s = s.substring(0, dotIndex + 2);
+            return s;
+        }
+        catch(Exception e){
+            return s;
+        }
     }
     
     private void displayMotherboard() {
@@ -879,70 +890,69 @@ public class SuggestionResultWindow extends javax.swing.JFrame {
 
             table.addCell("Motherboard");
             table.addCell(motherboard.get(jComboBox1.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(motherboard.get(jComboBox1.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField1.getText());
             price += motherboard.get(jComboBox1.getSelectedIndex()).getPrice();
 
             table.addCell("CPU");
             table.addCell(cpu.get(jComboBox12.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(cpu.get(jComboBox12.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField2.getText());
             price += cpu.get(jComboBox12.getSelectedIndex()).getPrice();
 
             table.addCell("Memory");
             table.addCell(memory.get(jComboBox13.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(memory.get(jComboBox13.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField3.getText());
             price += memory.get(jComboBox13.getSelectedIndex()).getPrice();
 
             table.addCell("GPU");
             table.addCell(gpu.get(jComboBox14.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(gpu.get(jComboBox14.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField4.getText());
             price += gpu.get(jComboBox14.getSelectedIndex()).getPrice();
 
             table.addCell("Monitor");
             table.addCell(monitor.get(jComboBox15.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(monitor.get(jComboBox15.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField5.getText());
             price += monitor.get(jComboBox15.getSelectedIndex()).getPrice();
 
             table.addCell("HDD");
             table.addCell(hdd.get(jComboBox16.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(hdd.get(jComboBox16.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField6.getText());
             price += hdd.get(jComboBox16.getSelectedIndex()).getPrice();
 
             table.addCell("SSD");
             table.addCell(ssd.get(jComboBox17.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(ssd.get(jComboBox17.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField7.getText());
             price += ssd.get(jComboBox17.getSelectedIndex()).getPrice();
 
             table.addCell("Keyboard");
             table.addCell(keyboard.get(jComboBox18.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(keyboard.get(jComboBox18.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField8.getText());
             price += keyboard.get(jComboBox18.getSelectedIndex()).getPrice();
 
             table.addCell("Mouse");
             table.addCell(mouse.get(jComboBox19.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(mouse.get(jComboBox19.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField9.getText());
             price += mouse.get(jComboBox19.getSelectedIndex()).getPrice();
 
             table.addCell("Optic Drive");
             table.addCell(opticdrive.get(jComboBox20.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(opticdrive.get(jComboBox20.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField10.getText());
             price += opticdrive.get(jComboBox20.getSelectedIndex()).getPrice();
 
             table.addCell("Operating System");
             table.addCell(os.get(jComboBox21.getSelectedIndex()).getModel());
-            table.addCell(Double.toString(os.get(jComboBox21.getSelectedIndex()).getPrice()));
+            table.addCell(jTextField11.getText());
             price += os.get(jComboBox21.getSelectedIndex()).getPrice();
 
             table.addCell("");
             table.addCell("TOTAL");
-            table.addCell(Double.toString(price));
+            table.addCell(twoDecimalPlaces(Double.toString(price)));
 
             document.add(table);
 
 
-
-
-
             document.close();
+            
+            JOptionPane.showMessageDialog(null, "PDF created succesfully!", "Succes", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception e) {
             // to do
